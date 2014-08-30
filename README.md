@@ -1,4 +1,7 @@
-ARMSCGen
-========
+### Shellcodes for ARM/Thumb mode
 
-ARM Shellcode Generator (Mostly Thumb Mode)
+```
+Ideas came from http://www.shell-storm.org/.
+
+Thanks
+```
