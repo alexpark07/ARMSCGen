@@ -5,6 +5,9 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
+__VERSION__ = '$0.0.6'
+__AUTHOR__  = 'alex.park'
+
 ##########################################################
 ## Thumb Mode 
 ##########################################################
@@ -72,9 +75,6 @@ class armSCGen:
         self.dup        = arm_dup.generate
         self.sh         = arm_sh.generate
         self.dupsh      = arm_dupsh.generate
-
-__VERSION__ = '$0.0.5'
-__AUTHOR__  = 'alex.park'
 
 # Assembler 
 BIN_AS = '/usr/bin/arm-linux-gnueabi-as'
@@ -225,11 +225,13 @@ def printHex(xhex):
     return xtmp
 
 def XOREncoder(scSize, xorkey, SC):
-    """XOR Encoder to avoid some bad codes like '\\x0a'
+    """XOR Encoder to avoid some bad codes like ``0x0a``, ``0x00`` and so on
 
     Args:
         scSize(int): shellcode length
+
         xorkey(int): XOR key
+
         SC(str): shellcode
 
     Returns:
@@ -283,10 +285,11 @@ scode:
     return sc
 
 def findXorKey(sc, bc=['\x00', '\x0a']):
-    """find XOR key to scramble and to avoid all of bad chars such as 0x00
+    """find XOR key to scramble and to avoid all of bad chars such as ``0x00``
 
         Args:
             sc(str): shellcode
+
             bc(list): bad chars to avoid
 
         Returns:
@@ -311,7 +314,7 @@ def findXorKey(sc, bc=['\x00', '\x0a']):
 
 
 def encodeShellcode(sc, key):
-    """encodes shellcode with key to avoid all of bad chars such as 0x00
+    """encodes shellcode with key to avoid all of bad chars such as ``0x00``
 
         Args:
             sc(str): shellcode
@@ -336,11 +339,13 @@ def checkBadChar(sc, bc=[0x00, 0x0a]):
 
     Args:
         sc(str): shellcode
-        bc(list): bad chars like 0x00, 0x0a
+
+        bc(list): bad chars like ``0x00``, ``0x0a``
 
     Returns:
         list if bad chars exists
     """
+
     from collections import defaultdict
     bcs = defaultdict(int)
     size = len(sc)
@@ -355,6 +360,7 @@ def MakeXorShellcode(sc, isThumb=False):
 
     Args:
         sc(str): shellcode
+
         isThumb(boolean): ARM or Thumb Mode
 
     Returns:
@@ -378,15 +384,16 @@ def MakeXorShellcode(sc, isThumb=False):
 
     return CompileSC(xorenc, isThumb=isThumb)
 
-def saveShellcode(fn, sc):
-    try:
-        f = open(fn, 'w')
-        f.write(sc)
-        f.close()
-    except:
-        SYSERR("Failed to save the shellcode on disk")
-
 def u16(u):
+    """struct.unpack(2-bytes)
+
+    Args:
+        u(str): 2-bytes packed data
+
+    Returns:
+        unsigned short value
+
+    """
     return unpack('<h', u)[0]
 
 def getdent_to_list(rv):
@@ -425,10 +432,11 @@ def getdent_to_list(rv):
     return fn
 
 def thumb_fixup(reg, value):
-    """fixup 
+    """fixes up value for register 
 
        Args:
             reg(str): register
+
             value(int): real value
 
        Retruns:
@@ -447,19 +455,3 @@ def thumb_fixup(reg, value):
     fn.append('\tadd %s, %s, #%s' % (reg, reg, mod))
 
     return '\n'.join(fn)
-
-def Test():
-    # ARM
-    #xsc = CompileSC(ARM_DUP(4) + ARM_SH('/usr/bin/id'))
-    #xsc = CompileSC(ARM_DUPSH(sock=4))
-    #xorsc = MakeXorShellcode(xsc)
-
-    # THUMB
-    #xsc = CompileSC(ARM_THUMB_SH('/usr/bin/id'), isThumb=True)
-    xsc = CompileSC(ARM_THUMB_DUPSH(sock=4), isThumb=True)
-    xsc = MakeXorShellcode(xsc)
-    open('raw_sc', 'wb').write(xsc)
-
-if __name__ == '__main__':
-    prepareCompiler()
-    Test()
