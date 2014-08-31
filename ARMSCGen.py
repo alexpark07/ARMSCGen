@@ -38,6 +38,9 @@ from shellcodes.arm import sh    as arm_sh
 from shellcodes.arm import dupsh as arm_dupsh
 
 class thumbSCGen:
+    """Thumb Mode Shellcode Generator Class
+
+    """
     def __init__(self):
         self.dup         = th_dup.generate
         self.sh          = th_sh.generate
@@ -62,6 +65,9 @@ class thumbSCGen:
         self.write_to_stack  = th_write_to_stack.generate
 
 class armSCGen:
+    """ARM Mode Shellcode Generator Class
+
+    """
     def __init__(self):
         self.dup        = arm_dup.generate
         self.sh         = arm_sh.generate
@@ -83,9 +89,23 @@ ALTER_BIN_OC = 'objcopy'
 RAW_SC = 'raw_sc'
 
 def SYSERR(m):
+    """SYSERR(m) -> None
+
+    Print syserr(2) screen to debug
+
+    Args:
+        m(fmt): message will be printed on syserr screen
+
+    """
     print >> sys.stderr, "%s" % (m)
 
 def cleanup(fn):
+    """clean up compiled files
+
+    Args:
+        fn(list): files in list will be deleted
+
+    """
     for f in fn:
         if os.path.exists(f) == True:
             try:
@@ -94,6 +114,9 @@ def cleanup(fn):
                 pass
 
 def prepareCompiler():
+    """prepares some PATH to compile safely
+
+    """
     global BIN_AS
     global BIN_LD
     global BIN_OC
@@ -108,6 +131,20 @@ def prepareCompiler():
         BIN_OC = ALTER_BIN_OC
 
 def CompileSC(source, isThumb=False, isNeedHead=True):
+    """Compiles shellcode
+
+    Args:
+        source (str): shellcode in strings
+
+        isThumb (boolean): Thumb or ARM Mode
+
+        isNeedHead (boolean): It shows up if true
+
+
+    Returns:
+      compiled shellcode 
+
+    """
     ASM_HEAD = """
     .global _start
     .section .text
@@ -171,6 +208,15 @@ def CompileSC(source, isThumb=False, isNeedHead=True):
     return f
 
 def printHex(xhex):
+    """print hex code in human-readable
+
+    Args:
+        xhex(hex): hex code
+
+    Returns:
+        human-readable hex code like '\\x41'
+
+    """
     xtmp = ''
     xhex = xhex.encode('hex')
     for x in range(0, len(xhex), 2):
@@ -179,6 +225,17 @@ def printHex(xhex):
     return xtmp
 
 def XOREncoder(scSize, xorkey, SC):
+    """XOR Encoder to avoid some bad codes like '\\x0a'
+
+    Args:
+        scSize(int): shellcode length
+        xorkey(int): XOR key
+        SC(str): shellcode
+
+    Returns:
+        XOR Encoder shellcode in string
+
+    """
     MAX_SC_SIZE = 256
     LOOP_SC_SIZE = MAX_SC_SIZE - scSize
 
@@ -227,11 +284,12 @@ scode:
 
 def findXorKey(sc, bc=['\x00', '\x0a']):
     """find XOR key to scramble and to avoid all of bad chars such as 0x00
-        arg:
-            sc (str): shellcode
-            bc (list): bad chars to avoid
 
-        return:
+        Args:
+            sc(str): shellcode
+            bc(list): bad chars to avoid
+
+        Returns:
             key (int): XOR key
 
         Examples:
@@ -254,12 +312,13 @@ def findXorKey(sc, bc=['\x00', '\x0a']):
 
 def encodeShellcode(sc, key):
     """encodes shellcode with key to avoid all of bad chars such as 0x00
-        arg:
-            sc (str)     : shellcode
-            key (int/str): XOR key
 
-        return:
-            xoredSC (str): XORed Shellcode
+        Args:
+            sc(str): shellcode
+            key(int/str): XOR key
+
+        Returns:
+            xoredSC(str): XORed Shellcode
 
         Examples:
             >>> print encodeShellcode(sc, findXorKey(sc))
@@ -273,6 +332,15 @@ def encodeShellcode(sc, key):
     return xsc
 
 def checkBadChar(sc, bc=[0x00, 0x0a]):
+    """checks bad chars in shellcode string
+
+    Args:
+        sc(str): shellcode
+        bc(list): bad chars like 0x00, 0x0a
+
+    Returns:
+        list if bad chars exists
+    """
     from collections import defaultdict
     bcs = defaultdict(int)
     size = len(sc)
@@ -283,6 +351,19 @@ def checkBadChar(sc, bc=[0x00, 0x0a]):
     return bcs
 
 def MakeXorShellcode(sc, isThumb=False):
+    """Make XOR Encoder with Shellcode
+
+    Args:
+        sc(str): shellcode
+        isThumb(boolean): ARM or Thumb Mode
+
+    Returns:
+        shellcode in hex
+
+    Examples:
+        >>> sc = MakeXorShellcode(bindshell, isThumb=True)
+
+    """
     key = findXorKey(sc)
     if key == -1:
         SYSERR("Failed to find xor key")
@@ -311,10 +392,11 @@ def u16(u):
 def getdent_to_list(rv):
     """parses getdent's struct to human readable.
     
-        args: 
-            rv (str): getdent's struct included file/directory name(s)
-        return:
-            fn (list): file/directory name(s)
+       Args: 
+            rv(str): getdent's struct included file/directory name(s)
+            
+       Returns:
+            fn(list): file/directory name(s)
     """
     i  = 0
     fn = []
@@ -345,12 +427,12 @@ def getdent_to_list(rv):
 def thumb_fixup(reg, value):
     """fixup 
 
-        arg:
-            reg   (str): register
-            value (int): real value
+       Args:
+            reg(str): register
+            value(int): real value
 
-        retrun:
-            fn (str): arranged value with register
+       Retruns:
+            fn(str): arranged value with register
     """
     if value <= 255:
         return "\tmov %s, #%s" % (reg, value)
