@@ -19,7 +19,7 @@ def generate(filepath='./secret', flags=00, mode=None):
     sc += """
     mov r0, pc
     add r0, #12
-    mov r1, #0
+    mov r1, #%s
     mov r7, #(0+ 5)
     svc 1
     mov r6, r0
@@ -28,7 +28,7 @@ filename_1:
     .asciz "%s\x00"
     .align 2
 after_open_2:
-    """ % (filepath)
+    """ % (int(flags), filepath)
     return sc
 
 if __name__ == '__main__':

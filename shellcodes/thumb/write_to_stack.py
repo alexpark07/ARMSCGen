@@ -9,15 +9,27 @@ def generate(in_fd, size):
     """Writes data to stack in thumb mode
     
     Args: 
-        in_fd (imm/reg) = file descriptor
-        size (int/str)  = 128
+        in_fd (int/str/reg) = file descriptor
+        size  (int/str/reg) = size to write
     """
+
+    if isinstance(in_fd, int) == True:
+        xin_fd = "#%s" % (in_fd)
+    else:
+        xin_fd = in_fd
+
+    if isinstance(size, int) == True:
+        xsize = "#%s" % align4(size)
+    else:
+        xsize = size
+
     sc = """
-    sub sp, #%s
-    mov r0, #%s
-    mov r2, #%s
+    sub sp, %s
+    mov r0, %s
+    mov r2, %s
     mov r1, sp
     mov r7, #3
     svc 1
-    """ % (align4(size), in_fd, size)
+    """ % (xsize, xin_fd, xsize)
+
     return sc

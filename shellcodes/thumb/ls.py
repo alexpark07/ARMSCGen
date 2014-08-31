@@ -27,7 +27,13 @@ def generate(filepath, out_fd):
     ble after_1
     """
     sc += read_from_stack.generate(out_fd, size='r0') + '\n'
-    sc += "bgt loop_1\n"
-    sc += "after_1:\n"
+    sc += """
+    cmp r0, r4
+    bgt loop_1
+after_1:
+    """
 
     return sc
+
+if __name__ == '__main__':
+    print generate('./secret', 4)
