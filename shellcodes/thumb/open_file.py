@@ -1,4 +1,12 @@
 # open a file
+
+import ARMSCGen
+
+O_RDONLY = 00000000
+O_WRONLY = 00000001
+O_RDWR   = 00000002
+O_CREAT  = 00000100
+
 def generate(filepath='./secret', flags=00, mode=None): 
     """open a file for reading/writing/sending to you in thumb mode
 
@@ -12,7 +20,8 @@ def generate(filepath='./secret', flags=00, mode=None):
         r6: opened file's description
     """
     if mode != None:
-        sc = 'mov r2, #%s' % (int(mode))
+        #sc = 'mov r2, #%s' % (int(mode))
+        sc = ARMSCGen.thumb_fixup('r2', int(mode))
     else:
         sc = ''
 
@@ -32,4 +41,4 @@ after_open_2:
     return sc
 
 if __name__ == '__main__':
-    print generate()
+    print generate(filepath='./binary', flags=O_WRONLY|O_CREAT, mode=0755)

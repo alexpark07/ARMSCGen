@@ -4,12 +4,13 @@ import open_file
 import read_from_stack
 import write_to_stack
 
-O_RDONLY = 0x0
-O_WRONLY = 0x1
-O_RDWR   = 0x2
+O_RDONLY = 00000000
+O_WRONLY = 00000001
+O_RDWR   = 00000002
+O_CREAT  = 00000100
 MAXSIZE  = 128
 
-def generate(filepath, sock):
+def generate(filepath, sock, isNewFile=False):
     """overwrites a file with user's data
 
     argument:
@@ -36,10 +37,13 @@ def generate(filepath, sock):
     mod  = size % MAXSIZE
     for i in range(0, mod):
         f.write(data[i*128:(i+1)*MAXSIZE])
-        f.write(data[mod*MAXSIZE:])
+    f.write(data[mod*MAXSIZE:])
     """
 
-    sc = open_file.generate(filepath, O_RDWR)
+    if isNewFile:
+        sc = open_file.generate(filepath, O_RDWR|O_CREAT, 0755)
+    else:
+        sc = open_file.generate(filepath, O_RDWR)
     sc += """
 loop_1:
     """

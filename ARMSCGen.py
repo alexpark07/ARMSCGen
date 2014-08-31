@@ -26,6 +26,7 @@ from shellcodes.thumb import getdents    as th_getdents
 from shellcodes.thumb import ls          as th_ls
 from shellcodes.thumb import setreuid    as th_setreuid
 from shellcodes.thumb import setregid    as th_setregid
+from shellcodes.thumb import overwrite   as th_overwrite
 from shellcodes.thumb import read_from_stack as th_read_from_stack
 from shellcodes.thumb import write_to_stack  as th_write_to_stack
 
@@ -56,6 +57,7 @@ class thumbSCGen:
         self.ls          = th_ls.generate
         self.setreuid    = th_setreuid.generate
         self.setregid    = th_setregid.generate
+        self.overwrite   = th_overwrite.generate
         self.read_from_stack = th_read_from_stack.generate
         self.write_to_stack  = th_write_to_stack.generate
 
@@ -65,7 +67,7 @@ class armSCGen:
         self.sh         = arm_sh.generate
         self.dupsh      = arm_dupsh.generate
 
-__VERSION__ = '$0.0.4'
+__VERSION__ = '$0.0.5'
 __AUTHOR__  = 'alex.park'
 
 # Assembler 
@@ -339,6 +341,30 @@ def getdent_to_list(rv):
         return fn.append('exception')
 
     return fn
+
+def thumb_fixup(reg, value):
+    """fixup 
+
+        arg:
+            reg   (str): register
+            value (int): real value
+
+        retrun:
+            fn (str): arranged value with register
+    """
+    if value <= 255:
+        return "\tmov %s, #%s" % (reg, value)
+
+    fn = []
+    fn.append('\tsub %s, %s, %s' % (reg, reg, reg))
+    mod = value % 255
+    div = value / 255
+
+    for v in range(0, div):
+        fn.append('\tadd %s, %s, #255' % (reg, reg))
+    fn.append('\tadd %s, %s, #%s' % (reg, reg, mod))
+
+    return '\n'.join(fn)
 
 def Test():
     # ARM
