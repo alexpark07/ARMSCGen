@@ -5,7 +5,7 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
-__VERSION__ = '$0.0.6'
+__VERSION__ = '$0.0.7'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
