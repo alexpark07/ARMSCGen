@@ -11,6 +11,7 @@ __AUTHOR__  = 'alex.park'
 ##########################################################
 ## Thumb Mode 
 ##########################################################
+from shellcodes.thumb import chmod       as th_chmod
 from shellcodes.thumb import dup         as th_dup
 from shellcodes.thumb import sh          as th_sh
 from shellcodes.thumb import dupsh       as th_dupsh
@@ -45,6 +46,7 @@ class thumbSCGen:
 
     """
     def __init__(self):
+        self.chmod       = th_chmod.generate
         self.dup         = th_dup.generate
         self.sh          = th_sh.generate
         self.dupsh       = th_dupsh.generate

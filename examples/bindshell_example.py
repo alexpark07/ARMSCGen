@@ -13,7 +13,7 @@ def Run(argv):
         argv(list): arugment(s)
     """
     if len(argv) > 0:
-        u16Port = argv[1]
+        u16Port = argv[0]
     else:
         u16Port = 1337
 
