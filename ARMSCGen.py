@@ -33,6 +33,7 @@ from shellcodes.thumb import setregid    as th_setregid
 from shellcodes.thumb import overwrite   as th_overwrite
 from shellcodes.thumb import read_from_stack as th_read_from_stack
 from shellcodes.thumb import write_to_stack  as th_write_to_stack
+from shellcodes.thumb import infinityloop    as th_infinityloop
 
 ##########################################################
 ## ARM Mode
@@ -68,6 +69,7 @@ class thumbSCGen:
         self.overwrite   = th_overwrite.generate
         self.read_from_stack = th_read_from_stack.generate
         self.write_to_stack  = th_write_to_stack.generate
+        self.infinityloop    = th_infinityloop.generate
 
 class armSCGen:
     """ARM Mode Shellcode Generator Class
