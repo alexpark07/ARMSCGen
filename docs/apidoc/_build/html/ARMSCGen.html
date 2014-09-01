@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ARMSCGen Module &mdash; ..  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="..  documentation" href="index.html" />
+    <link rel="next" title="setup Module" href="setup.html" />
+    <link rel="prev" title="Welcome to ..’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="setup.html" title="setup Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to ..’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">..  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-ARMSCGen">
+<span id="armscgen-module"></span><h1>ARMSCGen Module<a class="headerlink" href="#module-ARMSCGen" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="ARMSCGen.CompileSC">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">CompileSC</tt><big>(</big><em>source</em>, <em>isThumb=False</em>, <em>isNeedHead=True</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#CompileSC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.CompileSC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compiles shellcode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">source (str): shellcode in strings</p>
+<p>isThumb (boolean): Thumb or ARM Mode</p>
+<p class="last">isNeedHead (boolean): It shows up if true</p>
+</dd>
+<dt>Returns:</dt>
+<dd>compiled shellcode</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.MakeXorShellcode">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">MakeXorShellcode</tt><big>(</big><em>sc</em>, <em>isThumb=False</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#MakeXorShellcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.MakeXorShellcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make XOR Encoder with Shellcode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sc(str): shellcode</p>
+<p class="last">isThumb(boolean): ARM or Thumb Mode</p>
+</dd>
+<dt>Returns:</dt>
+<dd>shellcode in hex</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">MakeXorShellcode</span><span class="p">(</span><span class="n">bindshell</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.SYSERR">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">SYSERR</tt><big>(</big><em>m</em><big>)</big> &rarr; None<a class="reference internal" href="_modules/ARMSCGen.html#SYSERR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.SYSERR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print syserr(2) screen to debug</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>m(fmt): message will be printed on syserr screen</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.XOREncoder">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">XOREncoder</tt><big>(</big><em>scSize</em>, <em>xorkey</em>, <em>SC</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#XOREncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.XOREncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>XOR Encoder to avoid some bad codes like <tt class="docutils literal"><span class="pre">0x0a</span></tt>, <tt class="docutils literal"><span class="pre">0x00</span></tt> and so on</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">scSize(int): shellcode length</p>
+<p>xorkey(int): XOR key</p>
+<p class="last">SC(str): shellcode</p>
+</dd>
+<dt>Returns:</dt>
+<dd>XOR Encoder shellcode in string</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ARMSCGen.armSCGen">
+<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">armSCGen</tt><a class="reference internal" href="_modules/ARMSCGen.html#armSCGen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.armSCGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>ARM Mode Shellcode Generator Class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.checkBadChar">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">checkBadChar</tt><big>(</big><em>sc, bc=[0, 10]</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#checkBadChar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.checkBadChar" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks bad chars in shellcode string</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sc(str): shellcode</p>
+<p class="last">bc(list): bad chars like <tt class="docutils literal"><span class="pre">0x00</span></tt>, <tt class="docutils literal"><span class="pre">0x0a</span></tt></p>
+</dd>
+<dt>Returns:</dt>
+<dd>list if bad chars exists</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.cleanup">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">cleanup</tt><big>(</big><em>fn</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>clean up compiled files</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>fn(list): files in list will be deleted</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.encodeShellcode">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">encodeShellcode</tt><big>(</big><em>sc</em>, <em>key</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#encodeShellcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.encodeShellcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>encodes shellcode with key to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>sc(str): shellcode
+key(int/str): XOR key</dd>
+<dt>Returns:</dt>
+<dd>xoredSC(str): XORed Shellcode</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">encodeShellcode</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">))</span>
+<span class="go">&#39;à&quot;¢á/ë¢ã   í-`kl-qj&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.findXorKey">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">findXorKey</tt><big>(</big><em>sc, bc=['\x00', '\n']</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#findXorKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.findXorKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>find XOR key to scramble and to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sc(str): shellcode</p>
+<p class="last">bc(list): bad chars to avoid</p>
+</dd>
+<dt>Returns:</dt>
+<dd>key (int): XOR key</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.getdent_to_list">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">getdent_to_list</tt><big>(</big><em>rv</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#getdent_to_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.getdent_to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>parses getdent&#8217;s struct to human readable.</p>
+<dl class="docutils">
+<dt>Args: </dt>
+<dd>rv(str): getdent&#8217;s struct included file/directory name(s)</dd>
+<dt>Returns:</dt>
+<dd>fn(list): file/directory name(s)</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.prepareCompiler">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">prepareCompiler</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#prepareCompiler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.prepareCompiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>prepares some PATH to compile safely</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.printHex">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">printHex</tt><big>(</big><em>xhex</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#printHex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.printHex" title="Permalink to this definition">¶</a></dt>
+<dd><p>print hex code in human-readable</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>xhex(hex): hex code</dd>
+<dt>Returns:</dt>
+<dd>human-readable hex code like &#8216;x41&#8217;</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ARMSCGen.thumbSCGen">
+<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">thumbSCGen</tt><a class="reference internal" href="_modules/ARMSCGen.html#thumbSCGen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.thumbSCGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thumb Mode Shellcode Generator Class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.thumb_fixup">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">thumb_fixup</tt><big>(</big><em>reg</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#thumb_fixup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.thumb_fixup" title="Permalink to this definition">¶</a></dt>
+<dd><p>fixes up value for register</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">reg(str): register</p>
+<p class="last">value(int): real value</p>
+</dd>
+<dt>Retruns:</dt>
+<dd>fn(str): arranged value with register</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.u16">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">u16</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#u16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.u16" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(2-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 2-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>unsigned short value</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to ..&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="setup.html"
+                        title="next chapter">setup Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ARMSCGen.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="setup.html" title="setup Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to ..’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">..  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
