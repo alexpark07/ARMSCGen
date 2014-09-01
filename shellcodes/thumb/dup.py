@@ -1,5 +1,10 @@
-# dup(sock)
 def generate(sock=4):
+    """Duplicates sock to stdin, stdout and stderr
+
+    Args:
+        sock(int/str/reg): sock descriptor
+
+    """
     sc = """
     mov r1, #3
     mov r7, #(0+ 63)

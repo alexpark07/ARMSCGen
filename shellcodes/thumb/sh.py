@@ -1,5 +1,9 @@
-# /bin/sh
 def generate(cmd='/bin/sh'):
+    """Executes cmd
+
+    Args:
+        cmd(str): executes cmd (default: ``/bin/sh``)
+    """
     sc = """
     mov r0, pc
     add r0, #10

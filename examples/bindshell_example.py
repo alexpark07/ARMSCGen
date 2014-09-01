@@ -42,5 +42,7 @@ def Run(argv):
     (s2, f2) = makeSocket(HOST, u16Port)
     spawnAShell(s2)
 
+    print scode
+
 if __name__ == '__main__':
     Run(sys.argv[1:])
