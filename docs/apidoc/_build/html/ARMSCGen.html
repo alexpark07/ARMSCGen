@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="..  documentation" href="index.html" />
     <link rel="next" title="setup Module" href="setup.html" />
-    <link rel="prev" title="Welcome to ..’s documentation!" href="index.html" /> 
+    <link rel="prev" title="ARMSCGen’s documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -41,7 +41,7 @@
           <a href="setup.html" title="setup Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to ..’s documentation!"
+          <a href="index.html" title="ARMSCGen’s documentation"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">..  documentation</a> &raquo;</li> 
       </ul>
@@ -144,6 +144,26 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="ARMSCGen.disasm">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">disasm</tt><big>(</big><em>code</em>, <em>arch='ARM'</em>, <em>mode='THUMB'</em><big>)</big><a class="headerlink" href="#ARMSCGen.disasm" title="Permalink to this definition">¶</a></dt>
+<dd><p>disassembles code in arch with mode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">code(str): assemble code</p>
+<p>arch(str): Architechture (so far ARM only)</p>
+<p class="last">mode(str): Mode (THUMB or ARM)</p>
+</dd>
+<dt>Returns:</dt>
+<dd>result in string</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rv</span> <span class="o">=</span> <span class="n">disasm</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;ARM&#39;</span><span class="p">,</span> <span class="s">&#39;THUMB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="ARMSCGen.encodeShellcode">
 <tt class="descclassname">ARMSCGen.</tt><tt class="descname">encodeShellcode</tt><big>(</big><em>sc</em>, <em>key</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#encodeShellcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.encodeShellcode" title="Permalink to this definition">¶</a></dt>
 <dd><p>encodes shellcode with key to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
@@ -240,7 +260,43 @@ key(int/str): XOR key</dd>
 <dt>Args:</dt>
 <dd>u(str): 2-bytes packed data</dd>
 <dt>Returns:</dt>
+<dd>short value</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.u32">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.u32" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(4-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 4-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>integer value</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.uu16">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">uu16</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.uu16" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(2-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 2-bytes packed data</dd>
+<dt>Returns:</dt>
 <dd>unsigned short value</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.uu32">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">uu32</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.uu32" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(4-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 4-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>unsigned integer value</dd>
 </dl>
 </dd></dl>
 
@@ -254,7 +310,7 @@ key(int/str): XOR key</dd>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to ..&#8217;s documentation!</a></p>
+                        title="previous chapter">ARMSCGen&#8217;s documentation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="setup.html"
                         title="next chapter">setup Module</a></p>
@@ -293,7 +349,7 @@ key(int/str): XOR key</dd>
           <a href="setup.html" title="setup Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to ..’s documentation!"
+          <a href="index.html" title="ARMSCGen’s documentation"
              >previous</a> |</li>
         <li><a href="index.html">..  documentation</a> &raquo;</li> 
       </ul>

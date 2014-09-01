@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'ARMSCGen',
-    version = '0.0.7',
+    version = '0.0.8',
     packages = find_packages(),
     py_modules = ['ARMSCGen'],
     author = 'alex.park',

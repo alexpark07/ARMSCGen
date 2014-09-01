@@ -5,7 +5,7 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
-__VERSION__ = '$0.0.7'
+__VERSION__ = '$0.0.8'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -390,7 +390,7 @@ def MakeXorShellcode(sc, isThumb=False):
 
     return CompileSC(xorenc, isThumb=isThumb)
 
-def u16(u):
+def uu16(u):
     """struct.unpack(2-bytes)
 
     Args:
@@ -400,7 +400,44 @@ def u16(u):
         unsigned short value
 
     """
+    return unpack('<H', u)[0]
+
+def u16(u):
+    """struct.unpack(2-bytes)
+
+    Args:
+        u(str): 2-bytes packed data
+
+    Returns:
+        short value
+
+    """
     return unpack('<h', u)[0]
+
+def uu32(u):
+    """struct.unpack(4-bytes)
+
+    Args:
+        u(str): 4-bytes packed data
+
+    Returns:
+        unsigned integer value
+
+    """
+    return unpack('<I', u)[0]
+
+def u32(u):
+    """struct.unpack(4-bytes)
+
+    Args:
+        u(str): 4-bytes packed data
+
+    Returns:
+        integer value
+
+    """
+    return unpack('<i', u)[0]
+
 
 def getdent_to_list(rv):
     """parses getdent's struct to human readable.
@@ -461,3 +498,60 @@ def thumb_fixup(reg, value):
     fn.append('\tadd %s, %s, #%s' % (reg, reg, mod))
 
     return '\n'.join(fn)
+
+def disasm(code, arch='ARM', mode='THUMB'):
+    """disassembles code in arch with mode
+
+    Args:
+        code(str): assemble code
+
+        arch(str): Architechture (so far ARM only)
+
+        mode(str): Mode (THUMB or ARM)
+
+    Returns:
+        result in string
+
+    Examples:
+        >>> rv = disasm(code, 'ARM', 'THUMB')
+    """
+
+    try:
+        from capstone import *
+        from capstone.arm import *
+    except ImportError:
+        SYSERR("There is nos capstone library for disassembling")
+        return
+    except:
+        SYSERR("Exception: Unknown in disasm(...)")
+        return
+
+    if arch == 'ARM':
+        xarch = CS_ARCH_ARM
+    else:
+        SYSERR("Not implemented yet")
+        return
+
+    if mode == 'THUMB':
+        xmode = CS_MODE_THUMB
+    else:  
+        xmode = CS_MODE_ARM
+
+    md = Cs(xarch, xmode)
+    md.detail = True
+
+    totalSize = 0
+    dat = ''
+    for i in md.disasm(code, 0x0000):
+        #if i.id in (ARM_INS_BL, ARM_INS_CMP):
+        if i.size == 4:
+            s = "%08x" % uu32(i.bytes)
+        elif i.size == 2:
+            s = "%04x" % uu16(i.bytes)
+        else:
+            s = "-1"
+
+        dat += "0x%08x (%04d): %-8s %-8s %s\n" %(i.address, totalSize, s, i.mnemonic, i.op_str)
+        totalSize += i.size    
+
+    return dat

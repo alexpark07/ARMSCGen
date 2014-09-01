@@ -318,28 +318,38 @@ flags (int/str): The argument flags must include one of the following access mod
 <dt>argument:</dt>
 <dd>filepath (str)    : file name to open
 sock (int/str/reg): read a sock to write data</dd>
+<dt>Examples:</dt>
+<dd>sending a big file to remote to write</dd>
 </dl>
-<p>example for sending a big file to remote to write</p>
-<p>HOST = &#8216;hostname&#8217;
-PORT = 31337
-MAXSIZE = 128</p>
-<p>sc  = scgen.overwrite(&#8216;./binary&#8217;, 4)
-sc += scgen.exit(0)
-xsc = CompileSC( (sc), isThumb=True)</p>
-<p>s = socket(AF_INET, SOCK_STREAM)
-s.connect( (HOST, PORT) )
-f = s.makefile(&#8216;rw&#8217;, bufsize=0)
-f.write(xsc + &#8216;</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">HOST</span> <span class="o">=</span> <span class="s">&#39;hostname&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PORT</span> <span class="o">=</span> <span class="mi">31337</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MAXSIZE</span> <span class="o">=</span> <span class="mi">128</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span>  <span class="o">=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="s">&#39;./binary&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">+=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xsc</span> <span class="o">=</span> <span class="n">CompileSC</span><span class="p">(</span> <span class="p">(</span><span class="n">sc</span><span class="p">),</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span> <span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&#39;rw&#39;</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xsc</span> <span class="o">+</span> <span class="s">&#39;</span>
+</pre></div>
+</div>
 </div></blockquote>
 <dl class="docutils">
 <dt>&#8216;)</dt>
-<dd><p class="first">data = open(&#8216;/path/to/binary&#8217;, &#8216;rb&#8217;).read()</p>
-<p>size = len(data)
-mod  = size % MAXSIZE
-for i in range(0, mod):</p>
-<blockquote>
-<div>f.write(data[i*128:(i+1)*MAXSIZE])</div></blockquote>
-<p class="last">f.write(data[mod*MAXSIZE:])</p>
+<dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/path/to/binary&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="n">MAXSIZE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">128</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">mod</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">:])</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>
