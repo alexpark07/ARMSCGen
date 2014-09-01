@@ -18,6 +18,10 @@ Cross Compile Tool for ARM
 
 ``python setup.py install``
 
+### Usage
+
+reads ``examples`` directory
+
 ### TODO
 
 ``AArch64`` shellcodes
