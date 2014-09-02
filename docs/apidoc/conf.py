@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# .. documentation build configuration file, created by
-# sphinx-quickstart on Mon Sep  1 20:08:08 2014.
+# ARMSCGen documentation build configuration file, created by
+# sphinx-quickstart on Tue Sep  2 08:54:13 2014.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'..'
-copyright = u'2014, Author'
+project = u'ARMSCGen'
+copyright = u'2014, alex.park'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -85,9 +85,6 @@ pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
-
-# If true, keep warnings as "system message" paragraphs in the built documents.
-#keep_warnings = False
 
 
 # -- Options for HTML output ---------------------------------------------------
@@ -167,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'doc'
+htmlhelp_basename = 'ARMSCGendoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -186,8 +183,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', '.tex', u'.. Documentation',
-   u'Author', 'manual'),
+  ('index', 'ARMSCGen.tex', u'ARMSCGen Documentation',
+   u'alex.park', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -216,8 +213,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', '', u'.. Documentation',
-     [u'Author'], 1)
+    ('index', 'armscgen', u'ARMSCGen Documentation',
+     [u'alex.park'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -230,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', '', u'.. Documentation',
-   u'Author', '', 'One line description of project.',
+  ('index', 'ARMSCGen', u'ARMSCGen Documentation',
+   u'alex.park', 'ARMSCGen', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -244,17 +241,14 @@ texinfo_documents = [
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 #texinfo_show_urls = 'footnote'
 
-# If true, do not generate a @detailmenu in the "Top" node's menu.
-#texinfo_no_detailmenu = False
-
 
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'..'
-epub_author = u'Author'
-epub_publisher = u'Author'
-epub_copyright = u'2014, Author'
+epub_title = u'ARMSCGen'
+epub_author = u'alex.park'
+epub_publisher = u'alex.park'
+epub_copyright = u'2014, alex.park'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
@@ -273,9 +267,6 @@ epub_copyright = u'2014, Author'
 # A tuple containing the cover image and cover page html template filenames.
 #epub_cover = ()
 
-# A sequence of (type, uri, title) tuples for the guide element of content.opf.
-#epub_guide = ()
-
 # HTML files that should be inserted before the pages created by sphinx.
 # The format is a list of tuples containing the path and title.
 #epub_pre_files = []
@@ -292,15 +283,3 @@ epub_copyright = u'2014, Author'
 
 # Allow duplicate toc entries.
 #epub_tocdup = True
-
-# Fix unsupported image types using the PIL.
-#epub_fix_images = False
-
-# Scale large images.
-#epub_max_image_width = 0
-
-# If 'no', URL addresses will not be shown.
-#epub_show_urls = 'inline'
-
-# If false, no index is generated.
-#epub_use_index = True

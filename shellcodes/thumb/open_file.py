@@ -10,16 +10,16 @@ def generate(filepath='./secret', flags=00, mode=None):
     """open a file for reading/writing/sending to you in thumb mode
 
     Args:
-        filepath (str) : filename to read with flags/mode
-        flags (int/str): The argument flags must include one of the following access modes: O_RDONLY, O_WRONLY, or O_RDWR.  
-                         These request opening  the  file  read-only,  write-only,  or read/write, respectively.
-        mode (int/str) : modes 
+        filepath(str): filename to read with flags/mode
+        flags(int/str): The argument flags must include one of the following access modes: ``O_RDONLY``, ``O_WRONLY``, or ``O_RDWR``  
+                        These request opening the file read-only, write-only, or read/write, respectively.
+        mode(int/str): modes 
 
     backup:
-        r6: opened file's description
+        ``r6``: opened file descriptor
     """
+
     if mode != None:
-        #sc = 'mov r2, #%s' % (int(mode))
         sc = ARMSCGen.thumb_fixup('r2', int(mode))
     else:
         sc = ''

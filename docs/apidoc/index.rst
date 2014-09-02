@@ -1,10 +1,10 @@
-.. .. documentation master file, created by
-   sphinx-quickstart on Mon Sep  1 20:08:08 2014.
+.. ARMSCGen documentation master file, created by
+   sphinx-quickstart on Tue Sep  2 08:54:13 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ARMSCGen's documentation
-========================
+Welcome to ARMSCGen's documentation!
+====================================
 
 Contents:
 

