@@ -47,6 +47,8 @@ from shellcodes.arm import dupsh as arm_dupsh
 ## ARM64 Mode
 ##########################################################
 from shellcodes.arm64 import sh   as arm64_sh
+from shellcodes.arm64 import dup  as arm64_dup
+from shellcodes.arm64 import dupsh as arm64_dupsh
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -96,6 +98,8 @@ class arm64SCGen:
     """
     def __init__(self):
         self.sh         = arm64_sh.generate
+        self.dup        = arm64_dup.generate
+        self.dupsh      = arm64_dupsh.generate
         prepareCompiler('ARM64')
 
 # Assembler 
