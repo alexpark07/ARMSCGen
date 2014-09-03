@@ -5,7 +5,7 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
-__VERSION__ = '$0.0.8'
+__VERSION__ = '$0.0.9'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -43,6 +43,11 @@ from shellcodes.arm import dup   as arm_dup
 from shellcodes.arm import sh    as arm_sh
 from shellcodes.arm import dupsh as arm_dupsh
 
+##########################################################
+## ARM64 Mode
+##########################################################
+from shellcodes.arm64 import sh   as arm64_sh
+
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
 
@@ -72,6 +77,8 @@ class thumbSCGen:
         self.read_from_stack = th_read_from_stack.generate
         self.write_to_stack  = th_write_to_stack.generate
         self.infinityloop    = th_infinityloop.generate
+        prepareCompiler('THUMB')
+        
 
 class armSCGen:
     """ARM Mode Shellcode Generator Class
@@ -81,16 +88,33 @@ class armSCGen:
         self.dup        = arm_dup.generate
         self.sh         = arm_sh.generate
         self.dupsh      = arm_dupsh.generate
+        prepareCompiler('ARM')
+
+class arm64SCGen:
+    """ARM64 Mode Shellcode Generator Class
+
+    """
+    def __init__(self):
+        self.sh         = arm64_sh.generate
+        prepareCompiler('ARM64')
 
 # Assembler 
-BIN_AS = '/usr/bin/arm-linux-gnueabi-as'
+BIN_AS32 = '/usr/bin/arm-linux-gnueabi-as'
+BIN_AS64 = '/usr/bin/aarch64-linux-gnu-as'
 ALTER_BIN_AS = 'as'
 # Linker
-BIN_LD = '/usr/bin/arm-linux-gnueabi-ld'
+BIN_LD32 = '/usr/bin/arm-linux-gnueabi-ld'
+BIN_LD64 = '/usr/bin/aarch64-linux-gnu-ld'
 ALTER_BIN_LD = 'ld'
 # Objcopy
-BIN_OC = '/usr/bin/arm-linux-gnueabi-objcopy'
+BIN_OC32 = '/usr/bin/arm-linux-gnueabi-objcopy'
+BIN_OC64 = '/usr/bin/aarch64-linux-gnu-objcopy'
 ALTER_BIN_OC = 'objcopy'
+# Empty 
+BIN_AS = ''
+BIN_LD = ''
+BIN_OC = ''
+
 # RAW Shellcode
 RAW_SC = 'raw_sc'
 
@@ -119,7 +143,7 @@ def cleanup(fn):
             except:
                 pass
 
-def prepareCompiler():
+def prepareCompiler(mode='THUMB'):
     """prepares some PATH to compile safely
 
     """
@@ -127,14 +151,38 @@ def prepareCompiler():
     global BIN_LD
     global BIN_OC
 
-    if os.path.exists(BIN_AS) == False:
-        BIN_AS = ALTER_BIN_AS
+    if (mode == 'THUMB') or (mode == 'ARM'):
+        if os.path.exists(BIN_AS32) == False:
+            BIN_AS = ALTER_BIN_AS
+        else:
+            BIN_AS = BIN_AS32
 
-    if os.path.exists(BIN_LD) == False:
-        BIN_LD = ALTER_BIN_LD
+        if os.path.exists(BIN_LD32) == False:
+            BIN_LD = ALTER_BIN_LD
+        else:
+            BIN_LD = BIN_LD32
 
-    if os.path.exists(BIN_OC) == False:
-        BIN_OC = ALTER_BIN_OC
+        if os.path.exists(BIN_OC32) == False:
+            BIN_OC = ALTER_BIN_OC
+        else:
+            BIN_OC = BIN_OC32
+    elif mode == 'ARM64':
+        if os.path.exists(BIN_AS64) == False:
+            BIN_AS = ALTER_BIN_AS
+        else:
+            BIN_AS = BIN_AS64
+
+        if os.path.exists(BIN_LD64) == False:
+            BIN_LD = ALTER_BIN_LD
+        else:
+            BIN_LD = BIN_LD64
+
+        if os.path.exists(BIN_OC64) == False:
+            BIN_OC = ALTER_BIN_OC
+        else:
+            BIN_OC = BIN_OC64
+    else:
+        SYSERR("Not Implemented yet")
 
 def CompileSC(source, isThumb=False, isNeedHead=True):
     """Compiles shellcode
