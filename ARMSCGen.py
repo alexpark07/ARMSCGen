@@ -5,7 +5,7 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
-__VERSION__ = '$0.0.9'
+__VERSION__ = '$0.0.10'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -49,6 +49,8 @@ from shellcodes.arm import dupsh as arm_dupsh
 from shellcodes.arm64 import sh   as arm64_sh
 from shellcodes.arm64 import dup  as arm64_dup
 from shellcodes.arm64 import dupsh as arm64_dupsh
+from shellcodes.arm64 import setreuid as arm64_setreuid
+from shellcodes.arm64 import setregid as arm64_setregid
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -100,6 +102,8 @@ class arm64SCGen:
         self.sh         = arm64_sh.generate
         self.dup        = arm64_dup.generate
         self.dupsh      = arm64_dupsh.generate
+        self.setreuid   = arm64_setreuid.generate
+        self.setregid   = arm64_setregid.generate
         prepareCompiler('ARM64')
 
 # Assembler 
@@ -580,6 +584,8 @@ def disasm(code, arch='ARM', mode='THUMB'):
 
     if arch == 'ARM':
         xarch = CS_ARCH_ARM
+    elif arch == 'ARM64':
+        xarch = CS_ARCH_ARM64
     else:
         SYSERR("Not implemented yet")
         return
