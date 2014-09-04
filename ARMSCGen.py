@@ -51,6 +51,8 @@ from shellcodes.arm64 import dup  as arm64_dup
 from shellcodes.arm64 import dupsh as arm64_dupsh
 from shellcodes.arm64 import setreuid as arm64_setreuid
 from shellcodes.arm64 import setregid as arm64_setregid
+from shellcodes.arm64 import sendfile as arm64_sendfile
+from shellcodes.arm64 import open_file as arm64_open_file
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -104,6 +106,8 @@ class arm64SCGen:
         self.dupsh      = arm64_dupsh.generate
         self.setreuid   = arm64_setreuid.generate
         self.setregid   = arm64_setregid.generate
+        self.sendfile   = arm64_sendfile.generate
+        self.open_file  = arm64_open_file.generate
         prepareCompiler('ARM64')
 
 # Assembler 
@@ -125,6 +129,18 @@ BIN_OC = ''
 
 # RAW Shellcode
 RAW_SC = 'raw_sc'
+
+# capstone available
+g_capstone = False
+try:
+    from capstone import *
+    from capstone.arm import *
+    g_capstone = True
+except ImportError:
+    #SYSERR("There is no capstone library for disassembling")
+    g_capstone = False
+except:
+    SYSERR("Exception: Unknown in disasm(...)")
 
 def SYSERR(m):
     """SYSERR(m) -> None
@@ -572,14 +588,8 @@ def disasm(code, arch='ARM', mode='THUMB'):
         >>> rv = disasm(code, 'ARM', 'THUMB')
     """
 
-    try:
-        from capstone import *
-        from capstone.arm import *
-    except ImportError:
-        SYSERR("There is nos capstone library for disassembling")
-        return
-    except:
-        SYSERR("Exception: Unknown in disasm(...)")
+    if g_capstone == False:
+        SYSERR("so far, there is no capstone module")
         return
 
     if arch == 'ARM':
@@ -588,7 +598,7 @@ def disasm(code, arch='ARM', mode='THUMB'):
         xarch = CS_ARCH_ARM64
     else:
         SYSERR("Not implemented yet")
-        return
+        return ""
 
     if mode == 'THUMB':
         xmode = CS_MODE_THUMB
