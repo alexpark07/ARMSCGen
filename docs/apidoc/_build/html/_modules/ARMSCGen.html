@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -56,7 +54,7 @@
 <span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">ntohs</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">pack</span>
 
-<span class="n">__VERSION__</span> <span class="o">=</span> <span class="s">&#39;$0.0.9&#39;</span>
+<span class="n">__VERSION__</span> <span class="o">=</span> <span class="s">&#39;$0.0.8&#39;</span>
 <span class="n">__AUTHOR__</span>  <span class="o">=</span> <span class="s">&#39;alex.park&#39;</span>
 
 <span class="c">##########################################################</span>
@@ -94,13 +92,6 @@
 <span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">sh</span>    <span class="k">as</span> <span class="n">arm_sh</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm_dupsh</span>
 
-<span class="c">##########################################################</span>
-<span class="c">## ARM64 Mode</span>
-<span class="c">##########################################################</span>
-<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">sh</span>   <span class="k">as</span> <span class="n">arm64_sh</span>
-<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dup</span>  <span class="k">as</span> <span class="n">arm64_dup</span>
-<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm64_dupsh</span>
-
 <div class="viewcode-block" id="thumbSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.thumbSCGen">[docs]</a><span class="k">class</span> <span class="nc">thumbSCGen</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Thumb Mode Shellcode Generator Class</span>
 
@@ -130,8 +121,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">read_from_stack</span> <span class="o">=</span> <span class="n">th_read_from_stack</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">write_to_stack</span>  <span class="o">=</span> <span class="n">th_write_to_stack</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">infinityloop</span>    <span class="o">=</span> <span class="n">th_infinityloop</span><span class="o">.</span><span class="n">generate</span>
-        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;THUMB&#39;</span><span class="p">)</span>
-        
 </div>
 <div class="viewcode-block" id="armSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.armSCGen">[docs]</a><span class="k">class</span> <span class="nc">armSCGen</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;ARM Mode Shellcode Generator Class</span>
@@ -141,35 +130,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm_dup</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm_sh</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm_dupsh</span><span class="o">.</span><span class="n">generate</span>
-        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM&#39;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="arm64SCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.arm64SCGen">[docs]</a><span class="k">class</span> <span class="nc">arm64SCGen</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;ARM64 Mode Shellcode Generator Class</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm64_sh</span><span class="o">.</span><span class="n">generate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm64_dup</span><span class="o">.</span><span class="n">generate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm64_dupsh</span><span class="o">.</span><span class="n">generate</span>
-        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM64&#39;</span><span class="p">)</span>
 
 <span class="c"># Assembler </span></div>
-<span class="n">BIN_AS32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-as&#39;</span>
-<span class="n">BIN_AS64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-as&#39;</span>
+<span class="n">BIN_AS</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-as&#39;</span>
 <span class="n">ALTER_BIN_AS</span> <span class="o">=</span> <span class="s">&#39;as&#39;</span>
 <span class="c"># Linker</span>
-<span class="n">BIN_LD32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-ld&#39;</span>
-<span class="n">BIN_LD64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-ld&#39;</span>
+<span class="n">BIN_LD</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-ld&#39;</span>
 <span class="n">ALTER_BIN_LD</span> <span class="o">=</span> <span class="s">&#39;ld&#39;</span>
 <span class="c"># Objcopy</span>
-<span class="n">BIN_OC32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-objcopy&#39;</span>
-<span class="n">BIN_OC64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-objcopy&#39;</span>
+<span class="n">BIN_OC</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-objcopy&#39;</span>
 <span class="n">ALTER_BIN_OC</span> <span class="o">=</span> <span class="s">&#39;objcopy&#39;</span>
-<span class="c"># Empty </span>
-<span class="n">BIN_AS</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">BIN_LD</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-<span class="n">BIN_OC</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-
 <span class="c"># RAW Shellcode</span>
 <span class="n">RAW_SC</span> <span class="o">=</span> <span class="s">&#39;raw_sc&#39;</span>
 
@@ -198,7 +168,7 @@
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="prepareCompiler"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.prepareCompiler">[docs]</a><span class="k">def</span> <span class="nf">prepareCompiler</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&#39;THUMB&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="prepareCompiler"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.prepareCompiler">[docs]</a><span class="k">def</span> <span class="nf">prepareCompiler</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;prepares some PATH to compile safely</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -206,38 +176,14 @@
     <span class="k">global</span> <span class="n">BIN_LD</span>
     <span class="k">global</span> <span class="n">BIN_OC</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;THUMB&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;ARM&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">BIN_AS32</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
 
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">BIN_LD32</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
 
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">BIN_OC32</span>
-    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;ARM64&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">BIN_AS64</span>
-
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">BIN_LD64</span>
-
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">BIN_OC64</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Not Implemented yet&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
 </div>
 <div class="viewcode-block" id="CompileSC"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.CompileSC">[docs]</a><span class="k">def</span> <span class="nf">CompileSC</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">isNeedHead</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compiles shellcode</span>
@@ -697,7 +643,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, alex.park.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>
