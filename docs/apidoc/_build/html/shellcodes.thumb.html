@@ -139,7 +139,14 @@ out_fd (int/str): out file descriptor</dd>
 <dl class="function">
 <dt id="shellcodes.thumb.connect.generate">
 <tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">generate</tt><big>(</big><em>host='127.0.0.1'</em>, <em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connect.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connect.generate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Connects to remote machine on specific port</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">host(str): hostname or IP address</p>
+<p class="last">port(int/str): specific port</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="shellcodes.thumb.connect.u32">
@@ -295,14 +302,14 @@ out_fd (int/str): out file descriptor</dd>
 <dd><p>open a file for reading/writing/sending to you in thumb mode</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><p class="first">filepath (str) : filename to read with flags/mode
-flags (int/str): The argument flags must include one of the following access modes: O_RDONLY, O_WRONLY, or O_RDWR.</p>
+<dd><p class="first">filepath(str): filename to read with flags/mode
+flags(int/str): The argument flags must include one of the following access modes: <tt class="docutils literal"><span class="pre">O_RDONLY</span></tt>, <tt class="docutils literal"><span class="pre">O_WRONLY</span></tt>, or <tt class="docutils literal"><span class="pre">O_RDWR</span></tt></p>
 <blockquote>
-<div>These request opening  the  file  read-only,  write-only,  or read/write, respectively.</div></blockquote>
-<p class="last">mode (int/str) : modes</p>
+<div>These request opening the file read-only, write-only, or read/write, respectively.</div></blockquote>
+<p class="last">mode(int/str): modes</p>
 </dd>
 <dt>backup:</dt>
-<dd>r6: opened file&#8217;s description</dd>
+<dd><tt class="docutils literal"><span class="pre">r6</span></tt>: opened file descriptor</dd>
 </dl>
 </dd></dl>
 

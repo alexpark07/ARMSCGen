@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # ARMSCGen documentation build configuration file, created by
-# sphinx-quickstart on Fri Sep  5 10:35:58 2014.
+# sphinx-quickstart on Sat Sep  6 08:18:23 2014.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #

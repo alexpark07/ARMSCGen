@@ -6,13 +6,17 @@ Thanks to share all of brilliant sources on the net.
 
 I'm interested in mobile platform and archtecture like Android on ARM, Router on MIPS and so on.
 
-This project named ARMSCGen focus on shellcode on ARM Architech especially ARMv7 Thumb Mode.
+This project named ARMSCGen focus on shellcode on ARM Architecture especially ARMv7 Thumb Mode.
 
 ### Requirement
 
-Cross Compile Tool for ARM
+1. Cross Compile Tool for ARM
 
 ``as``, ``ld`` and ``objcopy``
+
+2. capstone to disassemble codes
+
+URL: http://www.capstone-engine.org/
 
 ### Installation
 
@@ -22,10 +26,16 @@ Cross Compile Tool for ARM
 
 reads ``examples`` directory
 
+### Documentation
+
+URL: http://armscgen.readthedocs.org/ or /docs/ in source
+
 ### TODO
 
-``AArch64`` shellcodes
+``AArch64`` shellcodes - writing some shellcodes day by day
 
 ``AArch32-ARM Mode`` shellcodes
+
+``Shellcode Generator in CLI mode``
 
 (To be continued)

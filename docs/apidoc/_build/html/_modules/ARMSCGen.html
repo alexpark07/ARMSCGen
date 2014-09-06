@@ -54,7 +54,7 @@
 <span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">ntohs</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">pack</span>
 
-<span class="n">__VERSION__</span> <span class="o">=</span> <span class="s">&#39;$0.0.8&#39;</span>
+<span class="n">__VERSION__</span> <span class="o">=</span> <span class="s">&#39;$0.0.10&#39;</span>
 <span class="n">__AUTHOR__</span>  <span class="o">=</span> <span class="s">&#39;alex.park&#39;</span>
 
 <span class="c">##########################################################</span>
@@ -92,6 +92,19 @@
 <span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">sh</span>    <span class="k">as</span> <span class="n">arm_sh</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm_dupsh</span>
 
+<span class="c">##########################################################</span>
+<span class="c">## ARM64 Mode</span>
+<span class="c">##########################################################</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">sh</span>   <span class="k">as</span> <span class="n">arm64_sh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dup</span>  <span class="k">as</span> <span class="n">arm64_dup</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm64_dupsh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">setreuid</span> <span class="k">as</span> <span class="n">arm64_setreuid</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">setregid</span> <span class="k">as</span> <span class="n">arm64_setregid</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">sendfile</span> <span class="k">as</span> <span class="n">arm64_sendfile</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">open_file</span> <span class="k">as</span> <span class="n">arm64_open_file</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">connect</span>   <span class="k">as</span> <span class="n">arm64_connect</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">connectback</span> <span class="k">as</span> <span class="n">arm64_connectback</span>
+
 <div class="viewcode-block" id="thumbSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.thumbSCGen">[docs]</a><span class="k">class</span> <span class="nc">thumbSCGen</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Thumb Mode Shellcode Generator Class</span>
 
@@ -121,6 +134,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">read_from_stack</span> <span class="o">=</span> <span class="n">th_read_from_stack</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">write_to_stack</span>  <span class="o">=</span> <span class="n">th_write_to_stack</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">infinityloop</span>    <span class="o">=</span> <span class="n">th_infinityloop</span><span class="o">.</span><span class="n">generate</span>
+        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;THUMB&#39;</span><span class="p">)</span>
+        
 </div>
 <div class="viewcode-block" id="armSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.armSCGen">[docs]</a><span class="k">class</span> <span class="nc">armSCGen</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;ARM Mode Shellcode Generator Class</span>
@@ -130,18 +145,55 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm_dup</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm_sh</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm_dupsh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="arm64SCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.arm64SCGen">[docs]</a><span class="k">class</span> <span class="nc">arm64SCGen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;ARM64 Mode Shellcode Generator Class</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm64_sh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm64_dup</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm64_dupsh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setreuid</span>   <span class="o">=</span> <span class="n">arm64_setreuid</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setregid</span>   <span class="o">=</span> <span class="n">arm64_setregid</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendfile</span>   <span class="o">=</span> <span class="n">arm64_sendfile</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_file</span>  <span class="o">=</span> <span class="n">arm64_open_file</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span>    <span class="o">=</span> <span class="n">arm64_connect</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectback</span> <span class="o">=</span> <span class="n">arm64_connectback</span><span class="o">.</span><span class="n">generate</span>
+        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM64&#39;</span><span class="p">)</span>
 
 <span class="c"># Assembler </span></div>
-<span class="n">BIN_AS</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-as&#39;</span>
+<span class="n">BIN_AS32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-as&#39;</span>
+<span class="n">BIN_AS64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-as&#39;</span>
 <span class="n">ALTER_BIN_AS</span> <span class="o">=</span> <span class="s">&#39;as&#39;</span>
 <span class="c"># Linker</span>
-<span class="n">BIN_LD</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-ld&#39;</span>
+<span class="n">BIN_LD32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-ld&#39;</span>
+<span class="n">BIN_LD64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-ld&#39;</span>
 <span class="n">ALTER_BIN_LD</span> <span class="o">=</span> <span class="s">&#39;ld&#39;</span>
 <span class="c"># Objcopy</span>
-<span class="n">BIN_OC</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-objcopy&#39;</span>
+<span class="n">BIN_OC32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-objcopy&#39;</span>
+<span class="n">BIN_OC64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-objcopy&#39;</span>
 <span class="n">ALTER_BIN_OC</span> <span class="o">=</span> <span class="s">&#39;objcopy&#39;</span>
+<span class="c"># Empty </span>
+<span class="n">BIN_AS</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">BIN_LD</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">BIN_OC</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
 <span class="c"># RAW Shellcode</span>
 <span class="n">RAW_SC</span> <span class="o">=</span> <span class="s">&#39;raw_sc&#39;</span>
+
+<span class="c"># capstone available</span>
+<span class="n">g_capstone</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">capstone</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">capstone.arm</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="n">g_capstone</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c">#SYSERR(&quot;There is no capstone library for disassembling&quot;)</span>
+    <span class="n">g_capstone</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Exception: Unknown in disasm(...)&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SYSERR"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.SYSERR">[docs]</a><span class="k">def</span> <span class="nf">SYSERR</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;SYSERR(m) -&gt; None</span>
@@ -168,7 +220,7 @@
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="prepareCompiler"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.prepareCompiler">[docs]</a><span class="k">def</span> <span class="nf">prepareCompiler</span><span class="p">():</span>
+<div class="viewcode-block" id="prepareCompiler"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.prepareCompiler">[docs]</a><span class="k">def</span> <span class="nf">prepareCompiler</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&#39;THUMB&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;prepares some PATH to compile safely</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -176,14 +228,38 @@
     <span class="k">global</span> <span class="n">BIN_LD</span>
     <span class="k">global</span> <span class="n">BIN_OC</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-        <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;THUMB&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;ARM&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">BIN_AS32</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-        <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">BIN_LD32</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-        <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">BIN_OC32</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;ARM64&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">BIN_AS64</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">BIN_LD64</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">BIN_OC64</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Not Implemented yet&quot;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="CompileSC"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.CompileSC">[docs]</a><span class="k">def</span> <span class="nf">CompileSC</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">isNeedHead</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compiles shellcode</span>
@@ -565,21 +641,17 @@
 <span class="sd">        &gt;&gt;&gt; rv = disasm(code, &#39;ARM&#39;, &#39;THUMB&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">capstone</span> <span class="kn">import</span> <span class="o">*</span>
-        <span class="kn">from</span> <span class="nn">capstone.arm</span> <span class="kn">import</span> <span class="o">*</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;There is nos capstone library for disassembling&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Exception: Unknown in disasm(...)&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">g_capstone</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;so far, there is no capstone module&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="k">if</span> <span class="n">arch</span> <span class="o">==</span> <span class="s">&#39;ARM&#39;</span><span class="p">:</span>
         <span class="n">xarch</span> <span class="o">=</span> <span class="n">CS_ARCH_ARM</span>
+    <span class="k">elif</span> <span class="n">arch</span> <span class="o">==</span> <span class="s">&#39;ARM64&#39;</span><span class="p">:</span>
+        <span class="n">xarch</span> <span class="o">=</span> <span class="n">CS_ARCH_ARM64</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Not implemented yet&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;THUMB&#39;</span><span class="p">:</span>
         <span class="n">xmode</span> <span class="o">=</span> <span class="n">CS_MODE_THUMB</span>

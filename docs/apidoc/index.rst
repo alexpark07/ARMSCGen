@@ -1,5 +1,5 @@
 .. ARMSCGen documentation master file, created by
-   sphinx-quickstart on Fri Sep  5 10:35:58 2014.
+   sphinx-quickstart on Sat Sep  6 08:18:23 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 

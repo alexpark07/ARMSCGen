@@ -59,16 +59,16 @@
     <span class="sd">&quot;&quot;&quot;open a file for reading/writing/sending to you in thumb mode</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        filepath (str) : filename to read with flags/mode</span>
-<span class="sd">        flags (int/str): The argument flags must include one of the following access modes: O_RDONLY, O_WRONLY, or O_RDWR.  </span>
-<span class="sd">                         These request opening  the  file  read-only,  write-only,  or read/write, respectively.</span>
-<span class="sd">        mode (int/str) : modes </span>
+<span class="sd">        filepath(str): filename to read with flags/mode</span>
+<span class="sd">        flags(int/str): The argument flags must include one of the following access modes: ``O_RDONLY``, ``O_WRONLY``, or ``O_RDWR``  </span>
+<span class="sd">                        These request opening the file read-only, write-only, or read/write, respectively.</span>
+<span class="sd">        mode(int/str): modes </span>
 
 <span class="sd">    backup:</span>
-<span class="sd">        r6: opened file&#39;s description</span>
+<span class="sd">        ``r6``: opened file descriptor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="c">#sc = &#39;mov r2, #%s&#39; % (int(mode))</span>
         <span class="n">sc</span> <span class="o">=</span> <span class="n">ARMSCGen</span><span class="o">.</span><span class="n">thumb_fixup</span><span class="p">(</span><span class="s">&#39;r2&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sc</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
