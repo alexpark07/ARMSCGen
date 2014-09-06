@@ -56,6 +56,7 @@ from shellcodes.arm64 import sendfile as arm64_sendfile
 from shellcodes.arm64 import open_file as arm64_open_file
 from shellcodes.arm64 import connect   as arm64_connect
 from shellcodes.arm64 import connectback as arm64_connectback
+from shellcodes.arm64 import listen as arm64_listen
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -114,6 +115,7 @@ class arm64SCGen:
         self.open_file  = arm64_open_file.generate
         self.connect    = arm64_connect.generate
         self.connectback = arm64_connectback.generate
+        self.listen      = arm64_listen.generate
         prepareCompiler('ARM64')
 
 # Assembler 
