@@ -48,6 +48,7 @@ from shellcodes.arm import dupsh as arm_dupsh
 ##########################################################
 from shellcodes.arm64 import sh   as arm64_sh
 from shellcodes.arm64 import dup  as arm64_dup
+from shellcodes.arm64 import cat  as arm64_cat
 from shellcodes.arm64 import dupsh as arm64_dupsh
 from shellcodes.arm64 import setreuid as arm64_setreuid
 from shellcodes.arm64 import setregid as arm64_setregid
@@ -105,6 +106,7 @@ class arm64SCGen:
     def __init__(self):
         self.sh         = arm64_sh.generate
         self.dup        = arm64_dup.generate
+        self.cat        = arm64_cat.generate
         self.dupsh      = arm64_dupsh.generate
         self.setreuid   = arm64_setreuid.generate
         self.setregid   = arm64_setregid.generate
