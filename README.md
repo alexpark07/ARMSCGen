@@ -10,13 +10,13 @@ This project named ARMSCGen focus on shellcode on ARM Architecture especially AR
 
 ### Requirement
 
-1. Cross Compile Tool for ARM
+Cross Compile Tool for ARM
 
 ``as``, ``ld`` and ``objcopy``
 
-2. capstone to disassemble codes
+capstone to disassemble codes
 
-URL: http://www.capstone-engine.org/
+URL: ``http://www.capstone-engine.org/``
 
 ### Installation
 
@@ -28,7 +28,7 @@ reads ``examples`` directory
 
 ### Documentation
 
-URL: http://armscgen.readthedocs.org/ or /docs/ in source
+URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source
 
 ### TODO
 
@@ -36,6 +36,6 @@ URL: http://armscgen.readthedocs.org/ or /docs/ in source
 
 ``AArch32-ARM Mode`` shellcodes
 
-``Shellcode Generator in CLI mode``
+``Shellcode Generator`` in CLI mode
 
 (To be continued)
