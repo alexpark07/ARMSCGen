@@ -49,6 +49,7 @@ from shellcodes.arm import dupsh as arm_dupsh
 from shellcodes.arm64 import sh   as arm64_sh
 from shellcodes.arm64 import dup  as arm64_dup
 from shellcodes.arm64 import cat  as arm64_cat
+from shellcodes.arm64 import exit as arm64_exit
 from shellcodes.arm64 import dupsh as arm64_dupsh
 from shellcodes.arm64 import setreuid as arm64_setreuid
 from shellcodes.arm64 import setregid as arm64_setregid
@@ -57,6 +58,8 @@ from shellcodes.arm64 import open_file as arm64_open_file
 from shellcodes.arm64 import connect   as arm64_connect
 from shellcodes.arm64 import connectback as arm64_connectback
 from shellcodes.arm64 import listen as arm64_listen
+from shellcodes.arm64 import acceptloop as arm64_acceptloop
+from shellcodes.arm64 import bindshell as arm64_bindshell
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -108,6 +111,7 @@ class arm64SCGen:
         self.sh         = arm64_sh.generate
         self.dup        = arm64_dup.generate
         self.cat        = arm64_cat.generate
+        self.exit       = arm64_exit.generate
         self.dupsh      = arm64_dupsh.generate
         self.setreuid   = arm64_setreuid.generate
         self.setregid   = arm64_setregid.generate
@@ -116,6 +120,8 @@ class arm64SCGen:
         self.connect    = arm64_connect.generate
         self.connectback = arm64_connectback.generate
         self.listen      = arm64_listen.generate
+        self.acceptloop  = arm64_acceptloop.generate
+        self.bindshell   = arm64_bindshell.generate
         prepareCompiler('ARM64')
 
 # Assembler 
