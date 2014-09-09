@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/python2
 
 from optparse import OptionParser
 import sys
@@ -47,12 +47,12 @@ def isScode(s, sname):
     rv[sname] = d
     return rv
 
-def getShellcodeNames(scs, arch='*'):
+def getShellcodeNames(scs, arch='all'):
     _scname = ''
 
     for i in range(0, len(scs)):
         scname = scs[i].keys()[0]
-        if arch != '*':
+        if arch != 'all':
             if scname ==   'thgen':
                 _scname =  'thumb'
             elif scname == 'armgen':
@@ -155,7 +155,7 @@ if __name__ == '__main__':
                    )
     parser.add_option('-l', '--list',
                    action = 'store_true',
-                   help = 'List all the shellcodes',
+                   help = 'List all the shellcodes if arch is "all"',
                    )
     parser.add_option('-f', '--format',
                    dest = 'format',
