@@ -60,6 +60,12 @@ from shellcodes.arm64 import connectback as arm64_connectback
 from shellcodes.arm64 import listen as arm64_listen
 from shellcodes.arm64 import acceptloop as arm64_acceptloop
 from shellcodes.arm64 import bindshell as arm64_bindshell
+from shellcodes.arm64 import infinityloop as arm64_infinityloop
+from shellcodes.arm64 import read_from_stack as arm64_read_from_stack
+from shellcodes.arm64 import getdents    as arm64_getdents
+from shellcodes.arm64 import ls          as arm64_ls
+from shellcodes.arm64 import appendwrite as arm64_appendwrite
+from shellcodes.arm64 import write_to_stack  as arm64_write_to_stack
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -122,6 +128,12 @@ class arm64SCGen:
         self.listen      = arm64_listen.generate
         self.acceptloop  = arm64_acceptloop.generate
         self.bindshell   = arm64_bindshell.generate
+        self.infinityloop = arm64_infinityloop.generate
+        self.read_from_stack = arm64_read_from_stack.generate
+        self.getdents    = arm64_getdents.generate
+        self.ls          = arm64_ls.generate
+        self.overwrite   = arm64_overwrite.generate
+        self.write_to_stack  = arm64_write_to_stack.generate
         prepareCompiler('ARM64')
 
 # Assembler 
