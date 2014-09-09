@@ -10,9 +10,12 @@ thgen    = thumbSCGen()
 armgen   = armSCGen()
 arm64gen = arm64SCGen()
 
-g_arch = 'thumb'
+g_arch      = 'thumb'
 g_shellcode = ''
+g_format    = 'asm'
+g_xorkey    = 0
 
+# pwntools from pwnies
 def _string(s):
     out = []
     for c in s:
@@ -27,8 +30,6 @@ def _carray(s):
     return '{' + ', '.join(out) + '};\n'
 
 def enhex(c):
-    if isinstance(c, int) == True:
-        c = str(c)
     return c.encode('hex')
 
 def unhex(c):
@@ -101,18 +102,40 @@ def genShellcode(args):
     try:
         if g_arch == 'arm':
             show = eval("armgen.%s" % (scode))
+            prepareCompiler('ARM')
         elif g_arch == 'arm64':
             show = eval("arm64gen.%s" % (scode))
+            prepareCompiler('ARM64')
         elif g_arch == 'thumb':
             show = eval("thgen.%s" % (scode))
+            prepareCompiler('THUMB')
+
+        if g_format == 'asm':
+            print show
+            return
+        else:
+            scode = CompileSC(show)
+            if g_xorkey != 0:
+                if g_arch != 'arm64':
+                    scode = MakeXorShellcode( scode )
+
+        if g_format == 'c':
+            print _carray(scode)
+        elif g_format == 'string':
+            print _string(scode)
+        elif g_format == 'raw':
+            print scode
+        elif g_format == 'hex':
+            print enhex(scode)
+        else:
+            print _string(scode)
+
     except AttributeError:
-        show = "There is no '%s' shellcode so far" % (args[0])
+        print "There is no '%s' shellcode so far" % (args[0])
     except:
         show = "I think, you have wrong options. show shellcode for you"
         print show
         showShellcode(args)
-
-    print show
 
 if __name__ == '__main__':
 
@@ -134,6 +157,22 @@ if __name__ == '__main__':
                    action = 'store_true',
                    help = 'List all the shellcodes',
                    )
+    parser.add_option('-f', '--format',
+                   dest = 'format',
+                   type = 'choice',
+                   choices = ['r', 'raw',
+                              's', 'str', 'string',
+                              'h', 'hex',
+                              'a', 'asm', 
+                              'c'
+                             ],
+                   help = '{r}aw, {s}tring, {h}ex, {a}sm, {c} for C code',
+                   )
+    parser.add_option('-x', '--xor',
+                  dest = 'xor',
+                  type = int,
+                  help = 'XOR Encoder if you want to avoid bad chars like 0x00, 0x0a and so on\nNotice: only for arm32, thumb shellcodes so far',
+                  )
 
     (opt, args) = parser.parse_args()
 
@@ -155,6 +194,22 @@ if __name__ == '__main__':
         showShellcode(args)
         sys.exit(-1)
 
+    if opt.format:
+        if opt.format in ['r', 'raw']:
+            g_format = 'raw'
+        elif opt.format in ['s', 'str', 'string']:
+            g_format = 'string'
+        elif opt.format in ['a', 'asm']:
+            g_format = 'asm'
+        elif opt.format == 'c':
+            g_format = 'c'
+        elif opt.format in ['h', 'hex']:
+            g_format = 'hex'
+        else:
+            g_format = 'asm'
+
+    if opt.xor:
+        g_xorkey = int(opt.xor)
 
     if len(args) == 0:
         print "Please choice one of shellcodes to show you"

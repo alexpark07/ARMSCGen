@@ -53,9 +53,20 @@
 <span class="kn">import</span> <span class="nn">sh</span>
 
 <div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.arm64.html#shellcodes.arm64.dupsh.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">sock</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s">&#39;/bin/sh&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Duplicates sock to stdin, stdout and stderr and spawns a shell</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sock(int/str/reg): sock descriptor</span>
+
+<span class="sd">        cmd(str): executes a cmd (default: /bin/sh)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sc</span> <span class="o">=</span> <span class="n">dup</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
     <span class="n">sc</span> <span class="o">+=</span> <span class="n">sh</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">sc</span></div>
+    <span class="k">return</span> <span class="n">sc</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">generate</span><span class="p">()</span>
 </pre></div>
 
           </div>

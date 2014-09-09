@@ -97,6 +97,8 @@
 <span class="c">##########################################################</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">sh</span>   <span class="k">as</span> <span class="n">arm64_sh</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dup</span>  <span class="k">as</span> <span class="n">arm64_dup</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">cat</span>  <span class="k">as</span> <span class="n">arm64_cat</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="nb">exit</span> <span class="k">as</span> <span class="n">arm64_exit</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm64_dupsh</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">setreuid</span> <span class="k">as</span> <span class="n">arm64_setreuid</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">setregid</span> <span class="k">as</span> <span class="n">arm64_setregid</span>
@@ -104,6 +106,9 @@
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">open_file</span> <span class="k">as</span> <span class="n">arm64_open_file</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">connect</span>   <span class="k">as</span> <span class="n">arm64_connect</span>
 <span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">connectback</span> <span class="k">as</span> <span class="n">arm64_connectback</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">listen</span> <span class="k">as</span> <span class="n">arm64_listen</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">acceptloop</span> <span class="k">as</span> <span class="n">arm64_acceptloop</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">bindshell</span> <span class="k">as</span> <span class="n">arm64_bindshell</span>
 
 <div class="viewcode-block" id="thumbSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.thumbSCGen">[docs]</a><span class="k">class</span> <span class="nc">thumbSCGen</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Thumb Mode Shellcode Generator Class</span>
@@ -154,6 +159,8 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm64_sh</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm64_dup</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cat</span>        <span class="o">=</span> <span class="n">arm64_cat</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit</span>       <span class="o">=</span> <span class="n">arm64_exit</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm64_dupsh</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setreuid</span>   <span class="o">=</span> <span class="n">arm64_setreuid</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setregid</span>   <span class="o">=</span> <span class="n">arm64_setregid</span><span class="o">.</span><span class="n">generate</span>
@@ -161,6 +168,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">open_file</span>  <span class="o">=</span> <span class="n">arm64_open_file</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect</span>    <span class="o">=</span> <span class="n">arm64_connect</span><span class="o">.</span><span class="n">generate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connectback</span> <span class="o">=</span> <span class="n">arm64_connectback</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listen</span>      <span class="o">=</span> <span class="n">arm64_listen</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acceptloop</span>  <span class="o">=</span> <span class="n">arm64_acceptloop</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bindshell</span>   <span class="o">=</span> <span class="n">arm64_bindshell</span><span class="o">.</span><span class="n">generate</span>
         <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM64&#39;</span><span class="p">)</span>
 
 <span class="c"># Assembler </span></div>

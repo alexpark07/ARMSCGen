@@ -56,6 +56,56 @@
             
   <div class="section" id="arm64-package">
 <h1>arm64 Package<a class="headerlink" href="#arm64-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-shellcodes.arm64.acceptloop">
+<span id="acceptloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">acceptloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.acceptloop" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.arm64.acceptloop.generate">
+<tt class="descclassname">shellcodes.arm64.acceptloop.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/acceptloop.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.acceptloop.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>accept loop shellcode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>port(int/str): specific port</dd>
+<dt>Returns:</dt>
+<dd><tt class="docutils literal"><span class="pre">x6</span></tt> reg indicates socket descriptor will be mapped with dup()</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.arm64.bindshell">
+<span id="bindshell-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">bindshell</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.bindshell" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.arm64.bindshell.generate">
+<tt class="descclassname">shellcodes.arm64.bindshell.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em>, <em>sock=4</em>, <em>once=True</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/bindshell.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.bindshell.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>bind shell on specific port</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">port(int): specific port</p>
+<p>sock(int/str/reg): connection sock will be mapped with shell</p>
+<dl class="last docutils">
+<dt>once(boolean): binds on port infinity if true</dt>
+<dd>binds on port once if false</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.arm64.cat">
+<span id="cat-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cat</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.cat" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.arm64.cat.generate">
+<tt class="descclassname">shellcodes.arm64.cat.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>in_fd='auto'</em>, <em>out_fd='4'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/cat.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.cat.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>cat a file like UNIX Command</p>
+<dl class="docutils">
+<dt>Args: </dt>
+<dd><p class="first">filepath (str)  : target file name</p>
+<p>in_fd  (int/str): in  file descriptor (default: &#8216;x6&#8217; indicates a file descriptor)</p>
+<p class="last">out_fd (int/str): out file descriptor (default: 4)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-shellcodes.arm64.connect">
 <span id="connect-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connect</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.connect" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -124,7 +174,42 @@ sock (int/str): sock descriptor for dupsh()</dd>
 <dl class="function">
 <dt id="shellcodes.arm64.dupsh.generate">
 <tt class="descclassname">shellcodes.arm64.dupsh.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em>, <em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/dupsh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.dupsh.generate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Duplicates sock to stdin, stdout and stderr and spawns a shell</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sock(int/str/reg): sock descriptor</p>
+<p class="last">cmd(str): executes a cmd (default: /bin/sh)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.arm64.exit">
+<span id="exit-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">exit</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.exit" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.arm64.exit.generate">
+<tt class="descclassname">shellcodes.arm64.exit.</tt><tt class="descname">generate</tt><big>(</big><em>n=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/exit.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.exit.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>exit with return code</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>n(int/str/reg): return code</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.arm64.listen">
+<span id="listen-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">listen</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.listen" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.arm64.listen.generate">
+<tt class="descclassname">shellcodes.arm64.listen.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/listen.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.listen.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>listens on specific port</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>port(int): specific prot</dd>
+<dt>Returns:</dt>
+<dd><tt class="docutils literal"><span class="pre">x6</span></tt> reg indicates socket descriptor</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.open_file">
@@ -135,12 +220,9 @@ sock (int/str): sock descriptor for dupsh()</dd>
 <dd><p>open a file for reading/writing/sending to you</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><p class="first">filepath(str): filename to read with flags/mode
-flags(int/str): The argument flags must include one of the following access modes: <tt class="docutils literal"><span class="pre">O_RDONLY</span></tt>, <tt class="docutils literal"><span class="pre">O_WRONLY</span></tt>, or <tt class="docutils literal"><span class="pre">O_RDWR</span></tt></p>
-<blockquote>
-<div>These request opening the file read-only, write-only, or read/write, respectively.</div></blockquote>
-<p class="last">mode(int/str): modes</p>
-</dd>
+<dd>filepath(str): filename to read with flags/mode
+flags(int/str): The argument flags must include one of the following access modes: <tt class="docutils literal"><span class="pre">O_RDONLY</span></tt>, <tt class="docutils literal"><span class="pre">O_WRONLY</span></tt>, or <tt class="docutils literal"><span class="pre">O_RDWR</span></tt> . These request opening the file read-only, write-only, or read/write, respectively.
+mode(int/str): modes</dd>
 <dt>backup:</dt>
 <dd><tt class="docutils literal"><span class="pre">x6</span></tt>: opened file descriptor</dd>
 </dl>
@@ -211,10 +293,15 @@ out_fd (str/int): out file descriptor</dd>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">arm64 Package</a><ul>
+<li><a class="reference internal" href="#module-shellcodes.arm64.acceptloop"><tt class="docutils literal"><span class="pre">acceptloop</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.bindshell"><tt class="docutils literal"><span class="pre">bindshell</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.cat"><tt class="docutils literal"><span class="pre">cat</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.connect"><tt class="docutils literal"><span class="pre">connect</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.connectback"><tt class="docutils literal"><span class="pre">connectback</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.dup"><tt class="docutils literal"><span class="pre">dup</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.exit"><tt class="docutils literal"><span class="pre">exit</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.listen"><tt class="docutils literal"><span class="pre">listen</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.open_file"><tt class="docutils literal"><span class="pre">open_file</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.sendfile"><tt class="docutils literal"><span class="pre">sendfile</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-shellcodes.arm64.setregid"><tt class="docutils literal"><span class="pre">setregid</span></tt> Module</a></li>

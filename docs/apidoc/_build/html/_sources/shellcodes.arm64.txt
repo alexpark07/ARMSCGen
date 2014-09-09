@@ -1,6 +1,30 @@
 arm64 Package
 =============
 
+:mod:`acceptloop` Module
+------------------------
+
+.. automodule:: shellcodes.arm64.acceptloop
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`bindshell` Module
+-----------------------
+
+.. automodule:: shellcodes.arm64.bindshell
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`cat` Module
+-----------------
+
+.. automodule:: shellcodes.arm64.cat
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`connect` Module
 ---------------------
 
@@ -29,6 +53,22 @@ arm64 Package
 -------------------
 
 .. automodule:: shellcodes.arm64.dupsh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`exit` Module
+------------------
+
+.. automodule:: shellcodes.arm64.exit
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`listen` Module
+--------------------
+
+.. automodule:: shellcodes.arm64.listen
     :members:
     :undoc-members:
     :show-inheritance:

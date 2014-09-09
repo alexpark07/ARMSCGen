@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>shellcodes.thumb.cat &mdash; ARMSCGen  documentation</title>
+    <title>shellcodes.arm64.exit &mdash; ARMSCGen  documentation</title>
     
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -46,25 +46,34 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>Source code for shellcodes.thumb.cat</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">open_file</span>
-<span class="kn">import</span> <span class="nn">sendfile</span>
+  <h1>Source code for shellcodes.arm64.exit</h1><div class="highlight"><pre>
+<span class="c"># exit(n)</span>
 
-<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">in_fd</span><span class="o">=</span><span class="s">&#39;auto&#39;</span><span class="p">,</span> <span class="n">out_fd</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
-<div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.cat.generate">[docs]</a>    <span class="sd">&quot;&quot;&quot;cat a file like UNIX Command</span>
+<div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.arm64.html#shellcodes.arm64.exit.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;exit with return code</span>
 
-<span class="sd">    Args: </span>
-<span class="sd">        filepath (str)  : target file name</span>
-<span class="sd">        in_fd  (int/str): in  file descriptor (default: &#39;r6&#39; indicates a file descriptor)</span>
-<span class="sd">        out_fd (int/str): out file descriptor (default: 4)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        n(int/str/reg): return code</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">sc</span>  <span class="o">=</span> <span class="n">open_file</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">in_fd</span> <span class="o">==</span> <span class="s">&#39;auto&#39;</span><span class="p">:</span>
-        <span class="n">sc</span> <span class="o">+=</span> <span class="n">sendfile</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s">&#39;r6&#39;</span><span class="p">,</span> <span class="n">out_fd</span><span class="p">)</span>
+
+    <span class="n">sc</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;mov x0, </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;sub x0, x0, x0&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sc</span> <span class="o">+=</span> <span class="n">sendfile</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">in_fd</span><span class="p">,</span> <span class="n">out_fd</span><span class="p">)</span>
+        <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;mov x0, </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">n</span>
+
+    <span class="n">sc</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    mov x8, 1</span>
+<span class="s">    svc 1</span>
+<span class="s">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">sc</span>
-</pre></div></div>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">generate</span><span class="p">()</span>
+</pre></div>
 
           </div>
         </div>
