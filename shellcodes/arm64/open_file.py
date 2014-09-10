@@ -22,7 +22,6 @@ def generate(filepath='./secret', flags=00, mode=None):
     """
 
     if mode != None:
-        #sc = ARMSCGen.thumb_fixup('r2', int(mode))
         sc = "mov x3, %s" % (int(mode))
     else:
         sc = ''
@@ -30,12 +29,9 @@ def generate(filepath='./secret', flags=00, mode=None):
     if flags == 0:
         sc += "sub x2, x2, x2"
     else:
-        #sc = ARMSCGen.thumb_fixup('r1', int(flags))
-        sc = "mov x2, %s" % (int(mode))
+        sc = "mov x2, %s" % (int(flags))
 
     sc += """
-    #mov x1, pc
-    #add x1, #10
     adr x1, filename_1
     mov x0, %s
     mov x8, 56

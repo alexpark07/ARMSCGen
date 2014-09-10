@@ -2,10 +2,16 @@
 
 def align4(n):
     m = n / 4
+    x = n % 4
+    if x == 0:
+        return n
     return 4 * (m+1)
 
 def align8(n):
     m = n / 8
+    x = n % 8
+    if x == 0:
+        return n
     return 8 * (m+1)
 
 def generate(in_fd, size):
@@ -22,13 +28,14 @@ def generate(in_fd, size):
     else:
         xsize = size
 
+    #sub sp, sp, %s
     sc = """
-    sub sp, %s
     mov x0, %s
     mov x2, %s
     mov x1, sp
     mov x8, 63
     svc 1
-    """ % (xsize, in_fd, xsize)
+    """ % (in_fd, xsize)
+    #""" % (xsize, in_fd, xsize)
 
     return sc

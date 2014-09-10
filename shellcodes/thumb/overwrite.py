@@ -36,9 +36,11 @@ def generate(filepath, sock, isNewFile=False):
 
     >>> size = len(data)
     >>> mod  = size % MAXSIZE
-    >>> for i in range(0, mod):
+    >>> div  = size / MAXSIZE
+    >>> for i in range(0, div):
     >>>    f.write(data[i*128:(i+1)*MAXSIZE])
-    >>> f.write(data[mod*MAXSIZE:])
+    >>> if div:
+    >>>    f.write(data[div*MAXSIZE:])
     """
 
     if isNewFile:

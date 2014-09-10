@@ -64,8 +64,9 @@ from shellcodes.arm64 import infinityloop as arm64_infinityloop
 from shellcodes.arm64 import read_from_stack as arm64_read_from_stack
 from shellcodes.arm64 import getdents    as arm64_getdents
 from shellcodes.arm64 import ls          as arm64_ls
-from shellcodes.arm64 import appendwrite as arm64_appendwrite
+#from shellcodes.arm64 import appendwrite as arm64_appendwrite
 from shellcodes.arm64 import write_to_stack  as arm64_write_to_stack
+from shellcodes.arm64 import overwrite as arm64_overwrite
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class

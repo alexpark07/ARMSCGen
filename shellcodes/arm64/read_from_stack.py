@@ -14,5 +14,10 @@ def generate(out_fd, size):
     mov x1, sp
     mov x8, 64
     svc 1
-    """ % (size, out_fd)
+
+    /* fsync(...) */
+    mov x0, %s
+    mov x8, 82
+    svc 1
+    """ % (size, out_fd, out_fd)
     return sc
