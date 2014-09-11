@@ -65,6 +65,30 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`fsync` Module
+-------------------
+
+.. automodule:: shellcodes.arm64.fsync
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`getdents` Module
+----------------------
+
+.. automodule:: shellcodes.arm64.getdents
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`infinityloop` Module
+--------------------------
+
+.. automodule:: shellcodes.arm64.infinityloop
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`listen` Module
 --------------------
 
@@ -73,10 +97,34 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`ls` Module
+----------------
+
+.. automodule:: shellcodes.arm64.ls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`open_file` Module
 -----------------------
 
 .. automodule:: shellcodes.arm64.open_file
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`overwrite` Module
+-----------------------
+
+.. automodule:: shellcodes.arm64.overwrite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`read_from_stack` Module
+-----------------------------
+
+.. automodule:: shellcodes.arm64.read_from_stack
     :members:
     :undoc-members:
     :show-inheritance:
@@ -109,6 +157,14 @@ arm64 Package
 ----------------
 
 .. automodule:: shellcodes.arm64.sh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`write_to_stack` Module
+----------------------------
+
+.. automodule:: shellcodes.arm64.write_to_stack
     :members:
     :undoc-members:
     :show-inheritance:

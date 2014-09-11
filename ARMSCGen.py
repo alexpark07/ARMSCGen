@@ -5,7 +5,7 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
-__VERSION__ = '$0.0.10'
+__VERSION__ = '$0.0.12'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -64,9 +64,13 @@ from shellcodes.arm64 import infinityloop as arm64_infinityloop
 from shellcodes.arm64 import read_from_stack as arm64_read_from_stack
 from shellcodes.arm64 import getdents    as arm64_getdents
 from shellcodes.arm64 import ls          as arm64_ls
-#from shellcodes.arm64 import appendwrite as arm64_appendwrite
+from shellcodes.arm64 import appendwrite as arm64_appendwrite
 from shellcodes.arm64 import write_to_stack  as arm64_write_to_stack
 from shellcodes.arm64 import overwrite as arm64_overwrite
+from shellcodes.arm64 import fsync as arm64_fsync
+from shellcodes.arm64 import lseek as arm64_lseek
+from shellcodes.arm64 import findpeer as arm64_findpeer
+from shellcodes.arm64 import findpeersh as arm64_findpeersh
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -135,6 +139,11 @@ class arm64SCGen:
         self.ls          = arm64_ls.generate
         self.overwrite   = arm64_overwrite.generate
         self.write_to_stack  = arm64_write_to_stack.generate
+        self.appendwrite = arm64_appendwrite.generate
+        self.fsync = arm64_fsync.generate
+        self.lseek = arm64_lseek.generate
+        self.findpeer = arm64_findpeer.generate
+        self.findpeersh = arm64_findpeersh.generate
         prepareCompiler('ARM64')
 
 # Assembler 

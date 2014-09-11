@@ -3,21 +3,18 @@
 def generate(out_fd, size):
     """Writes a file from stack
     
-    argument: 
+    Args: 
         out_fd (int/str/reg) = file descriptor
+
         size   (int/str/reg) = size to read
     """
 
     sc = """
+    /* write(...) */
     mov x2, %s
     mov x0, %s
     mov x1, sp
     mov x8, 64
     svc 1
-
-    /* fsync(...) */
-    mov x0, %s
-    mov x8, 82
-    svc 1
-    """ % (size, out_fd, out_fd)
+    """ % (size, out_fd)
     return sc

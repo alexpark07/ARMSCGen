@@ -28,14 +28,13 @@ def generate(in_fd, size):
     else:
         xsize = size
 
-    #sub sp, sp, %s
     sc = """
+    sub sp, sp, %s
     mov x0, %s
     mov x2, %s
     mov x1, sp
     mov x8, 63
     svc 1
-    """ % (in_fd, xsize)
-    #""" % (xsize, in_fd, xsize)
+    """ % (xsize, in_fd, xsize)
 
     return sc

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -85,9 +87,11 @@
 
 <span class="sd">    &gt;&gt;&gt; size = len(data)</span>
 <span class="sd">    &gt;&gt;&gt; mod  = size % MAXSIZE</span>
-<span class="sd">    &gt;&gt;&gt; for i in range(0, mod):</span>
+<span class="sd">    &gt;&gt;&gt; div  = size / MAXSIZE</span>
+<span class="sd">    &gt;&gt;&gt; for i in range(0, div):</span>
 <span class="sd">    &gt;&gt;&gt;    f.write(data[i*128:(i+1)*MAXSIZE])</span>
-<span class="sd">    &gt;&gt;&gt; f.write(data[mod*MAXSIZE:])</span>
+<span class="sd">    &gt;&gt;&gt; if div:</span>
+<span class="sd">    &gt;&gt;&gt;    f.write(data[div*MAXSIZE:])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">isNewFile</span><span class="p">:</span>
@@ -148,7 +152,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, alex.park.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

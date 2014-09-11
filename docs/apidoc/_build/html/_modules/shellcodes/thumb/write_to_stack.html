@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -51,8 +53,8 @@
 
 
 <div class="viewcode-block" id="align4"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.write_to_stack.align4">[docs]</a><span class="k">def</span> <span class="nf">align4</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">4</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">4</span>
+    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.write_to_stack.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">in_fd</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes data to stack in thumb mode</span>
@@ -121,7 +123,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, alex.park.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
