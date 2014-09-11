@@ -49,29 +49,24 @@ def isScode(s, sname):
 
 def getShellcodeNames(scs, arch='all'):
     _scname = ''
+    xscname = {'thgen':'thumb', 'armgen':'arm', 'arm64gen':'arm64'}
 
     for i in range(0, len(scs)):
         scname = scs[i].keys()[0]
+        _scname = xscname[scname]
         if arch != 'all':
-            if scname ==   'thgen':
-                _scname =  'thumb'
-            elif scname == 'armgen':
-                _scname =  'arm'
-            elif scname == 'arm64gen':
-                _scname =  'arm64'
-            else:
-                _scname =  'thumb'
-
             if _scname != arch:
                 continue
                 
         sckeys = scs[i][scname].keys()
         sckeys.sort()
         print "=" * 40
-        print "architechture: %s - total(%02d)" % (_scname, len(sckeys))
+        print "### architechture: %s - total(%02d)" % (_scname, len(sckeys))
         print "=" * 40
         for sc in sckeys:
-            print sc
+            print "``" + sc + "``"
+
+        print ""
 
 def showShellcode(args):
     try:

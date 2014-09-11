@@ -26,16 +26,20 @@ URL: ``http://www.capstone-engine.org/``
 
 reads ``examples`` directory
 
+and
+
+uses ``scgen.py`` in CLI mode
+
+### List of Shellcodes 
+
+please refer to ``shellcodes_lists.md`` or ``scgen -l -a all``
+
 ### Documentation
 
 URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source
 
 ### TODO
 
-``AArch64`` shellcodes - writing some shellcodes day by day
-
 ``AArch32-ARM Mode`` shellcodes
-
-``Shellcode Generator`` in CLI mode
 
 (To be continued)
