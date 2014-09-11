@@ -9,6 +9,14 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`appendwrite` Module
+-------------------------
+
+.. automodule:: shellcodes.arm64.appendwrite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`bindshell` Module
 -----------------------
 
@@ -65,6 +73,22 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`findpeer` Module
+----------------------
+
+.. automodule:: shellcodes.arm64.findpeer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`findpeersh` Module
+------------------------
+
+.. automodule:: shellcodes.arm64.findpeersh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`fsync` Module
 -------------------
 
@@ -101,6 +125,14 @@ arm64 Package
 ----------------
 
 .. automodule:: shellcodes.arm64.ls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`lseek` Module
+-------------------
+
+.. automodule:: shellcodes.arm64.lseek
     :members:
     :undoc-members:
     :show-inheritance:
