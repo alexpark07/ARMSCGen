@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,12 +10,12 @@
     
     <title>ARMSCGen Module &mdash; ARMSCGen 0.0.11 documentation</title>
     
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '0.0.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -28,11 +30,6 @@
     <link rel="prev" title="Welcome to ARMSCGen’s documentation!" href="index.html" /> 
   </head>
   <body>
-
-<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<!-- <a href="index.html"><img src="_static/logo.png" border="0" alt="py4sci"/></a> //-->
-</div>
-
     <div class="related">
       <h3>Navigation</h3>
       <ul>
@@ -48,12 +45,275 @@
         <li class="right" >
           <a href="index.html" title="Welcome to ARMSCGen’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">home</a>|&nbsp;</li>
-        <li><a href="search.html">search</a>|&nbsp;</li>
- 
+        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
 
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-ARMSCGen">
+<span id="armscgen-module"></span><h1>ARMSCGen Module<a class="headerlink" href="#module-ARMSCGen" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="ARMSCGen.CompileSC">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">CompileSC</tt><big>(</big><em>source</em>, <em>isThumb=False</em>, <em>isNeedHead=True</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#CompileSC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.CompileSC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compiles shellcode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">source (str): shellcode in strings</p>
+<p>isThumb (boolean): Thumb or ARM Mode</p>
+<p class="last">isNeedHead (boolean): It shows up if true</p>
+</dd>
+<dt>Returns:</dt>
+<dd>compiled shellcode</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.MakeXorShellcode">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">MakeXorShellcode</tt><big>(</big><em>sc</em>, <em>isThumb=False</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#MakeXorShellcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.MakeXorShellcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make XOR Encoder with Shellcode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sc(str): shellcode</p>
+<p class="last">isThumb(boolean): ARM or Thumb Mode</p>
+</dd>
+<dt>Returns:</dt>
+<dd>shellcode in hex</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">MakeXorShellcode</span><span class="p">(</span><span class="n">bindshell</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.SYSERR">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">SYSERR</tt><big>(</big><em>m</em><big>)</big> &rarr; None<a class="reference internal" href="_modules/ARMSCGen.html#SYSERR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.SYSERR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print syserr(2) screen to debug</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>m(fmt): message will be printed on syserr screen</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.XOREncoder">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">XOREncoder</tt><big>(</big><em>scSize</em>, <em>xorkey</em>, <em>SC</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#XOREncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.XOREncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>XOR Encoder to avoid some bad codes like <tt class="docutils literal"><span class="pre">0x0a</span></tt>, <tt class="docutils literal"><span class="pre">0x00</span></tt> and so on</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">scSize(int): shellcode length</p>
+<p>xorkey(int): XOR key</p>
+<p class="last">SC(str): shellcode</p>
+</dd>
+<dt>Returns:</dt>
+<dd>XOR Encoder shellcode in string</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ARMSCGen.arm64SCGen">
+<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">arm64SCGen</tt><a class="reference internal" href="_modules/ARMSCGen.html#arm64SCGen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.arm64SCGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>ARM64 Mode Shellcode Generator Class</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ARMSCGen.armSCGen">
+<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">armSCGen</tt><a class="reference internal" href="_modules/ARMSCGen.html#armSCGen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.armSCGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>ARM Mode Shellcode Generator Class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.checkBadChar">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">checkBadChar</tt><big>(</big><em>sc, bc=[0, 10]</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#checkBadChar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.checkBadChar" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks bad chars in shellcode string</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sc(str): shellcode</p>
+<p class="last">bc(list): bad chars like <tt class="docutils literal"><span class="pre">0x00</span></tt>, <tt class="docutils literal"><span class="pre">0x0a</span></tt></p>
+</dd>
+<dt>Returns:</dt>
+<dd>list if bad chars exists</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.cleanup">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">cleanup</tt><big>(</big><em>fn</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>clean up compiled files</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>fn(list): files in list will be deleted</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.disasm">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">disasm</tt><big>(</big><em>code</em>, <em>arch='ARM'</em>, <em>mode='THUMB'</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#disasm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.disasm" title="Permalink to this definition">¶</a></dt>
+<dd><p>disassembles code in arch with mode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">code(str): assemble code</p>
+<p>arch(str): Architechture (so far ARM only)</p>
+<p class="last">mode(str): Mode (THUMB or ARM)</p>
+</dd>
+<dt>Returns:</dt>
+<dd>result in string</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rv</span> <span class="o">=</span> <span class="n">disasm</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;ARM&#39;</span><span class="p">,</span> <span class="s">&#39;THUMB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.encodeShellcode">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">encodeShellcode</tt><big>(</big><em>sc</em>, <em>key</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#encodeShellcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.encodeShellcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>encodes shellcode with key to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>sc(str): shellcode
+key(int/str): XOR key</dd>
+<dt>Returns:</dt>
+<dd>xoredSC(str): XORed Shellcode</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">encodeShellcode</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">))</span>
+<span class="go">&#39;à&quot;¢á/ë¢ã   í-`kl-qj&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.findXorKey">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">findXorKey</tt><big>(</big><em>sc, bc=['\x00', '\n']</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#findXorKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.findXorKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>find XOR key to scramble and to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sc(str): shellcode</p>
+<p class="last">bc(list): bad chars to avoid</p>
+</dd>
+<dt>Returns:</dt>
+<dd>key (int): XOR key</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.getdent_to_list">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">getdent_to_list</tt><big>(</big><em>rv</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#getdent_to_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.getdent_to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>parses getdent&#8217;s struct to human readable.</p>
+<dl class="docutils">
+<dt>Args: </dt>
+<dd>rv(str): getdent&#8217;s struct included file/directory name(s)</dd>
+<dt>Returns:</dt>
+<dd>fn(list): file/directory name(s)</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.prepareCompiler">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">prepareCompiler</tt><big>(</big><em>mode='THUMB'</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#prepareCompiler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.prepareCompiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>prepares some PATH to compile safely</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.printHex">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">printHex</tt><big>(</big><em>xhex</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#printHex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.printHex" title="Permalink to this definition">¶</a></dt>
+<dd><p>print hex code in human-readable</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>xhex(hex): hex code</dd>
+<dt>Returns:</dt>
+<dd>human-readable hex code like &#8216;x41&#8217;</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ARMSCGen.thumbSCGen">
+<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">thumbSCGen</tt><a class="reference internal" href="_modules/ARMSCGen.html#thumbSCGen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.thumbSCGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thumb Mode Shellcode Generator Class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.thumb_fixup">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">thumb_fixup</tt><big>(</big><em>reg</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#thumb_fixup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.thumb_fixup" title="Permalink to this definition">¶</a></dt>
+<dd><p>fixes up value for register</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">reg(str): register</p>
+<p class="last">value(int): real value</p>
+</dd>
+<dt>Retruns:</dt>
+<dd>fn(str): arranged value with register</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.u16">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">u16</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#u16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.u16" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(2-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 2-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>short value</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.u32">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#u32"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.u32" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(4-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 4-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>integer value</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.uu16">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">uu16</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#uu16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.uu16" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(2-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 2-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>unsigned short value</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ARMSCGen.uu32">
+<tt class="descclassname">ARMSCGen.</tt><tt class="descname">uu32</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/ARMSCGen.html#uu32"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ARMSCGen.uu32" title="Permalink to this definition">¶</a></dt>
+<dd><p>struct.unpack(4-bytes)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>u(str): 4-bytes packed data</dd>
+<dt>Returns:</dt>
+<dd>unsigned integer value</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
@@ -82,272 +342,6 @@
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
-  <div class="section" id="module-ARMSCGen">
-<span id="armscgen-module"></span><h1>ARMSCGen Module<a class="headerlink" href="#module-ARMSCGen" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="ARMSCGen.CompileSC">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">CompileSC</tt><big>(</big><em>source</em>, <em>isThumb=False</em>, <em>isNeedHead=True</em><big>)</big><a class="headerlink" href="#ARMSCGen.CompileSC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compiles shellcode</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">source (str): shellcode in strings</p>
-<p>isThumb (boolean): Thumb or ARM Mode</p>
-<p class="last">isNeedHead (boolean): It shows up if true</p>
-</dd>
-<dt>Returns:</dt>
-<dd>compiled shellcode</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.MakeXorShellcode">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">MakeXorShellcode</tt><big>(</big><em>sc</em>, <em>isThumb=False</em><big>)</big><a class="headerlink" href="#ARMSCGen.MakeXorShellcode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make XOR Encoder with Shellcode</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">sc(str): shellcode</p>
-<p class="last">isThumb(boolean): ARM or Thumb Mode</p>
-</dd>
-<dt>Returns:</dt>
-<dd>shellcode in hex</dd>
-<dt>Examples:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">MakeXorShellcode</span><span class="p">(</span><span class="n">bindshell</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.SYSERR">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">SYSERR</tt><big>(</big><em>m</em><big>)</big> &rarr; None<a class="headerlink" href="#ARMSCGen.SYSERR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print syserr(2) screen to debug</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>m(fmt): message will be printed on syserr screen</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.XOREncoder">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">XOREncoder</tt><big>(</big><em>scSize</em>, <em>xorkey</em>, <em>SC</em><big>)</big><a class="headerlink" href="#ARMSCGen.XOREncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>XOR Encoder to avoid some bad codes like <tt class="docutils literal"><span class="pre">0x0a</span></tt>, <tt class="docutils literal"><span class="pre">0x00</span></tt> and so on</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">scSize(int): shellcode length</p>
-<p>xorkey(int): XOR key</p>
-<p class="last">SC(str): shellcode</p>
-</dd>
-<dt>Returns:</dt>
-<dd>XOR Encoder shellcode in string</dd>
-</dl>
-</dd></dl>
-
-<dl class="class">
-<dt id="ARMSCGen.arm64SCGen">
-<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">arm64SCGen</tt><a class="headerlink" href="#ARMSCGen.arm64SCGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>ARM64 Mode Shellcode Generator Class</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="ARMSCGen.armSCGen">
-<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">armSCGen</tt><a class="headerlink" href="#ARMSCGen.armSCGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>ARM Mode Shellcode Generator Class</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.checkBadChar">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">checkBadChar</tt><big>(</big><em>sc, bc=[0, 10]</em><big>)</big><a class="headerlink" href="#ARMSCGen.checkBadChar" title="Permalink to this definition">¶</a></dt>
-<dd><p>checks bad chars in shellcode string</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">sc(str): shellcode</p>
-<p class="last">bc(list): bad chars like <tt class="docutils literal"><span class="pre">0x00</span></tt>, <tt class="docutils literal"><span class="pre">0x0a</span></tt></p>
-</dd>
-<dt>Returns:</dt>
-<dd>list if bad chars exists</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.cleanup">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">cleanup</tt><big>(</big><em>fn</em><big>)</big><a class="headerlink" href="#ARMSCGen.cleanup" title="Permalink to this definition">¶</a></dt>
-<dd><p>clean up compiled files</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>fn(list): files in list will be deleted</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.disasm">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">disasm</tt><big>(</big><em>code</em>, <em>arch='ARM'</em>, <em>mode='THUMB'</em><big>)</big><a class="headerlink" href="#ARMSCGen.disasm" title="Permalink to this definition">¶</a></dt>
-<dd><p>disassembles code in arch with mode</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">code(str): assemble code</p>
-<p>arch(str): Architechture (so far ARM only)</p>
-<p class="last">mode(str): Mode (THUMB or ARM)</p>
-</dd>
-<dt>Returns:</dt>
-<dd>result in string</dd>
-<dt>Examples:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rv</span> <span class="o">=</span> <span class="n">disasm</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;ARM&#39;</span><span class="p">,</span> <span class="s">&#39;THUMB&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.encodeShellcode">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">encodeShellcode</tt><big>(</big><em>sc</em>, <em>key</em><big>)</big><a class="headerlink" href="#ARMSCGen.encodeShellcode" title="Permalink to this definition">¶</a></dt>
-<dd><p>encodes shellcode with key to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>sc(str): shellcode
-key(int/str): XOR key</dd>
-<dt>Returns:</dt>
-<dd>xoredSC(str): XORed Shellcode</dd>
-<dt>Examples:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">encodeShellcode</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">))</span>
-<span class="go">&#39;à&quot;¢á/ë¢ã   í-`kl-qj&#39;</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.findXorKey">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">findXorKey</tt><big>(</big><em>sc, bc=['\x00', '\n']</em><big>)</big><a class="headerlink" href="#ARMSCGen.findXorKey" title="Permalink to this definition">¶</a></dt>
-<dd><p>find XOR key to scramble and to avoid all of bad chars such as <tt class="docutils literal"><span class="pre">0x00</span></tt></p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">sc(str): shellcode</p>
-<p class="last">bc(list): bad chars to avoid</p>
-</dd>
-<dt>Returns:</dt>
-<dd>key (int): XOR key</dd>
-<dt>Examples:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
-<span class="go">2</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.getdent_to_list">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">getdent_to_list</tt><big>(</big><em>rv</em><big>)</big><a class="headerlink" href="#ARMSCGen.getdent_to_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>parses getdent&#8217;s struct to human readable.</p>
-<dl class="docutils">
-<dt>Args: </dt>
-<dd>rv(str): getdent&#8217;s struct included file/directory name(s)</dd>
-<dt>Returns:</dt>
-<dd>fn(list): file/directory name(s)</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.prepareCompiler">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">prepareCompiler</tt><big>(</big><em>mode='THUMB'</em><big>)</big><a class="headerlink" href="#ARMSCGen.prepareCompiler" title="Permalink to this definition">¶</a></dt>
-<dd><p>prepares some PATH to compile safely</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.printHex">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">printHex</tt><big>(</big><em>xhex</em><big>)</big><a class="headerlink" href="#ARMSCGen.printHex" title="Permalink to this definition">¶</a></dt>
-<dd><p>print hex code in human-readable</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>xhex(hex): hex code</dd>
-<dt>Returns:</dt>
-<dd>human-readable hex code like &#8216;x41&#8217;</dd>
-</dl>
-</dd></dl>
-
-<dl class="class">
-<dt id="ARMSCGen.thumbSCGen">
-<em class="property">class </em><tt class="descclassname">ARMSCGen.</tt><tt class="descname">thumbSCGen</tt><a class="headerlink" href="#ARMSCGen.thumbSCGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Thumb Mode Shellcode Generator Class</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.thumb_fixup">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">thumb_fixup</tt><big>(</big><em>reg</em>, <em>value</em><big>)</big><a class="headerlink" href="#ARMSCGen.thumb_fixup" title="Permalink to this definition">¶</a></dt>
-<dd><p>fixes up value for register</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">reg(str): register</p>
-<p class="last">value(int): real value</p>
-</dd>
-<dt>Retruns:</dt>
-<dd>fn(str): arranged value with register</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.u16">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">u16</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.u16" title="Permalink to this definition">¶</a></dt>
-<dd><p>struct.unpack(2-bytes)</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>u(str): 2-bytes packed data</dd>
-<dt>Returns:</dt>
-<dd>short value</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.u32">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.u32" title="Permalink to this definition">¶</a></dt>
-<dd><p>struct.unpack(4-bytes)</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>u(str): 4-bytes packed data</dd>
-<dt>Returns:</dt>
-<dd>integer value</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.uu16">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">uu16</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.uu16" title="Permalink to this definition">¶</a></dt>
-<dd><p>struct.unpack(2-bytes)</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>u(str): 2-bytes packed data</dd>
-<dt>Returns:</dt>
-<dd>unsigned short value</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="ARMSCGen.uu32">
-<tt class="descclassname">ARMSCGen.</tt><tt class="descname">uu32</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#ARMSCGen.uu32" title="Permalink to this definition">¶</a></dt>
-<dd><p>struct.unpack(4-bytes)</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>u(str): 4-bytes packed data</dd>
-<dt>Returns:</dt>
-<dd>unsigned integer value</dd>
-</dl>
-</dd></dl>
-
-</div>
-
-
-          </div>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -365,14 +359,12 @@ key(int/str): XOR key</dd>
         <li class="right" >
           <a href="index.html" title="Welcome to ARMSCGen’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">home</a>|&nbsp;</li>
-        <li><a href="search.html">search</a>|&nbsp;</li>
- 
+        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2014, alex.park.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

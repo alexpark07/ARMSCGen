@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,12 +10,12 @@
     
     <title>thumb Package &mdash; ARMSCGen 0.0.11 documentation</title>
     
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '0.0.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -28,11 +30,6 @@
     <link rel="prev" title="arm64 Package" href="shellcodes.arm64.html" /> 
   </head>
   <body>
-
-<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<!-- <a href="index.html"><img src="_static/logo.png" border="0" alt="py4sci"/></a> //-->
-</div>
-
     <div class="related">
       <h3>Navigation</h3>
       <ul>
@@ -45,13 +42,422 @@
         <li class="right" >
           <a href="shellcodes.arm64.html" title="arm64 Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">home</a>|&nbsp;</li>
-        <li><a href="search.html">search</a>|&nbsp;</li>
-
+        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li>
           <li><a href="shellcodes.html" accesskey="U">shellcodes Package</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
 
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="thumb-package">
+<h1>thumb Package<a class="headerlink" href="#thumb-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-shellcodes.thumb.acceptloop">
+<span id="acceptloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">acceptloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.acceptloop" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.acceptloop.generate">
+<tt class="descclassname">shellcodes.thumb.acceptloop.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/acceptloop.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.acceptloop.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>accept loop shellcode in Thumb Mode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>port(int/str): specific port</dd>
+<dt>Returns:</dt>
+<dd><tt class="docutils literal"><span class="pre">r6</span></tt> reg indicates socket descriptor will be mapped with dup()</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.appendwrite">
+<span id="appendwrite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">appendwrite</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.appendwrite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.appendwrite.generate">
+<tt class="descclassname">shellcodes.thumb.appendwrite.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>sock</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/appendwrite.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.appendwrite.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>write with append option a file with user&#8217;s data</p>
+<dl class="docutils">
+<dt>argument:</dt>
+<dd><p class="first">filepath(str)    : file name to open</p>
+<p class="last">sock(int/str/reg): read a sock to write data</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.bindshell">
+<span id="bindshell-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">bindshell</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.bindshell" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.bindshell.generate">
+<tt class="descclassname">shellcodes.thumb.bindshell.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em>, <em>sock=4</em>, <em>once=True</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/bindshell.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.bindshell.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>bind shell on specific port in Thumb Mode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">port(int): specific port</p>
+<p>sock(int/str/reg): connection sock will be mapped with shell</p>
+<dl class="last docutils">
+<dt>once(boolean): binds on port infinity if true</dt>
+<dd>binds on port once if false</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.cat">
+<span id="cat-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cat</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.cat" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.cat.generate">
+<tt class="descclassname">shellcodes.thumb.cat.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>in_fd='auto'</em>, <em>out_fd=4</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/cat.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.cat.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>cat a file like UNIX Command</p>
+<dl class="docutils">
+<dt>Args: </dt>
+<dd>filepath (str)  : target file name
+in_fd  (int/str): in  file descriptor (default: &#8216;r6&#8217; indicates a file descriptor)
+out_fd (int/str): out file descriptor (default: 4)</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.chmod">
+<span id="chmod-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">chmod</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.chmod" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.chmod.generate">
+<tt class="descclassname">shellcodes.thumb.chmod.</tt><tt class="descname">generate</tt><big>(</big><em>fname='/etc/passwd'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/chmod.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.chmod.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">chmod</span></tt> like a UNIX command with mask <tt class="docutils literal"><span class="pre">0777</span></tt></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>fname(str): file name</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.connect">
+<span id="connect-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connect</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.connect" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.connect.binary_ip">
+<tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">binary_ip</tt><big>(</big><em>host</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connect.html#binary_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connect.binary_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="shellcodes.thumb.connect.generate">
+<tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">generate</tt><big>(</big><em>host='127.0.0.1'</em>, <em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connect.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connect.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to remote machine on specific port</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">host(str): hostname or IP address</p>
+<p class="last">port(int/str): specific port</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="shellcodes.thumb.connect.u32">
+<tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connect.html#u32"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connect.u32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.connectback">
+<span id="connectback-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connectback</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.connectback" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.connectback.binary_ip">
+<tt class="descclassname">shellcodes.thumb.connectback.</tt><tt class="descname">binary_ip</tt><big>(</big><em>host</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connectback.html#binary_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connectback.binary_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="shellcodes.thumb.connectback.generate">
+<tt class="descclassname">shellcodes.thumb.connectback.</tt><tt class="descname">generate</tt><big>(</big><em>host='127.0.0.1'</em>, <em>port=31337</em>, <em>sock='r6'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connectback.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connectback.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>connection back to attacker with pwn shell on specific port in Thumb Mode</p>
+<dl class="docutils">
+<dt>argument:</dt>
+<dd>host (str)    : specific IP address or hostname
+port (int/str): specific port
+sock (int/str): sock descriptor for dupsh()</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="shellcodes.thumb.connectback.u32">
+<tt class="descclassname">shellcodes.thumb.connectback.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/connectback.html#u32"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.connectback.u32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.dup">
+<span id="dup-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dup</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.dup" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.dup.generate">
+<tt class="descclassname">shellcodes.thumb.dup.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/dup.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.dup.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicates sock to stdin, stdout and stderr</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>sock(int/str/reg): sock descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.dupsh">
+<span id="dupsh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dupsh</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.dupsh" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.dupsh.generate">
+<tt class="descclassname">shellcodes.thumb.dupsh.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em>, <em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/dupsh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.dupsh.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicates sock to stdin, stdout and stderr and spawns a shell</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">sock(int/str/reg): sock descriptor</p>
+<p class="last">cmd(str): executes a cmd (default: /bin/sh)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.exit">
+<span id="exit-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">exit</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.exit" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.exit.generate">
+<tt class="descclassname">shellcodes.thumb.exit.</tt><tt class="descname">generate</tt><big>(</big><em>n=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/exit.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.exit.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.findpeer">
+<span id="findpeer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeer</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.findpeer" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.findpeer.generate">
+<tt class="descclassname">shellcodes.thumb.findpeer.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/findpeer.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.findpeer.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>find a socket, which is connected to the specified port in thumb mode
+Leaves socket in r0 reg.</p>
+<dl class="docutils">
+<dt>argument:</dt>
+<dd>port (int/str): specific port</dd>
+<dt>backup:</dt>
+<dd>r6: indicates found socket/file descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.findpeersh">
+<span id="findpeersh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeersh</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.findpeersh" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.findpeersh.generate">
+<tt class="descclassname">shellcodes.thumb.findpeersh.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/findpeersh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.findpeersh.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>find a socket, which is connected to the specified port in thumb mode
+Leaves socket in r6 reg.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.getdents">
+<span id="getdents-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">getdents</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.getdents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.getdents.generate">
+<tt class="descclassname">shellcodes.thumb.getdents.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/getdents.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.getdents.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>getdents - lists specific directory in thumb mode</p>
+<dl class="docutils">
+<dt>argument: </dt>
+<dd>in_fd - (int/str/reg): in file descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.infinityloop">
+<span id="infinityloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">infinityloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.infinityloop" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.infinityloop.generate">
+<tt class="descclassname">shellcodes.thumb.infinityloop.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/infinityloop.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.infinityloop.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loop infinity to check whether <tt class="docutils literal"><span class="pre">pwned</span></tt> or <tt class="docutils literal"><span class="pre">not</span></tt></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.listen">
+<span id="listen-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">listen</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.listen" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.listen.generate">
+<tt class="descclassname">shellcodes.thumb.listen.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/listen.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.listen.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>listens on specific port</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>port(int): specific prot</dd>
+<dt>Returns:</dt>
+<dd><tt class="docutils literal"><span class="pre">r6</span></tt> reg indicates socket descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.ls">
+<span id="ls-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ls</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.ls" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.ls.generate">
+<tt class="descclassname">shellcodes.thumb.ls.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>out_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/ls.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.ls.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>ls</cite> a directory list like UNIX Command in thumb mode</p>
+<dl class="docutils">
+<dt>arguments: </dt>
+<dd>filepath (str)  : target directory name
+out_fd (int/str): out file descriptor</dd>
+<dt>backup:</dt>
+<dd>r6 reg indicates to file descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.open_file">
+<span id="open-file-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">open_file</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.open_file" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.open_file.generate">
+<tt class="descclassname">shellcodes.thumb.open_file.</tt><tt class="descname">generate</tt><big>(</big><em>filepath='./secret'</em>, <em>flags=0</em>, <em>mode=None</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/open_file.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.open_file.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>open a file for reading/writing/sending to you in thumb mode</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">filepath(str): filename to read with flags/mode
+flags(int/str): The argument flags must include one of the following access modes: <tt class="docutils literal"><span class="pre">O_RDONLY</span></tt>, <tt class="docutils literal"><span class="pre">O_WRONLY</span></tt>, or <tt class="docutils literal"><span class="pre">O_RDWR</span></tt></p>
+<blockquote>
+<div>These request opening the file read-only, write-only, or read/write, respectively.</div></blockquote>
+<p class="last">mode(int/str): modes</p>
+</dd>
+<dt>backup:</dt>
+<dd><tt class="docutils literal"><span class="pre">r6</span></tt>: opened file descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.overwrite">
+<span id="overwrite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">overwrite</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.overwrite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.overwrite.generate">
+<tt class="descclassname">shellcodes.thumb.overwrite.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>sock</em>, <em>isNewFile=False</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/overwrite.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.overwrite.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>overwrites a file with user&#8217;s data</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>argument:</dt>
+<dd>filepath (str)    : file name to open
+sock (int/str/reg): read a sock to write data</dd>
+<dt>Examples:</dt>
+<dd>sending a big file to remote to write</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">HOST</span> <span class="o">=</span> <span class="s">&#39;hostname&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PORT</span> <span class="o">=</span> <span class="mi">31337</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MAXSIZE</span> <span class="o">=</span> <span class="mi">128</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span>  <span class="o">=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="s">&#39;./binary&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">+=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xsc</span> <span class="o">=</span> <span class="n">CompileSC</span><span class="p">(</span> <span class="p">(</span><span class="n">sc</span><span class="p">),</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span> <span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&#39;rw&#39;</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xsc</span> <span class="o">+</span> <span class="s">&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>&#8216;)</dt>
+<dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/path/to/binary&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="n">MAXSIZE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">div</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="n">MAXSIZE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">div</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">128</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">div</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">div</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">:])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.read_from_stack">
+<span id="read-from-stack-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">read_from_stack</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.read_from_stack" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.read_from_stack.generate">
+<tt class="descclassname">shellcodes.thumb.read_from_stack.</tt><tt class="descname">generate</tt><big>(</big><em>out_fd</em>, <em>size</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/read_from_stack.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.read_from_stack.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a file from stack in thumb mode</p>
+<dl class="docutils">
+<dt>argument: </dt>
+<dd>out_fd (int/str/reg) = file descriptor
+size   (int/str/reg) = size to read</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.sendfile">
+<span id="sendfile-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sendfile</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.sendfile" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.sendfile.generate">
+<tt class="descclassname">shellcodes.thumb.sendfile.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em>, <em>out_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/sendfile.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.sendfile.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>sends a file to user in thumb mode</p>
+<dl class="docutils">
+<dt>Args: </dt>
+<dd>in_fd  (str/int): in file descriptor
+out_fd (str/int): out file descriptor</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.setregid">
+<span id="setregid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setregid</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.setregid" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.setregid.generate">
+<tt class="descclassname">shellcodes.thumb.setregid.</tt><tt class="descname">generate</tt><big>(</big><em>gid=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/setregid.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.setregid.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>setregid(gid, gid) to get egid&#8217;s privilige</p>
+<dl class="docutils">
+<dt>argument:</dt>
+<dd>gid (int/str/reg) - effective gid number</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.setreuid">
+<span id="setreuid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setreuid</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.setreuid" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.setreuid.generate">
+<tt class="descclassname">shellcodes.thumb.setreuid.</tt><tt class="descname">generate</tt><big>(</big><em>uid=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/setreuid.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.setreuid.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>setreuid(uid, uid) to get euid&#8217;s privilige</p>
+<dl class="docutils">
+<dt>argument:</dt>
+<dd>uid (int/str/reg) - effective uid number</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.sh">
+<span id="sh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sh</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.sh" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.sh.generate">
+<tt class="descclassname">shellcodes.thumb.sh.</tt><tt class="descname">generate</tt><big>(</big><em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/sh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.sh.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes cmd</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>cmd(str): executes cmd (default: <tt class="docutils literal"><span class="pre">/bin/sh</span></tt>)</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-shellcodes.thumb.write_to_stack">
+<span id="write-to-stack-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">write_to_stack</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.write_to_stack" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="shellcodes.thumb.write_to_stack.align4">
+<tt class="descclassname">shellcodes.thumb.write_to_stack.</tt><tt class="descname">align4</tt><big>(</big><em>n</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/write_to_stack.html#align4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.write_to_stack.align4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="shellcodes.thumb.write_to_stack.generate">
+<tt class="descclassname">shellcodes.thumb.write_to_stack.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em>, <em>size</em><big>)</big><a class="reference internal" href="_modules/shellcodes/thumb/write_to_stack.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.thumb.write_to_stack.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes data to stack in thumb mode</p>
+<dl class="docutils">
+<dt>Args: </dt>
+<dd>in_fd (int/str/reg) = file descriptor
+size  (int/str/reg) = size to write</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
@@ -108,418 +514,6 @@
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
-  <div class="section" id="thumb-package">
-<h1>thumb Package<a class="headerlink" href="#thumb-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-shellcodes.thumb.acceptloop">
-<span id="acceptloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">acceptloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.acceptloop" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.acceptloop.generate">
-<tt class="descclassname">shellcodes.thumb.acceptloop.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.acceptloop.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>accept loop shellcode in Thumb Mode</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>port(int/str): specific port</dd>
-<dt>Returns:</dt>
-<dd><tt class="docutils literal"><span class="pre">r6</span></tt> reg indicates socket descriptor will be mapped with dup()</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.appendwrite">
-<span id="appendwrite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">appendwrite</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.appendwrite" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.appendwrite.generate">
-<tt class="descclassname">shellcodes.thumb.appendwrite.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>sock</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.appendwrite.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>write with append option a file with user&#8217;s data</p>
-<dl class="docutils">
-<dt>argument:</dt>
-<dd><p class="first">filepath(str)    : file name to open</p>
-<p class="last">sock(int/str/reg): read a sock to write data</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.bindshell">
-<span id="bindshell-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">bindshell</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.bindshell" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.bindshell.generate">
-<tt class="descclassname">shellcodes.thumb.bindshell.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em>, <em>sock=4</em>, <em>once=True</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.bindshell.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>bind shell on specific port in Thumb Mode</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">port(int): specific port</p>
-<p>sock(int/str/reg): connection sock will be mapped with shell</p>
-<dl class="last docutils">
-<dt>once(boolean): binds on port infinity if true</dt>
-<dd>binds on port once if false</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.cat">
-<span id="cat-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cat</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.cat" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.cat.generate">
-<tt class="descclassname">shellcodes.thumb.cat.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>in_fd='auto'</em>, <em>out_fd=4</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.cat.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>cat a file like UNIX Command</p>
-<dl class="docutils">
-<dt>Args: </dt>
-<dd>filepath (str)  : target file name
-in_fd  (int/str): in  file descriptor (default: &#8216;r6&#8217; indicates a file descriptor)
-out_fd (int/str): out file descriptor (default: 4)</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.chmod">
-<span id="chmod-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">chmod</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.chmod" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.chmod.generate">
-<tt class="descclassname">shellcodes.thumb.chmod.</tt><tt class="descname">generate</tt><big>(</big><em>fname='/etc/passwd'</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.chmod.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="docutils literal"><span class="pre">chmod</span></tt> like a UNIX command with mask <tt class="docutils literal"><span class="pre">0777</span></tt></p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>fname(str): file name</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.connect">
-<span id="connect-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connect</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.connect" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.connect.binary_ip">
-<tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">binary_ip</tt><big>(</big><em>host</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.connect.binary_ip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="shellcodes.thumb.connect.generate">
-<tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">generate</tt><big>(</big><em>host='127.0.0.1'</em>, <em>port=31337</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.connect.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects to remote machine on specific port</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">host(str): hostname or IP address</p>
-<p class="last">port(int/str): specific port</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="shellcodes.thumb.connect.u32">
-<tt class="descclassname">shellcodes.thumb.connect.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.connect.u32" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.connectback">
-<span id="connectback-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connectback</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.connectback" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.connectback.binary_ip">
-<tt class="descclassname">shellcodes.thumb.connectback.</tt><tt class="descname">binary_ip</tt><big>(</big><em>host</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.connectback.binary_ip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="shellcodes.thumb.connectback.generate">
-<tt class="descclassname">shellcodes.thumb.connectback.</tt><tt class="descname">generate</tt><big>(</big><em>host='127.0.0.1'</em>, <em>port=31337</em>, <em>sock='r6'</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.connectback.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>connection back to attacker with pwn shell on specific port in Thumb Mode</p>
-<dl class="docutils">
-<dt>argument:</dt>
-<dd>host (str)    : specific IP address or hostname
-port (int/str): specific port
-sock (int/str): sock descriptor for dupsh()</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="shellcodes.thumb.connectback.u32">
-<tt class="descclassname">shellcodes.thumb.connectback.</tt><tt class="descname">u32</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.connectback.u32" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.dup">
-<span id="dup-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dup</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.dup" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.dup.generate">
-<tt class="descclassname">shellcodes.thumb.dup.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.dup.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Duplicates sock to stdin, stdout and stderr</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>sock(int/str/reg): sock descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.dupsh">
-<span id="dupsh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dupsh</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.dupsh" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.dupsh.generate">
-<tt class="descclassname">shellcodes.thumb.dupsh.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em>, <em>cmd='/bin/sh'</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.dupsh.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Duplicates sock to stdin, stdout and stderr and spawns a shell</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">sock(int/str/reg): sock descriptor</p>
-<p class="last">cmd(str): executes a cmd (default: /bin/sh)</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.exit">
-<span id="exit-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">exit</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.exit" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.exit.generate">
-<tt class="descclassname">shellcodes.thumb.exit.</tt><tt class="descname">generate</tt><big>(</big><em>n=0</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.exit.generate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.findpeer">
-<span id="findpeer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeer</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.findpeer" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.findpeer.generate">
-<tt class="descclassname">shellcodes.thumb.findpeer.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="headerlink" href="#shellcodes.thumb.findpeer.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>find a socket, which is connected to the specified port in thumb mode
-Leaves socket in r0 reg.</p>
-<dl class="docutils">
-<dt>argument:</dt>
-<dd>port (int/str): specific port</dd>
-<dt>backup:</dt>
-<dd>r6: indicates found socket/file descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.findpeersh">
-<span id="findpeersh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeersh</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.findpeersh" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.findpeersh.generate">
-<tt class="descclassname">shellcodes.thumb.findpeersh.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="headerlink" href="#shellcodes.thumb.findpeersh.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>find a socket, which is connected to the specified port in thumb mode
-Leaves socket in r6 reg.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.getdents">
-<span id="getdents-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">getdents</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.getdents" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.getdents.generate">
-<tt class="descclassname">shellcodes.thumb.getdents.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.getdents.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>getdents - lists specific directory in thumb mode</p>
-<dl class="docutils">
-<dt>argument: </dt>
-<dd>in_fd - (int/str/reg): in file descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.infinityloop">
-<span id="infinityloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">infinityloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.infinityloop" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.infinityloop.generate">
-<tt class="descclassname">shellcodes.thumb.infinityloop.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="headerlink" href="#shellcodes.thumb.infinityloop.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loop infinity to check whether <tt class="docutils literal"><span class="pre">pwned</span></tt> or <tt class="docutils literal"><span class="pre">not</span></tt></p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.listen">
-<span id="listen-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">listen</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.listen" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.listen.generate">
-<tt class="descclassname">shellcodes.thumb.listen.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.listen.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>listens on specific port</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>port(int): specific prot</dd>
-<dt>Returns:</dt>
-<dd><tt class="docutils literal"><span class="pre">r6</span></tt> reg indicates socket descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.ls">
-<span id="ls-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ls</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.ls" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.ls.generate">
-<tt class="descclassname">shellcodes.thumb.ls.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>out_fd</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.ls.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>ls</cite> a directory list like UNIX Command in thumb mode</p>
-<dl class="docutils">
-<dt>arguments: </dt>
-<dd>filepath (str)  : target directory name
-out_fd (int/str): out file descriptor</dd>
-<dt>backup:</dt>
-<dd>r6 reg indicates to file descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.open_file">
-<span id="open-file-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">open_file</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.open_file" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.open_file.generate">
-<tt class="descclassname">shellcodes.thumb.open_file.</tt><tt class="descname">generate</tt><big>(</big><em>filepath='./secret'</em>, <em>flags=0</em>, <em>mode=None</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.open_file.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>open a file for reading/writing/sending to you in thumb mode</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">filepath(str): filename to read with flags/mode
-flags(int/str): The argument flags must include one of the following access modes: <tt class="docutils literal"><span class="pre">O_RDONLY</span></tt>, <tt class="docutils literal"><span class="pre">O_WRONLY</span></tt>, or <tt class="docutils literal"><span class="pre">O_RDWR</span></tt></p>
-<blockquote>
-<div>These request opening the file read-only, write-only, or read/write, respectively.</div></blockquote>
-<p class="last">mode(int/str): modes</p>
-</dd>
-<dt>backup:</dt>
-<dd><tt class="docutils literal"><span class="pre">r6</span></tt>: opened file descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.overwrite">
-<span id="overwrite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">overwrite</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.overwrite" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.overwrite.generate">
-<tt class="descclassname">shellcodes.thumb.overwrite.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>sock</em>, <em>isNewFile=False</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.overwrite.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>overwrites a file with user&#8217;s data</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>argument:</dt>
-<dd>filepath (str)    : file name to open
-sock (int/str/reg): read a sock to write data</dd>
-<dt>Examples:</dt>
-<dd>sending a big file to remote to write</dd>
-</dl>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">HOST</span> <span class="o">=</span> <span class="s">&#39;hostname&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">PORT</span> <span class="o">=</span> <span class="mi">31337</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">MAXSIZE</span> <span class="o">=</span> <span class="mi">128</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span>  <span class="o">=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="s">&#39;./binary&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">+=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">xsc</span> <span class="o">=</span> <span class="n">CompileSC</span><span class="p">(</span> <span class="p">(</span><span class="n">sc</span><span class="p">),</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span> <span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span> <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&#39;rw&#39;</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xsc</span> <span class="o">+</span> <span class="s">&#39;</span>
-</pre></div>
-</div>
-</div></blockquote>
-<dl class="docutils">
-<dt>&#8216;)</dt>
-<dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/path/to/binary&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="n">MAXSIZE</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">div</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="n">MAXSIZE</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">div</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">128</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">div</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">div</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">:])</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.read_from_stack">
-<span id="read-from-stack-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">read_from_stack</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.read_from_stack" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.read_from_stack.generate">
-<tt class="descclassname">shellcodes.thumb.read_from_stack.</tt><tt class="descname">generate</tt><big>(</big><em>out_fd</em>, <em>size</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.read_from_stack.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes a file from stack in thumb mode</p>
-<dl class="docutils">
-<dt>argument: </dt>
-<dd>out_fd (int/str/reg) = file descriptor
-size   (int/str/reg) = size to read</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.sendfile">
-<span id="sendfile-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sendfile</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.sendfile" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.sendfile.generate">
-<tt class="descclassname">shellcodes.thumb.sendfile.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em>, <em>out_fd</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.sendfile.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>sends a file to user in thumb mode</p>
-<dl class="docutils">
-<dt>Args: </dt>
-<dd>in_fd  (str/int): in file descriptor
-out_fd (str/int): out file descriptor</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.setregid">
-<span id="setregid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setregid</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.setregid" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.setregid.generate">
-<tt class="descclassname">shellcodes.thumb.setregid.</tt><tt class="descname">generate</tt><big>(</big><em>gid=0</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.setregid.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>setregid(gid, gid) to get egid&#8217;s privilige</p>
-<dl class="docutils">
-<dt>argument:</dt>
-<dd>gid (int/str/reg) - effective gid number</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.setreuid">
-<span id="setreuid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setreuid</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.setreuid" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.setreuid.generate">
-<tt class="descclassname">shellcodes.thumb.setreuid.</tt><tt class="descname">generate</tt><big>(</big><em>uid=0</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.setreuid.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>setreuid(uid, uid) to get euid&#8217;s privilige</p>
-<dl class="docutils">
-<dt>argument:</dt>
-<dd>uid (int/str/reg) - effective uid number</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.sh">
-<span id="sh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sh</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.sh" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.sh.generate">
-<tt class="descclassname">shellcodes.thumb.sh.</tt><tt class="descname">generate</tt><big>(</big><em>cmd='/bin/sh'</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.sh.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes cmd</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>cmd(str): executes cmd (default: <tt class="docutils literal"><span class="pre">/bin/sh</span></tt>)</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-shellcodes.thumb.write_to_stack">
-<span id="write-to-stack-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">write_to_stack</span></tt> Module<a class="headerlink" href="#module-shellcodes.thumb.write_to_stack" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="shellcodes.thumb.write_to_stack.align4">
-<tt class="descclassname">shellcodes.thumb.write_to_stack.</tt><tt class="descname">align4</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.write_to_stack.align4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="shellcodes.thumb.write_to_stack.generate">
-<tt class="descclassname">shellcodes.thumb.write_to_stack.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em>, <em>size</em><big>)</big><a class="headerlink" href="#shellcodes.thumb.write_to_stack.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes data to stack in thumb mode</p>
-<dl class="docutils">
-<dt>Args: </dt>
-<dd>in_fd (int/str/reg) = file descriptor
-size  (int/str/reg) = size to write</dd>
-</dl>
-</dd></dl>
-
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -534,15 +528,13 @@ size  (int/str/reg) = size to write</dd>
         <li class="right" >
           <a href="shellcodes.arm64.html" title="arm64 Package"
              >previous</a> |</li>
-        <li><a href="index.html">home</a>|&nbsp;</li>
-        <li><a href="search.html">search</a>|&nbsp;</li>
-
+        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li>
           <li><a href="shellcodes.html" >shellcodes Package</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2014, alex.park.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
