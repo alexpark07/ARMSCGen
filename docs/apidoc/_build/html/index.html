@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to ARMSCGen’s documentation! &mdash; ARMSCGen 0.0.11 documentation</title>
+    <title>Welcome to ARMSCGen’s documentation! &mdash; ARMSCGen $0.0.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.11',
+        VERSION:     '$0.0.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ARMSCGen 0.0.11 documentation" href="#" />
-    <link rel="next" title="ARMSCGen Module" href="ARMSCGen.html" /> 
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="#" />
+    <link rel="next" title="Introduction to ARMSCGen" href="intro.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +39,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ARMSCGen.html" title="ARMSCGen Module"
+          <a href="intro.html" title="Introduction to ARMSCGen"
              accesskey="N">next</a> |</li>
-        <li><a href="#">ARMSCGen 0.0.11 documentation</a> &raquo;</li> 
+        <li><a href="#">ARMSCGen $0.0.12 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,75 +55,26 @@
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ARMSCGen.html">ARMSCGen Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scgen.html">scgen Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcodes.html">shellcodes Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="shellcodes.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="shellcodes.arm.html">arm Package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm.html#module-shellcodes.arm.dup"><tt class="docutils literal"><span class="pre">dup</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm.html#module-shellcodes.arm.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm.html#module-shellcodes.arm.sh"><tt class="docutils literal"><span class="pre">sh</span></tt> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to ARMSCGen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#requirement">Requirement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#list-of-shellcodes">List of Shellcodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#todo">TODO</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="shellcodes.arm64.html">arm64 Package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.acceptloop"><tt class="docutils literal"><span class="pre">acceptloop</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.appendwrite"><tt class="docutils literal"><span class="pre">appendwrite</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.bindshell"><tt class="docutils literal"><span class="pre">bindshell</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.cat"><tt class="docutils literal"><span class="pre">cat</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.connect"><tt class="docutils literal"><span class="pre">connect</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.connectback"><tt class="docutils literal"><span class="pre">connectback</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.dup"><tt class="docutils literal"><span class="pre">dup</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.exit"><tt class="docutils literal"><span class="pre">exit</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.findpeer"><tt class="docutils literal"><span class="pre">findpeer</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.findpeersh"><tt class="docutils literal"><span class="pre">findpeersh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.fsync"><tt class="docutils literal"><span class="pre">fsync</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.getdents"><tt class="docutils literal"><span class="pre">getdents</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.infinityloop"><tt class="docutils literal"><span class="pre">infinityloop</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.listen"><tt class="docutils literal"><span class="pre">listen</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.ls"><tt class="docutils literal"><span class="pre">ls</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.lseek"><tt class="docutils literal"><span class="pre">lseek</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.open_file"><tt class="docutils literal"><span class="pre">open_file</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.overwrite"><tt class="docutils literal"><span class="pre">overwrite</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.read_from_stack"><tt class="docutils literal"><span class="pre">read_from_stack</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.sendfile"><tt class="docutils literal"><span class="pre">sendfile</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.setregid"><tt class="docutils literal"><span class="pre">setregid</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.setreuid"><tt class="docutils literal"><span class="pre">setreuid</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.sh"><tt class="docutils literal"><span class="pre">sh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.arm64.html#module-shellcodes.arm64.write_to_stack"><tt class="docutils literal"><span class="pre">write_to_stack</span></tt> Module</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="shellcodes.thumb.html">thumb Package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.acceptloop"><tt class="docutils literal"><span class="pre">acceptloop</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.appendwrite"><tt class="docutils literal"><span class="pre">appendwrite</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.bindshell"><tt class="docutils literal"><span class="pre">bindshell</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.cat"><tt class="docutils literal"><span class="pre">cat</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.chmod"><tt class="docutils literal"><span class="pre">chmod</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.connect"><tt class="docutils literal"><span class="pre">connect</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.connectback"><tt class="docutils literal"><span class="pre">connectback</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.dup"><tt class="docutils literal"><span class="pre">dup</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.exit"><tt class="docutils literal"><span class="pre">exit</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.findpeer"><tt class="docutils literal"><span class="pre">findpeer</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.findpeersh"><tt class="docutils literal"><span class="pre">findpeersh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.getdents"><tt class="docutils literal"><span class="pre">getdents</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.infinityloop"><tt class="docutils literal"><span class="pre">infinityloop</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.listen"><tt class="docutils literal"><span class="pre">listen</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.ls"><tt class="docutils literal"><span class="pre">ls</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.open_file"><tt class="docutils literal"><span class="pre">open_file</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.overwrite"><tt class="docutils literal"><span class="pre">overwrite</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.read_from_stack"><tt class="docutils literal"><span class="pre">read_from_stack</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.sendfile"><tt class="docutils literal"><span class="pre">sendfile</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.setregid"><tt class="docutils literal"><span class="pre">setregid</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.setreuid"><tt class="docutils literal"><span class="pre">setreuid</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.sh"><tt class="docutils literal"><span class="pre">sh</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="shellcodes.thumb.html#module-shellcodes.thumb.write_to_stack"><tt class="docutils literal"><span class="pre">write_to_stack</span></tt> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ARMSCGen.html"><tt class="docutils literal"><span class="pre">ARMSCGen</span></tt> &#8212; ARM Shellcode Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcodes.html"><tt class="docutils literal"><span class="pre">ARMSCGen.shellcodes</span></tt> Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shellcodes.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shellcodes.arm.html"><tt class="docutils literal"><span class="pre">shellcodes.arm</span></tt> &#8212; Shellcodes for ARM32 mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shellcodes.thumb.html"><tt class="docutils literal"><span class="pre">shellcodes.thumb</span></tt> &#8212; Shellcodes for Thumb mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shellcodes.arm64.html"><tt class="docutils literal"><span class="pre">shellcodes.arm64</span></tt> &#8212; Shellcodes for ARM64 mode</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="scgen.html">Shellcodes Generator in CLI Mode</a></li>
 </ul>
 </div>
 </div>
@@ -151,8 +102,8 @@
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="ARMSCGen.html"
-                        title="next chapter">ARMSCGen Module</a></p>
+  <p class="topless"><a href="intro.html"
+                        title="next chapter">Introduction to ARMSCGen</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -185,9 +136,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ARMSCGen.html" title="ARMSCGen Module"
+          <a href="intro.html" title="Introduction to ARMSCGen"
              >next</a> |</li>
-        <li><a href="#">ARMSCGen 0.0.11 documentation</a> &raquo;</li> 
+        <li><a href="#">ARMSCGen $0.0.12 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

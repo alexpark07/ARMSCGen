@@ -1,0 +1,18 @@
+Please choice one of shellcodes to show you
+Usage: scgen [options]
+
+ARM32/64 shellcodes by alex.park
+
+Options:
+  -h, --help            show this help message and exit
+  -a ARCH, --architechture=ARCH
+                        ARM Archtechture (default: arm32 thumb) options:
+                        thumb, arm, arm64
+  -?, --show            Show shellcode documentation
+  -l, --list            List all the shellcodes if arch is "all"
+  -f FORMAT, --format=FORMAT
+                        {r}aw, {s}tring, {h}ex, {a}sm, {c} for C code
+  -x XOR, --xor=XOR     XOR Encoder if you want to avoid bad chars like 0x00,
+                        0x0a and so on Notice: only for arm32, thumb
+                        shellcodes so far
+None

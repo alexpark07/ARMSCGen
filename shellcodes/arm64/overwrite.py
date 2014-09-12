@@ -29,7 +29,7 @@ def generate(filepath, sock, isNewFile=False):
     >>> s = socket(AF_INET, SOCK_STREAM)
     >>> s.connect( (HOST, PORT) )
     >>> f = s.makefile('rw', bufsize=0)
-    >>> f.write(xsc + '\n')
+    >>> f.write(xsc + '\\n')
     >>> data = open('/path/to/binary', 'rb').read()
     >>> size = len(data)
     >>> mod  = size % MAXSIZE

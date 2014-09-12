@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction to ARMSCGen &mdash; ARMSCGen $0.0.12 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '$0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="index.html" />
+    <link rel="next" title="ARMSCGen — ARM Shellcode Generator" href="ARMSCGen.html" />
+    <link rel="prev" title="Welcome to ARMSCGen’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ARMSCGen.html" title="ARMSCGen — ARM Shellcode Generator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to ARMSCGen’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction-to-armscgen">
+<h1>Introduction to ARMSCGen<a class="headerlink" href="#introduction-to-armscgen" title="Permalink to this headline">¶</a></h1>
+<p>Ideas came from <a class="reference external" href="http://www.shell-storm.org">shell-storm</a> and <a class="reference external" href="https://github.com/Gallopsled/pwntools">pwntools/pwnies</a></p>
+<p>Thanks to share all of brilliant sources on the net.</p>
+<p>I&#8217;m interested in mobile platform and archtecture like Android on ARM, Router on MIPS and so on.</p>
+<p>This project named <tt class="docutils literal"><span class="pre">ARMSCGen</span></tt> focus on shellcode on ARM Architecture especially ARMv7 Thumb Mode.</p>
+<div class="section" id="requirement">
+<h2>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h2>
+<p>Cross Compile Tool for ARM</p>
+<p><tt class="docutils literal"><span class="pre">as</span></tt>, <tt class="docutils literal"><span class="pre">ld</span></tt> and <tt class="docutils literal"><span class="pre">objcopy</span></tt></p>
+<p><a class="reference external" href="http://www.capstone-engine.org/">capstone</a> to disassemble codes</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt></p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>reads <tt class="docutils literal"><span class="pre">examples</span></tt> directory and uses <tt class="docutils literal"><span class="pre">scgen.py</span></tt> in CLI mode</p>
+</div>
+<div class="section" id="list-of-shellcodes">
+<h2>List of Shellcodes<a class="headerlink" href="#list-of-shellcodes" title="Permalink to this headline">¶</a></h2>
+<p>please refer to <tt class="docutils literal"><span class="pre">shellcodes_lists.md</span></tt> or <tt class="docutils literal"><span class="pre">scgen</span> <span class="pre">-l</span> <span class="pre">-a</span> <span class="pre">all</span></tt></p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>URL: <tt class="docutils literal"><span class="pre">http://armscgen.readthedocs.org/</span></tt> or <tt class="docutils literal"><span class="pre">/docs/</span></tt> in source</p>
+</div>
+<div class="section" id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">AArch32-ARM</span> <span class="pre">Mode</span></tt> shellcodes</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction to ARMSCGen</a><ul>
+<li><a class="reference internal" href="#requirement">Requirement</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#list-of-shellcodes">List of Shellcodes</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#todo">TODO</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to ARMSCGen&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ARMSCGen.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">ARMSCGen</span></tt> &#8212; ARM Shellcode Generator</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/intro.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ARMSCGen.html" title="ARMSCGen — ARM Shellcode Generator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to ARMSCGen’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, alex.park.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

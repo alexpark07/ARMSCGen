@@ -11,8 +11,11 @@ def generate(filepath='./secret', flags=00, mode=None):
 
     Args:
         filepath(str): filename to read with flags/mode
-        flags(int/str): The argument flags must include one of the following access modes: ``O_RDONLY``, ``O_WRONLY``, or ``O_RDWR``  
+
+        flags(int/str): The argument flags must include one of the following access modes:
+                        ``O_RDONLY``, ``O_WRONLY``, or ``O_RDWR``
                         These request opening the file read-only, write-only, or read/write, respectively.
+
         mode(int/str): modes 
 
     backup:

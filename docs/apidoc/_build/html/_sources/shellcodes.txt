@@ -1,12 +1,12 @@
-shellcodes Package
-==================
+:mod:`ARMSCGen.shellcodes` Modules
+==================================
 
-Subpackages
------------
+Submodules
+----------
 
 .. toctree::
+   :glob:
 
-    shellcodes.arm
-    shellcodes.arm64
-    shellcodes.thumb
-
+   shellcodes.arm
+   shellcodes.thumb
+   shellcodes.arm64

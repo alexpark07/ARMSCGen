@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>arm64 Package &mdash; ARMSCGen 0.0.11 documentation</title>
+    <title>shellcodes.arm64 — Shellcodes for ARM64 mode &mdash; ARMSCGen $0.0.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.11',
+        VERSION:     '$0.0.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,10 +25,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ARMSCGen 0.0.11 documentation" href="index.html" />
-    <link rel="up" title="shellcodes Package" href="shellcodes.html" />
-    <link rel="next" title="thumb Package" href="shellcodes.thumb.html" />
-    <link rel="prev" title="arm Package" href="shellcodes.arm.html" /> 
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="index.html" />
+    <link rel="up" title="ARMSCGen.shellcodes Modules" href="shellcodes.html" />
+    <link rel="next" title="Shellcodes Generator in CLI Mode" href="scgen.html" />
+    <link rel="prev" title="shellcodes.thumb — Shellcodes for Thumb mode" href="shellcodes.thumb.html" /> 
   </head>
   <body>
     <div class="related">
@@ -41,13 +41,13 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shellcodes.thumb.html" title="thumb Package"
+          <a href="scgen.html" title="Shellcodes Generator in CLI Mode"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="shellcodes.arm.html" title="arm Package"
+          <a href="shellcodes.thumb.html" title="shellcodes.thumb — Shellcodes for Thumb mode"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li>
-          <li><a href="shellcodes.html" accesskey="U">shellcodes Package</a> &raquo;</li> 
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="shellcodes.html" accesskey="U"><tt class="docutils literal"><span class="pre">ARMSCGen.shellcodes</span></tt> Modules</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -56,10 +56,13 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="arm64-package">
-<h1>arm64 Package<a class="headerlink" href="#arm64-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="shellcodes-arm64-shellcodes-for-arm64-mode">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">shellcodes.arm64</span></tt> &#8212; Shellcodes for ARM64 mode<a class="headerlink" href="#shellcodes-arm64-shellcodes-for-arm64-mode" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="shellcodes-arm64">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">shellcodes.arm64</span></tt><a class="headerlink" href="#shellcodes-arm64" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-shellcodes.arm64.acceptloop">
-<span id="acceptloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">acceptloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.acceptloop" title="Permalink to this headline">¶</a></h2>
+<span id="acceptloop"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">acceptloop</span></tt><a class="headerlink" href="#module-shellcodes.arm64.acceptloop" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.acceptloop.generate">
 <tt class="descclassname">shellcodes.arm64.acceptloop.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/acceptloop.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.acceptloop.generate" title="Permalink to this definition">¶</a></dt>
@@ -74,7 +77,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm64.appendwrite">
-<span id="appendwrite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">appendwrite</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.appendwrite" title="Permalink to this headline">¶</a></h2>
+<span id="appendwrite"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">appendwrite</span></tt><a class="headerlink" href="#module-shellcodes.arm64.appendwrite" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.appendwrite.generate">
 <tt class="descclassname">shellcodes.arm64.appendwrite.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>sock</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/appendwrite.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.appendwrite.generate" title="Permalink to this definition">¶</a></dt>
@@ -89,7 +92,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm64.bindshell">
-<span id="bindshell-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">bindshell</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.bindshell" title="Permalink to this headline">¶</a></h2>
+<span id="bindshell"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">bindshell</span></tt><a class="headerlink" href="#module-shellcodes.arm64.bindshell" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.bindshell.generate">
 <tt class="descclassname">shellcodes.arm64.bindshell.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em>, <em>sock=4</em>, <em>once=True</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/bindshell.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.bindshell.generate" title="Permalink to this definition">¶</a></dt>
@@ -108,7 +111,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm64.cat">
-<span id="cat-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cat</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.cat" title="Permalink to this headline">¶</a></h2>
+<span id="cat"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cat</span></tt><a class="headerlink" href="#module-shellcodes.arm64.cat" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.cat.generate">
 <tt class="descclassname">shellcodes.arm64.cat.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>in_fd='auto'</em>, <em>out_fd='4'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/cat.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.cat.generate" title="Permalink to this definition">¶</a></dt>
@@ -124,7 +127,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm64.connect">
-<span id="connect-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connect</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.connect" title="Permalink to this headline">¶</a></h2>
+<span id="connect"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connect</span></tt><a class="headerlink" href="#module-shellcodes.arm64.connect" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.connect.binary_ip">
 <tt class="descclassname">shellcodes.arm64.connect.</tt><tt class="descname">binary_ip</tt><big>(</big><em>host</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/connect.html#binary_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.connect.binary_ip" title="Permalink to this definition">¶</a></dt>
@@ -149,7 +152,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm64.connectback">
-<span id="connectback-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connectback</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.connectback" title="Permalink to this headline">¶</a></h2>
+<span id="connectback"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">connectback</span></tt><a class="headerlink" href="#module-shellcodes.arm64.connectback" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.connectback.binary_ip">
 <tt class="descclassname">shellcodes.arm64.connectback.</tt><tt class="descname">binary_ip</tt><big>(</big><em>host</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/connectback.html#binary_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.connectback.binary_ip" title="Permalink to this definition">¶</a></dt>
@@ -174,7 +177,7 @@ sock (int/str): sock descriptor for dupsh()</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.dup">
-<span id="dup-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dup</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.dup" title="Permalink to this headline">¶</a></h2>
+<span id="dup"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dup</span></tt><a class="headerlink" href="#module-shellcodes.arm64.dup" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.dup.generate">
 <tt class="descclassname">shellcodes.arm64.dup.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/dup.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.dup.generate" title="Permalink to this definition">¶</a></dt>
@@ -187,7 +190,7 @@ sock (int/str): sock descriptor for dupsh()</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.dupsh">
-<span id="dupsh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dupsh</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.dupsh" title="Permalink to this headline">¶</a></h2>
+<span id="dupsh"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dupsh</span></tt><a class="headerlink" href="#module-shellcodes.arm64.dupsh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.dupsh.generate">
 <tt class="descclassname">shellcodes.arm64.dupsh.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em>, <em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/dupsh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.dupsh.generate" title="Permalink to this definition">¶</a></dt>
@@ -202,7 +205,7 @@ sock (int/str): sock descriptor for dupsh()</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.exit">
-<span id="exit-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">exit</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.exit" title="Permalink to this headline">¶</a></h2>
+<span id="exit"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">exit</span></tt><a class="headerlink" href="#module-shellcodes.arm64.exit" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.exit.generate">
 <tt class="descclassname">shellcodes.arm64.exit.</tt><tt class="descname">generate</tt><big>(</big><em>n=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/exit.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.exit.generate" title="Permalink to this definition">¶</a></dt>
@@ -215,7 +218,7 @@ sock (int/str): sock descriptor for dupsh()</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.findpeer">
-<span id="findpeer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeer</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.findpeer" title="Permalink to this headline">¶</a></h2>
+<span id="findpeer"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeer</span></tt><a class="headerlink" href="#module-shellcodes.arm64.findpeer" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.findpeer.generate">
 <tt class="descclassname">shellcodes.arm64.findpeer.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/findpeer.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.findpeer.generate" title="Permalink to this definition">¶</a></dt>
@@ -226,7 +229,7 @@ Leaves socket in x6 regs.</p>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.findpeersh">
-<span id="findpeersh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeersh</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.findpeersh" title="Permalink to this headline">¶</a></h2>
+<span id="findpeersh"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">findpeersh</span></tt><a class="headerlink" href="#module-shellcodes.arm64.findpeersh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.findpeersh.generate">
 <tt class="descclassname">shellcodes.arm64.findpeersh.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/findpeersh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.findpeersh.generate" title="Permalink to this definition">¶</a></dt>
@@ -236,7 +239,7 @@ Leaves socket in x6 reg.</p>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.fsync">
-<span id="fsync-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">fsync</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.fsync" title="Permalink to this headline">¶</a></h2>
+<span id="fsync"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">fsync</span></tt><a class="headerlink" href="#module-shellcodes.arm64.fsync" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.fsync.generate">
 <tt class="descclassname">shellcodes.arm64.fsync.</tt><tt class="descname">generate</tt><big>(</big><em>out_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/fsync.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.fsync.generate" title="Permalink to this definition">¶</a></dt>
@@ -249,7 +252,7 @@ Leaves socket in x6 reg.</p>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.getdents">
-<span id="getdents-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">getdents</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.getdents" title="Permalink to this headline">¶</a></h2>
+<span id="getdents"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">getdents</span></tt><a class="headerlink" href="#module-shellcodes.arm64.getdents" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.getdents.generate">
 <tt class="descclassname">shellcodes.arm64.getdents.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/getdents.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.getdents.generate" title="Permalink to this definition">¶</a></dt>
@@ -262,7 +265,7 @@ Leaves socket in x6 reg.</p>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.infinityloop">
-<span id="infinityloop-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">infinityloop</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.infinityloop" title="Permalink to this headline">¶</a></h2>
+<span id="infinityloop"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">infinityloop</span></tt><a class="headerlink" href="#module-shellcodes.arm64.infinityloop" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.infinityloop.generate">
 <tt class="descclassname">shellcodes.arm64.infinityloop.</tt><tt class="descname">generate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/infinityloop.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.infinityloop.generate" title="Permalink to this definition">¶</a></dt>
@@ -271,7 +274,7 @@ Leaves socket in x6 reg.</p>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.listen">
-<span id="listen-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">listen</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.listen" title="Permalink to this headline">¶</a></h2>
+<span id="listen"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">listen</span></tt><a class="headerlink" href="#module-shellcodes.arm64.listen" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.listen.generate">
 <tt class="descclassname">shellcodes.arm64.listen.</tt><tt class="descname">generate</tt><big>(</big><em>port=31337</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/listen.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.listen.generate" title="Permalink to this definition">¶</a></dt>
@@ -286,7 +289,7 @@ Leaves socket in x6 reg.</p>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.ls">
-<span id="ls-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ls</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.ls" title="Permalink to this headline">¶</a></h2>
+<span id="ls"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ls</span></tt><a class="headerlink" href="#module-shellcodes.arm64.ls" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.ls.generate">
 <tt class="descclassname">shellcodes.arm64.ls.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>out_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/ls.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.ls.generate" title="Permalink to this definition">¶</a></dt>
@@ -302,7 +305,7 @@ out_fd (int/str): out file descriptor</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.lseek">
-<span id="lseek-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">lseek</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.lseek" title="Permalink to this headline">¶</a></h2>
+<span id="lseek"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">lseek</span></tt><a class="headerlink" href="#module-shellcodes.arm64.lseek" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.lseek.generate">
 <tt class="descclassname">shellcodes.arm64.lseek.</tt><tt class="descname">generate</tt><big>(</big><em>out_fd</em>, <em>offset=0</em>, <em>whence=2</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/lseek.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.lseek.generate" title="Permalink to this definition">¶</a></dt>
@@ -318,7 +321,7 @@ out_fd (int/str): out file descriptor</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.open_file">
-<span id="open-file-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">open_file</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.open_file" title="Permalink to this headline">¶</a></h2>
+<span id="open-file"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">open_file</span></tt><a class="headerlink" href="#module-shellcodes.arm64.open_file" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.open_file.generate">
 <tt class="descclassname">shellcodes.arm64.open_file.</tt><tt class="descname">generate</tt><big>(</big><em>filepath='./secret'</em>, <em>flags=0</em>, <em>mode=None</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/open_file.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.open_file.generate" title="Permalink to this definition">¶</a></dt>
@@ -335,13 +338,12 @@ mode(int/str): modes</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.overwrite">
-<span id="overwrite-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">overwrite</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.overwrite" title="Permalink to this headline">¶</a></h2>
+<span id="overwrite"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">overwrite</span></tt><a class="headerlink" href="#module-shellcodes.arm64.overwrite" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.overwrite.generate">
 <tt class="descclassname">shellcodes.arm64.overwrite.</tt><tt class="descname">generate</tt><big>(</big><em>filepath</em>, <em>sock</em>, <em>isNewFile=False</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/overwrite.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.overwrite.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>overwrites a file with user&#8217;s data</p>
-<blockquote>
-<div><dl class="docutils">
+<dl class="docutils">
 <dt>argument:</dt>
 <dd>filepath (str)    : file name to open
 sock (int/str/reg): read a sock to write data</dd>
@@ -351,39 +353,28 @@ sock (int/str/reg): read a sock to write data</dd>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">HOST</span> <span class="o">=</span> <span class="s">&#39;hostname&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">PORT</span> <span class="o">=</span> <span class="mi">31337</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">MAXSIZE</span> <span class="o">=</span> <span class="mi">128</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span>  <span class="o">=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="s">&#39;./binary&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span>  <span class="o">=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="s">&#39;./binary&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">+=</span> <span class="n">scgen</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xsc</span> <span class="o">=</span> <span class="n">CompileSC</span><span class="p">(</span> <span class="p">(</span><span class="n">sc</span><span class="p">),</span> <span class="n">isThumb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span> <span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&#39;rw&#39;</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xsc</span> <span class="o">+</span> <span class="s">&#39;</span>
-</pre></div>
-</div>
-</div></blockquote>
-<dl class="docutils">
-<dt>&#8216;)</dt>
-<dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/path/to/binary&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xsc</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/path/to/binary&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="n">MAXSIZE</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">div</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="n">MAXSIZE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">div</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">128</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">mod</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">:])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">div</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">mod</span><span class="o">*</span><span class="n">MAXSIZE</span><span class="p">:])</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.read_from_stack">
-<span id="read-from-stack-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">read_from_stack</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.read_from_stack" title="Permalink to this headline">¶</a></h2>
+<span id="read-from-stack"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">read_from_stack</span></tt><a class="headerlink" href="#module-shellcodes.arm64.read_from_stack" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.read_from_stack.generate">
 <tt class="descclassname">shellcodes.arm64.read_from_stack.</tt><tt class="descname">generate</tt><big>(</big><em>out_fd</em>, <em>size</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/read_from_stack.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.read_from_stack.generate" title="Permalink to this definition">¶</a></dt>
@@ -398,7 +389,7 @@ sock (int/str/reg): read a sock to write data</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.sendfile">
-<span id="sendfile-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sendfile</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.sendfile" title="Permalink to this headline">¶</a></h2>
+<span id="sendfile"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sendfile</span></tt><a class="headerlink" href="#module-shellcodes.arm64.sendfile" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.sendfile.generate">
 <tt class="descclassname">shellcodes.arm64.sendfile.</tt><tt class="descname">generate</tt><big>(</big><em>in_fd</em>, <em>out_fd</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/sendfile.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.sendfile.generate" title="Permalink to this definition">¶</a></dt>
@@ -412,7 +403,7 @@ out_fd (str/int): out file descriptor</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.setregid">
-<span id="setregid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setregid</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.setregid" title="Permalink to this headline">¶</a></h2>
+<span id="setregid"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setregid</span></tt><a class="headerlink" href="#module-shellcodes.arm64.setregid" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.setregid.generate">
 <tt class="descclassname">shellcodes.arm64.setregid.</tt><tt class="descname">generate</tt><big>(</big><em>gid=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/setregid.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.setregid.generate" title="Permalink to this definition">¶</a></dt>
@@ -425,7 +416,7 @@ out_fd (str/int): out file descriptor</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.setreuid">
-<span id="setreuid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setreuid</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.setreuid" title="Permalink to this headline">¶</a></h2>
+<span id="setreuid"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">setreuid</span></tt><a class="headerlink" href="#module-shellcodes.arm64.setreuid" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.setreuid.generate">
 <tt class="descclassname">shellcodes.arm64.setreuid.</tt><tt class="descname">generate</tt><big>(</big><em>uid=0</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/setreuid.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.setreuid.generate" title="Permalink to this definition">¶</a></dt>
@@ -438,7 +429,7 @@ out_fd (str/int): out file descriptor</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.sh">
-<span id="sh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sh</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.sh" title="Permalink to this headline">¶</a></h2>
+<span id="sh"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sh</span></tt><a class="headerlink" href="#module-shellcodes.arm64.sh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.sh.generate">
 <tt class="descclassname">shellcodes.arm64.sh.</tt><tt class="descname">generate</tt><big>(</big><em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/sh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.sh.generate" title="Permalink to this definition">¶</a></dt>
@@ -451,7 +442,7 @@ out_fd (str/int): out file descriptor</dd>
 
 </div>
 <div class="section" id="module-shellcodes.arm64.write_to_stack">
-<span id="write-to-stack-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">write_to_stack</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm64.write_to_stack" title="Permalink to this headline">¶</a></h2>
+<span id="write-to-stack"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">write_to_stack</span></tt><a class="headerlink" href="#module-shellcodes.arm64.write_to_stack" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm64.write_to_stack.align4">
 <tt class="descclassname">shellcodes.arm64.write_to_stack.</tt><tt class="descname">align4</tt><big>(</big><em>n</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm64/write_to_stack.html#align4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm64.write_to_stack.align4" title="Permalink to this definition">¶</a></dt>
@@ -485,42 +476,43 @@ out_fd (str/int): out file descriptor</dd>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">arm64 Package</a><ul>
-<li><a class="reference internal" href="#module-shellcodes.arm64.acceptloop"><tt class="docutils literal"><span class="pre">acceptloop</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.appendwrite"><tt class="docutils literal"><span class="pre">appendwrite</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.bindshell"><tt class="docutils literal"><span class="pre">bindshell</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.cat"><tt class="docutils literal"><span class="pre">cat</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.connect"><tt class="docutils literal"><span class="pre">connect</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.connectback"><tt class="docutils literal"><span class="pre">connectback</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.dup"><tt class="docutils literal"><span class="pre">dup</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.exit"><tt class="docutils literal"><span class="pre">exit</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.findpeer"><tt class="docutils literal"><span class="pre">findpeer</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.findpeersh"><tt class="docutils literal"><span class="pre">findpeersh</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.fsync"><tt class="docutils literal"><span class="pre">fsync</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.getdents"><tt class="docutils literal"><span class="pre">getdents</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.infinityloop"><tt class="docutils literal"><span class="pre">infinityloop</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.listen"><tt class="docutils literal"><span class="pre">listen</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.ls"><tt class="docutils literal"><span class="pre">ls</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.lseek"><tt class="docutils literal"><span class="pre">lseek</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.open_file"><tt class="docutils literal"><span class="pre">open_file</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.overwrite"><tt class="docutils literal"><span class="pre">overwrite</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.read_from_stack"><tt class="docutils literal"><span class="pre">read_from_stack</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.sendfile"><tt class="docutils literal"><span class="pre">sendfile</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.setregid"><tt class="docutils literal"><span class="pre">setregid</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.setreuid"><tt class="docutils literal"><span class="pre">setreuid</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.sh"><tt class="docutils literal"><span class="pre">sh</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm64.write_to_stack"><tt class="docutils literal"><span class="pre">write_to_stack</span></tt> Module</a></li>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">shellcodes.arm64</span></tt> &#8212; Shellcodes for ARM64 mode</a><ul>
+<li><a class="reference internal" href="#shellcodes-arm64"><tt class="docutils literal"><span class="pre">shellcodes.arm64</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.acceptloop"><tt class="docutils literal"><span class="pre">acceptloop</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.appendwrite"><tt class="docutils literal"><span class="pre">appendwrite</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.bindshell"><tt class="docutils literal"><span class="pre">bindshell</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.cat"><tt class="docutils literal"><span class="pre">cat</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.connect"><tt class="docutils literal"><span class="pre">connect</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.connectback"><tt class="docutils literal"><span class="pre">connectback</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.dup"><tt class="docutils literal"><span class="pre">dup</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.exit"><tt class="docutils literal"><span class="pre">exit</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.findpeer"><tt class="docutils literal"><span class="pre">findpeer</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.findpeersh"><tt class="docutils literal"><span class="pre">findpeersh</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.fsync"><tt class="docutils literal"><span class="pre">fsync</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.getdents"><tt class="docutils literal"><span class="pre">getdents</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.infinityloop"><tt class="docutils literal"><span class="pre">infinityloop</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.listen"><tt class="docutils literal"><span class="pre">listen</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.ls"><tt class="docutils literal"><span class="pre">ls</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.lseek"><tt class="docutils literal"><span class="pre">lseek</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.open_file"><tt class="docutils literal"><span class="pre">open_file</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.overwrite"><tt class="docutils literal"><span class="pre">overwrite</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.read_from_stack"><tt class="docutils literal"><span class="pre">read_from_stack</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.sendfile"><tt class="docutils literal"><span class="pre">sendfile</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.setregid"><tt class="docutils literal"><span class="pre">setregid</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.setreuid"><tt class="docutils literal"><span class="pre">setreuid</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.sh"><tt class="docutils literal"><span class="pre">sh</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm64.write_to_stack"><tt class="docutils literal"><span class="pre">write_to_stack</span></tt></a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="shellcodes.arm.html"
-                        title="previous chapter">arm Package</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="shellcodes.thumb.html"
-                        title="next chapter">thumb Package</a></p>
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">shellcodes.thumb</span></tt> &#8212; Shellcodes for Thumb mode</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scgen.html"
+                        title="next chapter">Shellcodes Generator in CLI Mode</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/shellcodes.arm64.txt"
@@ -553,13 +545,13 @@ out_fd (str/int): out file descriptor</dd>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shellcodes.thumb.html" title="thumb Package"
+          <a href="scgen.html" title="Shellcodes Generator in CLI Mode"
              >next</a> |</li>
         <li class="right" >
-          <a href="shellcodes.arm.html" title="arm Package"
+          <a href="shellcodes.thumb.html" title="shellcodes.thumb — Shellcodes for Thumb mode"
              >previous</a> |</li>
-        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li>
-          <li><a href="shellcodes.html" >shellcodes Package</a> &raquo;</li> 
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="shellcodes.html" ><tt class="docutils literal"><span class="pre">ARMSCGen.shellcodes</span></tt> Modules</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

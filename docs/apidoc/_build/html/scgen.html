@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>scgen Module &mdash; ARMSCGen 0.0.11 documentation</title>
+    <title>Shellcodes Generator in CLI Mode &mdash; ARMSCGen $0.0.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.11',
+        VERSION:     '$0.0.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,9 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ARMSCGen 0.0.11 documentation" href="index.html" />
-    <link rel="next" title="shellcodes Package" href="shellcodes.html" />
-    <link rel="prev" title="ARMSCGen Module" href="ARMSCGen.html" /> 
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="index.html" />
+    <link rel="prev" title="shellcodes.arm64 — Shellcodes for ARM64 mode" href="shellcodes.arm64.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,12 +39,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shellcodes.html" title="shellcodes Package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="ARMSCGen.html" title="ARMSCGen Module"
+          <a href="shellcodes.arm64.html" title="shellcodes.arm64 — Shellcodes for ARM64 mode"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,8 +50,33 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="scgen-module">
-<h1>scgen Module<a class="headerlink" href="#scgen-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="shellcodes-generator-in-cli-mode">
+<h1>Shellcodes Generator in CLI Mode<a class="headerlink" href="#shellcodes-generator-in-cli-mode" title="Permalink to this headline">¶</a></h1>
+<p>The purpose of this program is to generate shellcodes in CLI mode easily</p>
+<dl class="docutils">
+<dt>just uses like below:</dt>
+<dd>$ <tt class="docutils literal"><span class="pre">scgen</span> <span class="pre">-h</span></tt></dd>
+</dl>
+<div class="highlight-python"><pre>Please choice one of shellcodes to show you
+Usage: scgen [options]
+
+ARM32/64 shellcodes by alex.park
+
+Options:
+  -h, --help            show this help message and exit
+  -a ARCH, --architechture=ARCH
+                        ARM Archtechture (default: arm32 thumb) options:
+                        thumb, arm, arm64
+  -?, --show            Show shellcode documentation
+  -l, --list            List all the shellcodes if arch is "all"
+  -f FORMAT, --format=FORMAT
+                        {r}aw, {s}tring, {h}ex, {a}sm, {c} for C code
+  -x XOR, --xor=XOR     XOR Encoder if you want to avoid bad chars like 0x00,
+                        0x0a and so on Notice: only for arm32, thumb
+                        shellcodes so far
+None
+</pre>
+</div>
 </div>
 
 
@@ -65,11 +86,8 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="ARMSCGen.html"
-                        title="previous chapter">ARMSCGen Module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="shellcodes.html"
-                        title="next chapter">shellcodes Package</a></p>
+  <p class="topless"><a href="shellcodes.arm64.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">shellcodes.arm64</span></tt> &#8212; Shellcodes for ARM64 mode</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/scgen.txt"
@@ -102,12 +120,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shellcodes.html" title="shellcodes Package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="ARMSCGen.html" title="ARMSCGen Module"
+          <a href="shellcodes.arm64.html" title="shellcodes.arm64 — Shellcodes for ARM64 mode"
              >previous</a> |</li>
-        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

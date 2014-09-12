@@ -1,15 +1,15 @@
-thumb Package
-=============
+:mod:`shellcodes.thumb` --- Shellcodes for Thumb mode
+==============================================================
 
-:mod:`acceptloop` Module
-------------------------
+:mod:`shellcodes.thumb`
+--------------------------------
 
 .. automodule:: shellcodes.thumb.acceptloop
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`appendwrite` Module
+:mod:`appendwrite` 
 -------------------------
 
 .. automodule:: shellcodes.thumb.appendwrite
@@ -17,7 +17,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`bindshell` Module
+:mod:`bindshell` 
 -----------------------
 
 .. automodule:: shellcodes.thumb.bindshell
@@ -25,7 +25,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`cat` Module
+:mod:`cat` 
 -----------------
 
 .. automodule:: shellcodes.thumb.cat
@@ -33,7 +33,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`chmod` Module
+:mod:`chmod` 
 -------------------
 
 .. automodule:: shellcodes.thumb.chmod
@@ -41,7 +41,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`connect` Module
+:mod:`connect` 
 ---------------------
 
 .. automodule:: shellcodes.thumb.connect
@@ -49,7 +49,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`connectback` Module
+:mod:`connectback` 
 -------------------------
 
 .. automodule:: shellcodes.thumb.connectback
@@ -57,7 +57,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`dup` Module
+:mod:`dup` 
 -----------------
 
 .. automodule:: shellcodes.thumb.dup
@@ -65,7 +65,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`dupsh` Module
+:mod:`dupsh` 
 -------------------
 
 .. automodule:: shellcodes.thumb.dupsh
@@ -73,7 +73,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`exit` Module
+:mod:`exit` 
 ------------------
 
 .. automodule:: shellcodes.thumb.exit
@@ -81,7 +81,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`findpeer` Module
+:mod:`findpeer` 
 ----------------------
 
 .. automodule:: shellcodes.thumb.findpeer
@@ -89,7 +89,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`findpeersh` Module
+:mod:`findpeersh` 
 ------------------------
 
 .. automodule:: shellcodes.thumb.findpeersh
@@ -97,7 +97,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`getdents` Module
+:mod:`getdents` 
 ----------------------
 
 .. automodule:: shellcodes.thumb.getdents
@@ -105,7 +105,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`infinityloop` Module
+:mod:`infinityloop` 
 --------------------------
 
 .. automodule:: shellcodes.thumb.infinityloop
@@ -113,7 +113,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`listen` Module
+:mod:`listen` 
 --------------------
 
 .. automodule:: shellcodes.thumb.listen
@@ -121,7 +121,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`ls` Module
+:mod:`ls` 
 ----------------
 
 .. automodule:: shellcodes.thumb.ls
@@ -129,7 +129,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`open_file` Module
+:mod:`open_file` 
 -----------------------
 
 .. automodule:: shellcodes.thumb.open_file
@@ -137,7 +137,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`overwrite` Module
+:mod:`overwrite` 
 -----------------------
 
 .. automodule:: shellcodes.thumb.overwrite
@@ -145,7 +145,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`read_from_stack` Module
+:mod:`read_from_stack` 
 -----------------------------
 
 .. automodule:: shellcodes.thumb.read_from_stack
@@ -153,7 +153,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`sendfile` Module
+:mod:`sendfile` 
 ----------------------
 
 .. automodule:: shellcodes.thumb.sendfile
@@ -161,7 +161,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`setregid` Module
+:mod:`setregid` 
 ----------------------
 
 .. automodule:: shellcodes.thumb.setregid
@@ -169,7 +169,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`setreuid` Module
+:mod:`setreuid` 
 ----------------------
 
 .. automodule:: shellcodes.thumb.setreuid
@@ -177,7 +177,7 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`sh` Module
+:mod:`sh` 
 ----------------
 
 .. automodule:: shellcodes.thumb.sh
@@ -185,11 +185,10 @@ thumb Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`write_to_stack` Module
+:mod:`write_to_stack` 
 ----------------------------
 
 .. automodule:: shellcodes.thumb.write_to_stack
     :members:
     :undoc-members:
     :show-inheritance:
-

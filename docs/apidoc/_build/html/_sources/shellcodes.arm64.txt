@@ -1,7 +1,10 @@
-arm64 Package
-=============
+:mod:`shellcodes.arm64` --- Shellcodes for ARM64 mode
+=====================================================
 
-:mod:`acceptloop` Module
+:mod:`shellcodes.arm64`
+-----------------------
+
+:mod:`acceptloop` 
 ------------------------
 
 .. automodule:: shellcodes.arm64.acceptloop
@@ -9,7 +12,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`appendwrite` Module
+:mod:`appendwrite` 
 -------------------------
 
 .. automodule:: shellcodes.arm64.appendwrite
@@ -17,7 +20,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`bindshell` Module
+:mod:`bindshell` 
 -----------------------
 
 .. automodule:: shellcodes.arm64.bindshell
@@ -25,7 +28,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`cat` Module
+:mod:`cat` 
 -----------------
 
 .. automodule:: shellcodes.arm64.cat
@@ -33,7 +36,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`connect` Module
+:mod:`connect` 
 ---------------------
 
 .. automodule:: shellcodes.arm64.connect
@@ -41,7 +44,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`connectback` Module
+:mod:`connectback` 
 -------------------------
 
 .. automodule:: shellcodes.arm64.connectback
@@ -49,7 +52,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`dup` Module
+:mod:`dup` 
 -----------------
 
 .. automodule:: shellcodes.arm64.dup
@@ -57,7 +60,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`dupsh` Module
+:mod:`dupsh` 
 -------------------
 
 .. automodule:: shellcodes.arm64.dupsh
@@ -65,7 +68,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`exit` Module
+:mod:`exit` 
 ------------------
 
 .. automodule:: shellcodes.arm64.exit
@@ -73,7 +76,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`findpeer` Module
+:mod:`findpeer` 
 ----------------------
 
 .. automodule:: shellcodes.arm64.findpeer
@@ -81,7 +84,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`findpeersh` Module
+:mod:`findpeersh` 
 ------------------------
 
 .. automodule:: shellcodes.arm64.findpeersh
@@ -89,7 +92,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`fsync` Module
+:mod:`fsync` 
 -------------------
 
 .. automodule:: shellcodes.arm64.fsync
@@ -97,7 +100,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`getdents` Module
+:mod:`getdents` 
 ----------------------
 
 .. automodule:: shellcodes.arm64.getdents
@@ -105,7 +108,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`infinityloop` Module
+:mod:`infinityloop` 
 --------------------------
 
 .. automodule:: shellcodes.arm64.infinityloop
@@ -113,7 +116,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`listen` Module
+:mod:`listen` 
 --------------------
 
 .. automodule:: shellcodes.arm64.listen
@@ -121,7 +124,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`ls` Module
+:mod:`ls` 
 ----------------
 
 .. automodule:: shellcodes.arm64.ls
@@ -129,7 +132,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`lseek` Module
+:mod:`lseek` 
 -------------------
 
 .. automodule:: shellcodes.arm64.lseek
@@ -137,7 +140,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`open_file` Module
+:mod:`open_file` 
 -----------------------
 
 .. automodule:: shellcodes.arm64.open_file
@@ -145,7 +148,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`overwrite` Module
+:mod:`overwrite` 
 -----------------------
 
 .. automodule:: shellcodes.arm64.overwrite
@@ -153,7 +156,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`read_from_stack` Module
+:mod:`read_from_stack` 
 -----------------------------
 
 .. automodule:: shellcodes.arm64.read_from_stack
@@ -161,7 +164,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`sendfile` Module
+:mod:`sendfile` 
 ----------------------
 
 .. automodule:: shellcodes.arm64.sendfile
@@ -169,7 +172,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`setregid` Module
+:mod:`setregid` 
 ----------------------
 
 .. automodule:: shellcodes.arm64.setregid
@@ -177,7 +180,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`setreuid` Module
+:mod:`setreuid` 
 ----------------------
 
 .. automodule:: shellcodes.arm64.setreuid
@@ -185,7 +188,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`sh` Module
+:mod:`sh` 
 ----------------
 
 .. automodule:: shellcodes.arm64.sh
@@ -193,7 +196,7 @@ arm64 Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`write_to_stack` Module
+:mod:`write_to_stack` 
 ----------------------------
 
 .. automodule:: shellcodes.arm64.write_to_stack

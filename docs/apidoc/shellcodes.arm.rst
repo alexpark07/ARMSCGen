@@ -1,7 +1,10 @@
-arm Package
-===========
+:mod:`shellcodes.arm` --- Shellcodes for ARM32 mode
+===================================================
 
-:mod:`dup` Module
+:mod:`shellcodes.arm`
+---------------------
+
+:mod:`dup` 
 -----------------
 
 .. automodule:: shellcodes.arm.dup
@@ -9,7 +12,7 @@ arm Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`dupsh` Module
+:mod:`dupsh` 
 -------------------
 
 .. automodule:: shellcodes.arm.dupsh
@@ -17,7 +20,7 @@ arm Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`sh` Module
+:mod:`sh` 
 ----------------
 
 .. automodule:: shellcodes.arm.sh

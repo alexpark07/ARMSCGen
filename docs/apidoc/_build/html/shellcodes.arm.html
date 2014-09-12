@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>arm Package &mdash; ARMSCGen 0.0.11 documentation</title>
+    <title>shellcodes.arm — Shellcodes for ARM32 mode &mdash; ARMSCGen $0.0.12 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.11',
+        VERSION:     '$0.0.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,10 +25,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ARMSCGen 0.0.11 documentation" href="index.html" />
-    <link rel="up" title="shellcodes Package" href="shellcodes.html" />
-    <link rel="next" title="arm64 Package" href="shellcodes.arm64.html" />
-    <link rel="prev" title="shellcodes Package" href="shellcodes.html" /> 
+    <link rel="top" title="ARMSCGen $0.0.12 documentation" href="index.html" />
+    <link rel="up" title="ARMSCGen.shellcodes Modules" href="shellcodes.html" />
+    <link rel="next" title="shellcodes.thumb — Shellcodes for Thumb mode" href="shellcodes.thumb.html" />
+    <link rel="prev" title="ARMSCGen.shellcodes Modules" href="shellcodes.html" /> 
   </head>
   <body>
     <div class="related">
@@ -41,13 +41,13 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shellcodes.arm64.html" title="arm64 Package"
+          <a href="shellcodes.thumb.html" title="shellcodes.thumb — Shellcodes for Thumb mode"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="shellcodes.html" title="shellcodes Package"
+          <a href="shellcodes.html" title="ARMSCGen.shellcodes Modules"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li>
-          <li><a href="shellcodes.html" accesskey="U">shellcodes Package</a> &raquo;</li> 
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="shellcodes.html" accesskey="U"><tt class="docutils literal"><span class="pre">ARMSCGen.shellcodes</span></tt> Modules</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -56,10 +56,13 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="arm-package">
-<h1>arm Package<a class="headerlink" href="#arm-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="shellcodes-arm-shellcodes-for-arm32-mode">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">shellcodes.arm</span></tt> &#8212; Shellcodes for ARM32 mode<a class="headerlink" href="#shellcodes-arm-shellcodes-for-arm32-mode" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="shellcodes-arm">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">shellcodes.arm</span></tt><a class="headerlink" href="#shellcodes-arm" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-shellcodes.arm.dup">
-<span id="dup-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dup</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm.dup" title="Permalink to this headline">¶</a></h2>
+<span id="dup"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dup</span></tt><a class="headerlink" href="#module-shellcodes.arm.dup" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm.dup.generate">
 <tt class="descclassname">shellcodes.arm.dup.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm/dup.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm.dup.generate" title="Permalink to this definition">¶</a></dt>
@@ -67,7 +70,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm.dupsh">
-<span id="dupsh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dupsh</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm.dupsh" title="Permalink to this headline">¶</a></h2>
+<span id="dupsh"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dupsh</span></tt><a class="headerlink" href="#module-shellcodes.arm.dupsh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm.dupsh.generate">
 <tt class="descclassname">shellcodes.arm.dupsh.</tt><tt class="descname">generate</tt><big>(</big><em>sock=4</em>, <em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm/dupsh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm.dupsh.generate" title="Permalink to this definition">¶</a></dt>
@@ -75,7 +78,7 @@
 
 </div>
 <div class="section" id="module-shellcodes.arm.sh">
-<span id="sh-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sh</span></tt> Module<a class="headerlink" href="#module-shellcodes.arm.sh" title="Permalink to this headline">¶</a></h2>
+<span id="sh"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sh</span></tt><a class="headerlink" href="#module-shellcodes.arm.sh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="shellcodes.arm.sh.generate">
 <tt class="descclassname">shellcodes.arm.sh.</tt><tt class="descname">generate</tt><big>(</big><em>cmd='/bin/sh'</em><big>)</big><a class="reference internal" href="_modules/shellcodes/arm/sh.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#shellcodes.arm.sh.generate" title="Permalink to this definition">¶</a></dt>
@@ -92,20 +95,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">arm Package</a><ul>
-<li><a class="reference internal" href="#module-shellcodes.arm.dup"><tt class="docutils literal"><span class="pre">dup</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-shellcodes.arm.sh"><tt class="docutils literal"><span class="pre">sh</span></tt> Module</a></li>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">shellcodes.arm</span></tt> &#8212; Shellcodes for ARM32 mode</a><ul>
+<li><a class="reference internal" href="#shellcodes-arm"><tt class="docutils literal"><span class="pre">shellcodes.arm</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm.dup"><tt class="docutils literal"><span class="pre">dup</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm.dupsh"><tt class="docutils literal"><span class="pre">dupsh</span></tt></a></li>
+<li><a class="reference internal" href="#module-shellcodes.arm.sh"><tt class="docutils literal"><span class="pre">sh</span></tt></a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="shellcodes.html"
-                        title="previous chapter">shellcodes Package</a></p>
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">ARMSCGen.shellcodes</span></tt> Modules</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="shellcodes.arm64.html"
-                        title="next chapter">arm64 Package</a></p>
+  <p class="topless"><a href="shellcodes.thumb.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">shellcodes.thumb</span></tt> &#8212; Shellcodes for Thumb mode</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/shellcodes.arm.txt"
@@ -138,13 +142,13 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shellcodes.arm64.html" title="arm64 Package"
+          <a href="shellcodes.thumb.html" title="shellcodes.thumb — Shellcodes for Thumb mode"
              >next</a> |</li>
         <li class="right" >
-          <a href="shellcodes.html" title="shellcodes Package"
+          <a href="shellcodes.html" title="ARMSCGen.shellcodes Modules"
              >previous</a> |</li>
-        <li><a href="index.html">ARMSCGen 0.0.11 documentation</a> &raquo;</li>
-          <li><a href="shellcodes.html" >shellcodes Package</a> &raquo;</li> 
+        <li><a href="index.html">ARMSCGen $0.0.12 documentation</a> &raquo;</li>
+          <li><a href="shellcodes.html" ><tt class="docutils literal"><span class="pre">ARMSCGen.shellcodes</span></tt> Modules</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
