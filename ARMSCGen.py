@@ -35,6 +35,7 @@ from shellcodes.thumb import appendwrite as th_appendwrite
 from shellcodes.thumb import read_from_stack as th_read_from_stack
 from shellcodes.thumb import write_to_stack  as th_write_to_stack
 from shellcodes.thumb import infinityloop    as th_infinityloop
+from shellcodes.thumb import arm_to_thumb as th_arm_to_thumb
 
 ##########################################################
 ## ARM Mode
@@ -101,6 +102,7 @@ class thumbSCGen:
         self.read_from_stack = th_read_from_stack.generate
         self.write_to_stack  = th_write_to_stack.generate
         self.infinityloop    = th_infinityloop.generate
+        self.arm_to_thumb    = th_arm_to_thumb.generate
         prepareCompiler('THUMB')
         
 
