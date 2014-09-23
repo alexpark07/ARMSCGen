@@ -1,5 +1,11 @@
 # dup() in ARM Mode
 def generate(sock=4):
+    """Duplicates sock to stdin, stdout and stderr
+
+    Args:
+        sock(int/str/reg): sock descriptor
+    """
+
     sc = """
     mov r9, #%s
     mov r8, #2

@@ -1,5 +1,10 @@
 # /bin/sh 
 def generate(cmd='/bin/sh'):
+    """Executes cmd
+
+    Args:
+        cmd(str): executes cmd (default: ``/bin/sh``)
+    """
     sc = """
     adr r0, bin_sh_1
     mov r2, #0
