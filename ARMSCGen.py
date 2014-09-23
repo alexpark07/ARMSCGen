@@ -661,3 +661,66 @@ def disasm(code, arch='ARM', mode='THUMB'):
         totalSize += i.size    
 
     return dat
+
+####################
+# code from scgen.py
+####################
+def isScode(s, sname):
+    thgen    = thumbSCGen()
+    armgen   = armSCGen()
+    arm64gen = arm64SCGen()    
+
+    d = {}
+    rv = {}
+    for v in dir(s):
+        if len(v) == 0:
+            continue
+        if v[:2] == '__':
+            continue
+        d[v] = (eval("%s.%s" % (sname, v)))
+    rv[sname] = d
+    return rv
+
+
+def getShellcodeInfo(arch='thumb'):
+    thgen    = thumbSCGen()
+    armgen   = armSCGen()
+    arm64gen = arm64SCGen()    
+
+    scs = []
+    scs.append(isScode(thgen,    'thgen'))
+    scs.append(isScode(armgen,   'armgen'))
+    scs.append(isScode(arm64gen, 'arm64gen'))
+
+    _scname = ''
+    xscname = {'thgen':'thumb', 'armgen':'arm', 'arm64gen':'arm64'}
+
+    for i in range(0, len(scs)):
+        scname = scs[i].keys()[0]
+        _scname = xscname[scname]
+        if _scname != arch:
+            continue
+                
+        sckeys = scs[i][scname].keys()
+        sckeys.sort()
+        return sckeys
+
+    return -1
+
+def getShellcodeHelp(scode, arch='thumb'):
+    thgen    = thumbSCGen()
+    armgen   = armSCGen()
+    arm64gen = arm64SCGen()    
+    try:
+        if arch == 'arm':
+            show = eval("armgen.%s.__doc__" % (scode))
+        elif arch == 'arm64':
+            show = eval("arm64gen.%s.__doc__" % (scode))
+        elif arch == 'thumb':
+            show = eval("thgen.%s.__doc__" % (scode))
+    except AttributeError:
+        show = "There is no '%s' shellcode so far" % (scode)
+    except:
+        show = "Unknown execption"
+
+    return show
