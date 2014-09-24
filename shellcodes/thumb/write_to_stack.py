@@ -13,14 +13,15 @@ def generate(in_fd, size):
         size  (int/str/reg) = size to write
     """
 
-    if isinstance(in_fd, int) == True:
-        xin_fd = "#%s" % (in_fd)
-    else:
+    try:
+        xin_fd = "#%s" % int(in_fd)
+    except:
         xin_fd = in_fd
 
-    if isinstance(size, int) == True:
+    try:
+        size = int(size)
         xsize = "#%s" % align4(size)
-    else:
+    except:
         xsize = size
 
     sc = """

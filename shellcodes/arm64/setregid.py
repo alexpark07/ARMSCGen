@@ -6,9 +6,9 @@ def generate(gid=0):
             gid (int/str/reg) - effective gid number
     """
 
-    if isinstance(gid, int):
-        xgid = "#%s" % (gid)
-    else:
+    try:
+        xgid = "#%s" % int(gid)
+    except:
         xgid = "%s" % (gid)
 
     sc = """

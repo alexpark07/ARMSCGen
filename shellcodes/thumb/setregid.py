@@ -5,11 +5,10 @@ def generate(gid=0):
         argument:
             gid (int/str/reg) - effective gid number
     """
-
-    if isinstance(gid, int):
-        xgid = "#%s" % (gid)
-    else:
-        xgid = "%s" % (gid)
+    try:
+        xgid = '#%s' % int(gid)
+    except:
+        xgid = '%s' % gid
 
     sc = """
     mov r0, %s

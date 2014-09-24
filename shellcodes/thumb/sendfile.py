@@ -14,10 +14,11 @@ def generate(in_fd, out_fd):
 loop_1:
     """
 
-    if isinstance(in_fd, int):
-        sc += "mov r1, #%s" % (in_fd)
-    else:
-        sc += "mov r1, %s" % (in_fd)
+    try:
+        xin_fd = int(in_fd)
+        sc += 'mov r1, #%s' % (xin_fd)
+    except:
+        sc += 'mov r1, %s' % (in_fd)
 
     sc += """
     mov r0, #%s

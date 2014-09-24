@@ -8,12 +8,13 @@ def generate(n=0):
     """
 
     sc = "\n"
-    if isinstance(n, int):
-        if n != 0:
-            sc += "mov x0, %s" % int(n)
+    try:
+        xn = int(n)
+        if xn != 0:
+            sc += "mov x0, %s" % xn
         else:
             sc += "sub x0, x0, x0"
-    else:
+    except:
         sc += "mov x0, %s" % n
 
     sc += """

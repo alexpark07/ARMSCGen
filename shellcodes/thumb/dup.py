@@ -10,9 +10,10 @@ def generate(sock=4):
     mov r7, #(0+ 63)
     sub r2, r2, r2
     """
-    if isinstance(sock, int):
-        sc += 'mov r5, #%s' % (sock)
-    else:
+    try:
+        xsock = int(sock)
+        sc += 'mov r5, #%s' % (xsock)
+    except:
         sc += 'mov r5, %s' % (sock)
     sc += """
 loop_2:

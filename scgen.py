@@ -90,9 +90,9 @@ def showShellcode(args):
 def genShellcode(args):
     fms = []
     for i in range(0, len(args)):
-        fms.append( "%s" % (args[i]) )
+        fms.append( "'%s'" % (args[i]) )
 
-    scode = fms[0] + "(" + ','.join(fms[1:]) + ")"
+    scode = fms[0].replace("'", "") + "(" + ','.join(fms[1:]) + ")"
 
     try:
         if g_arch == 'arm':

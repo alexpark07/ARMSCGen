@@ -3,20 +3,21 @@
 def generate(out_fd, size):
     """Writes a file from stack in thumb mode
     
-    argument: 
+    Args: 
         out_fd (int/str/reg) = file descriptor
+
         size   (int/str/reg) = size to read
     """
 
-    if isinstance(out_fd, int) == True:
-        xout_fd = "#%s" % int(out_fd)
-    else:
-        xout_fd = out_fd
+    try:
+        xout_fd = '#%s' % int(out_fd)
+    except:
+        xout_fd = '%s' % out_fd
 
-    if isinstance(size, int) == True:
-        xsize = "#%s" % int(size)
-    else:
-        xsize = size
+    try:
+        xsize = '#%s' % int(size)
+    except:
+        xsize = '%s' % size
 
     sc = """
     mov r2, %s

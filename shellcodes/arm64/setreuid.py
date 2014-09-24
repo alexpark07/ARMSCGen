@@ -1,14 +1,14 @@
 
 def generate(uid=0):
     """setreuid(uid, uid) to get euid's privilige
-        
-        argument:
+    
+        Args:
             uid (int/str/reg) - effective uid number
     """
 
-    if isinstance(uid, int):
-        xuid = "#%s" % (uid)
-    else:
+    try:
+        xuid = "#%s" % int(uid)
+    except:
         xuid = "%s" % (uid)
 
     sc = """

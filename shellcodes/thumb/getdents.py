@@ -3,14 +3,16 @@
 def generate(in_fd):
     """getdents - lists specific directory in thumb mode
 
-    argument: 
+    Args: 
         in_fd - (int/str/reg): in file descriptor 
     """
 
-    if isinstance(in_fd, int) == True:
-        sc = "mov r0, #%s" % (in_fd)
-    else:
-        sc = "mov r0, %s" % (in_fd)
+    sc = ''
+    try:
+        xin_fd = int(in_fd)
+        sc += 'mov r0, #%s' % (xin_fd)
+    except:
+        sc += 'mov r0, %s' % (sock)
 
     sc += """
     mov r1, sp

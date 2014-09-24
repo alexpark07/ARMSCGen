@@ -6,9 +6,9 @@ def generate(uid=0):
             uid (int/str/reg) - effective uid number
     """
 
-    if isinstance(uid, int):
-        xuid = "#%s" % (uid)
-    else:
+    try:
+        xuid = "#%s" % int(uid)
+    except:
         xuid = "%s" % (uid)
 
     sc = """
