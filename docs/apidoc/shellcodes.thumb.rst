@@ -4,7 +4,18 @@
 :mod:`shellcodes.thumb`
 --------------------------------
 
+:mod:`acceptloop` 
+-------------------------
+
 .. automodule:: shellcodes.thumb.acceptloop
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`arm_to_thumb` 
+-------------------------
+
+.. automodule:: shellcodes.thumb.arm_to_thumb
     :members:
     :undoc-members:
     :show-inheritance:
