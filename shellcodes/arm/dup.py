@@ -18,7 +18,9 @@ def generate(sock=4):
 loop_2:
     mov r0, r9
     mov r1, r8
-    svc (0x900000+ 63)
+    #svc (0x900000+ 63)
+    movw r7, #63
+    svc 0
     adds r8, #-1
 bpl loop_2
     """

@@ -43,6 +43,8 @@ from shellcodes.thumb import arm_to_thumb as th_arm_to_thumb
 from shellcodes.arm import dup   as arm_dup
 from shellcodes.arm import sh    as arm_sh
 from shellcodes.arm import dupsh as arm_dupsh
+from shellcodes.arm import connect   as arm_connect
+from shellcodes.arm import connectback as arm_connectback
 
 ##########################################################
 ## ARM64 Mode
@@ -114,6 +116,8 @@ class armSCGen:
         self.dup        = arm_dup.generate
         self.sh         = arm_sh.generate
         self.dupsh      = arm_dupsh.generate
+        self.connect    = arm_connect.generate
+        self.connectback = arm_connectback.generate
         prepareCompiler('ARM')
 
 class arm64SCGen:
