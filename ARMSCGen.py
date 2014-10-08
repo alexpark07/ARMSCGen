@@ -45,6 +45,24 @@ from shellcodes.arm import sh    as arm_sh
 from shellcodes.arm import dupsh as arm_dupsh
 from shellcodes.arm import connect   as arm_connect
 from shellcodes.arm import connectback as arm_connectback
+from shellcodes.arm import listen as arm_listen
+from shellcodes.arm import acceptloop as arm_acceptloop
+from shellcodes.arm import bindshell as arm_bindshell
+from shellcodes.arm import thumb_to_arm as arm_thumb_to_arm
+from shellcodes.arm import open_file as arm_open_file
+from shellcodes.arm import cat  as arm_cat
+from shellcodes.arm import sendfile as arm_sendfile
+from shellcodes.arm import chmod as arm_chmod
+from shellcodes.arm import exit as arm_exit
+from shellcodes.arm import getdents    as arm_getdents
+from shellcodes.arm import ls          as arm_ls
+from shellcodes.arm import read_from_stack as arm_read_from_stack
+from shellcodes.arm import write_to_stack  as arm_write_to_stack
+from shellcodes.arm import overwrite as arm_overwrite
+from shellcodes.arm import setreuid as arm_setreuid
+from shellcodes.arm import setregid as arm_setregid
+from shellcodes.arm import findpeer as arm_findpeer
+from shellcodes.arm import findpeersh as arm_findpeersh
 
 ##########################################################
 ## ARM64 Mode
@@ -118,6 +136,24 @@ class armSCGen:
         self.dupsh      = arm_dupsh.generate
         self.connect    = arm_connect.generate
         self.connectback = arm_connectback.generate
+        self.listen      = arm_listen.generate
+        self.acceptloop  = arm_acceptloop.generate
+        self.bindshell   = arm_bindshell.generate
+        self.thumb_to_arm = arm_thumb_to_arm.generate
+        self.open_file  = arm_open_file.generate
+        self.sendfile   = arm_sendfile.generate
+        self.cat        = arm_cat.generate
+        self.chmod      = arm_chmod.generate
+        self.exit       = arm_exit.generate
+        self.read_from_stack = arm_read_from_stack.generate
+        self.getdents    = arm_getdents.generate
+        self.ls          = arm_ls.generate
+        self.overwrite   = arm_overwrite.generate
+        self.write_to_stack  = arm_write_to_stack.generate
+        self.setreuid   = arm_setreuid.generate
+        self.setregid   = arm_setregid.generate
+        self.findpeer = arm_findpeer.generate
+        self.findpeersh = arm_findpeersh.generate
         prepareCompiler('ARM')
 
 class arm64SCGen:

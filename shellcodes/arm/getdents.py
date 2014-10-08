@@ -1,7 +1,7 @@
 # getdents syscall
 
 def generate(in_fd):
-    """getdents - lists specific directory in thumb mode
+    """getdents - lists specific directory
 
     Args: 
         in_fd - (int/str/reg): in file descriptor 
@@ -18,6 +18,6 @@ def generate(in_fd):
     mov r1, sp
     mov r2, #255
     mov r7, #141
-    svc 1
+    svc 0
     """
     return sc

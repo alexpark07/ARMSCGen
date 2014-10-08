@@ -7,7 +7,7 @@ O_CREAT  = 00000100
 O_APPEND = 00002000
 
 def generate(filepath='./secret', flags=00, mode=None): 
-    """open a file for reading/writing/sending to you in thumb mode
+    """open a file for reading/writing/sending to you
 
     Args:
         filepath(str): filename to read with flags/mode
@@ -23,20 +23,19 @@ def generate(filepath='./secret', flags=00, mode=None):
     """
 
     if mode != None:
-        sc = ARMSCGen.thumb_fixup('r2', int(mode))
+        sc = 'movw r2, #%s\n' % (int(mode))
     else:
         sc = ''
 
     if flags == 0:
-        sc += "sub r1, r1, r1"
+        sc += 'sub r1, r1, r1\n'
     else:
-        sc += ARMSCGen.thumb_fixup('r1', int(flags))
+        sc += 'movw r1, #%s\n' % (int(flags))
 
     sc += """
-    mov r0, pc
-    add r0, #10
-    mov r7, #(0+ 5)
-    svc 1
+    adr r0, filename_1
+    mov r7, #5
+    svc 0
     mov r6, r0
     bl after_open_2
 filename_1:
