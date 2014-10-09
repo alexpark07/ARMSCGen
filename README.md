@@ -40,6 +40,6 @@ URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source
 
 ### TODO
 
-``AArch32-ARM Mode`` shellcodes
+writes shellcodoes precisely and writes docs in detail
 
 (To be continued)
