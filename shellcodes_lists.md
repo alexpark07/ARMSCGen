@@ -1,8 +1,9 @@
 ========================================
-### architechture: thumb - total(24)
+### architechture: thumb - total(25)
 ========================================
 ``acceptloop``
 ``appendwrite``
+``arm_to_thumb``
 ``bindshell``
 ``cat``
 ``chmod``
@@ -27,11 +28,31 @@
 ``write_to_stack``
 
 ========================================
-### architechture: arm - total(03)
+### architechture: arm - total(23)
 ========================================
+``acceptloop``
+``bindshell``
+``cat``
+``chmod``
+``connect``
+``connectback``
 ``dup``
 ``dupsh``
+``exit``
+``findpeer``
+``findpeersh``
+``getdents``
+``listen``
+``ls``
+``open_file``
+``overwrite``
+``read_from_stack``
+``sendfile``
+``setregid``
+``setreuid``
 ``sh``
+``thumb_to_arm``
+``write_to_stack``
 
 ========================================
 ### architechture: arm64 - total(25)
