@@ -122,6 +122,20 @@ def genShellcode(args):
             print scode
         elif g_format == 'hex':
             print enhex(scode)
+        elif g_format == 'python':
+            _xscode = []
+            _xscode.append('shellcode = ""\n')
+            _xdiv = len(scode) / (16)
+            _xmod = len(scode) % (16)
+            _x = 0
+            for _i in range(0, _xdiv):
+                _xscode.append('shellcode += %s' % _string(scode[_i*16:(_i+1)*16]))
+                _x = _x + 1
+            if _xmod:
+                _xscode.append('shellcode += %s' % _string(scode[(_i+1)*16:]))
+            print "// shellcode's length is : %s" % (len(scode))
+            print ''.join(_xscode)
+
         else:
             print _string(scode)
 
@@ -159,9 +173,10 @@ if __name__ == '__main__':
                               's', 'str', 'string',
                               'h', 'hex',
                               'a', 'asm', 
-                              'c'
+                              'c',
+                              'p', 'py', 'python',
                              ],
-                   help = '{r}aw, {s}tring, {h}ex, {a}sm, {c} for C code',
+                   help = '{r}aw, {s}tring, {h}ex, {a}sm, {c} for C code, {p|py}thon for python code',
                    )
     parser.add_option('-x', '--xor',
                   dest = 'xor',
@@ -200,6 +215,8 @@ if __name__ == '__main__':
             g_format = 'c'
         elif opt.format in ['h', 'hex']:
             g_format = 'hex'
+        elif opt.format in ['p', 'py', 'python' ]:
+            g_format = 'python'
         else:
             g_format = 'asm'
 
