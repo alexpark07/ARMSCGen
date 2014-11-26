@@ -109,7 +109,10 @@ def genShellcode(args):
             print show
             return
         else:
-            scode = CompileSC(show)
+            if g_arch == 'thumb':
+                scode = CompileSC(show, isThumb=True)
+            else:
+                scode = CompileSC(show)
             if g_xorkey != 0:
                 if g_arch != 'arm64':
                     scode = MakeXorShellcode( scode )
