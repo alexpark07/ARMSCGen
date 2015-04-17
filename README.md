@@ -14,9 +14,11 @@ Cross Compile Tool for ARM
 
 ``as``, ``ld`` and ``objcopy``
 
-capstone to disassemble codes
+[Capstone](http://www.capstone-engine.org) is needed to disassemble codes.
+Install Capstone with:
 
-URL: ``http://www.capstone-engine.org/``
+    $sudo pip install capstone
+
 
 ### Installation
 
