@@ -136,7 +136,7 @@ def genShellcode(args):
                 _x = _x + 1
             if _xmod:
                 _xscode.append('shellcode += %s' % _string(scode[(_i+1)*16:]))
-            print "// shellcode's length is : %s" % (len(scode))
+            print "# shellcode's length is : %s" % (len(scode))
             print ''.join(_xscode)
 
         else:
