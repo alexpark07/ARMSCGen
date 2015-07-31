@@ -3,6 +3,7 @@
 import os, sys
 import tempfile
 from optparse import OptionParser
+from struct import unpack, pack
 
 OBJDUMP = 'arm-linux-gnueabi-objdump'
 OBJCOPY = 'arm-linux-gnueabi-objcopy'
@@ -15,6 +16,55 @@ ARM64_AS      = 'aarch64-linux-gnu-as'
 g_arch    = 'i386'
 g_format  = 'string'
 g_discode = False
+g_capstone = False
+
+def uu16(u):
+    """struct.unpack(2-bytes)
+
+    Args:
+        u(str): 2-bytes packed data
+
+    Returns:
+        unsigned short value
+
+    """
+    return unpack('<H', u)[0]
+
+def u16(u):
+    """struct.unpack(2-bytes)
+
+    Args:
+        u(str): 2-bytes packed data
+
+    Returns:
+        short value
+
+    """
+    return unpack('<h', u)[0]
+
+def uu32(u):
+    """struct.unpack(4-bytes)
+
+    Args:
+        u(str): 4-bytes packed data
+
+    Returns:
+        unsigned integer value
+
+    """
+    return unpack('<I', u)[0]
+
+def u32(u):
+    """struct.unpack(4-bytes)
+
+    Args:
+        u(str): 4-bytes packed data
+
+    Returns:
+        integer value
+
+    """
+    return unpack('<i', u)[0]
 
 def _string(s):
     out = []
@@ -160,6 +210,13 @@ def DisCode(msg, fn):
 
 
 if __name__ == '__main__':
+    try:
+        from capstone import *
+        from capstone.arm import *
+        g_capstone = True
+    except ImportError:
+        g_capstone = False
+
     parser = OptionParser(description = 'asm/disasm code by alex.park')
     parser.add_option('-a', '--architechture',
                    dest='arch',
@@ -206,7 +263,43 @@ if __name__ == '__main__':
     fn = tempfile.mktemp()
 
     if g_discode == True:
-        DisCode(data, fn)
+        if g_capstone == True:
+            if g_arch == 'arm':
+                xarch = CS_ARCH_ARM
+                xmode = CS_MODE_ARM
+            elif g_arch == 'arm64':
+                xarch = CS_ARCH_ARM64
+                xmode = CS_MODE_ARM
+            elif g_arch == 'thumb':
+                xarch = CS_ARCH_ARM
+                xmode = CS_MODE_THUMB
+            elif g_arch == 'i386':
+                xarch = CS_ARCH_X86
+                xmode = CS_MODE_32
+            elif g_arch == 'amd64':
+                xarch = CS_ARCH_X86
+                xmode = CS_MODE_64
+            else:
+                print "Not supports arch for you yet"
+                sys.exit(-1)
+
+            md = Cs(xarch, xmode)
+            md.detail = True
+            totalSize = 0
+            dat = ''
+            for i in md.disasm(data, 0x0000):
+                if i.size == 4:
+                    s = "%08x" % uu32(i.bytes)
+                elif i.size == 2:
+                    s = "%04x" % uu16(i.bytes)
+                else:
+                    s = -1
+
+                dat += "0x%08x (%04d): %-8s %-8s %s\n" %(i.address, totalSize, s, i.mnemonic, i.op_str)
+            print dat
+
+        else:
+            DisCode(data, fn)
     else:
         AsmCode(data, fn)
 
