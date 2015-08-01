@@ -5,12 +5,16 @@ import tempfile
 from optparse import OptionParser
 from struct import unpack, pack
 
-OBJDUMP = 'arm-linux-gnueabi-objdump'
-OBJCOPY = 'arm-linux-gnueabi-objcopy'
-AS      = 'arm-linux-gnueabi-as'
+OBJDUMP       = 'objdump'
+OBJCOPY       = 'objcopy'
+AS            = 'as'
+
+ARM32_OBJDUMP = 'arm-linux-gnueabi-objdump'
+ARM32_OBJCOPY = 'arm-linux-gnueabi-objcopy'
+ARM32_AS      = 'arm-linux-gnueabi-as'
 
 ARM64_OBJDUMP = 'aarch64-linux-gnu-objdump'
-ARM64_OBJCOPY = 'aarch64-linux-gnu-objcyop'
+ARM64_OBJCOPY = 'aarch64-linux-gnu-objcopy'
 ARM64_AS      = 'aarch64-linux-gnu-as'
 
 g_arch    = 'i386'
@@ -18,53 +22,9 @@ g_format  = 'string'
 g_discode = False
 g_capstone = False
 
-def uu16(u):
-    """struct.unpack(2-bytes)
-
-    Args:
-        u(str): 2-bytes packed data
-
-    Returns:
-        unsigned short value
-
-    """
-    return unpack('<H', u)[0]
-
-def u16(u):
-    """struct.unpack(2-bytes)
-
-    Args:
-        u(str): 2-bytes packed data
-
-    Returns:
-        short value
-
-    """
-    return unpack('<h', u)[0]
-
-def uu32(u):
-    """struct.unpack(4-bytes)
-
-    Args:
-        u(str): 4-bytes packed data
-
-    Returns:
-        unsigned integer value
-
-    """
-    return unpack('<I', u)[0]
-
-def u32(u):
-    """struct.unpack(4-bytes)
-
-    Args:
-        u(str): 4-bytes packed data
-
-    Returns:
-        integer value
-
-    """
-    return unpack('<i', u)[0]
+def u8(u, rep=1):
+    #return ' '.join(unpack(('<' + 'c'*rep), u))
+    return unpack(('<' + 'c'*rep), u)
 
 def _string(s):
     out = []
@@ -87,15 +47,15 @@ def unhex(c):
 
 def compile(fn):
     if g_arch == "arm":
-        cmd = '%s %s.s -o %s.o' % (AS, fn, fn)
+        cmd = '%s %s.s -o %s.o' % (ARM32_AS, fn, fn)
     elif g_arch == "thumb":
-        cmd = '%s %s.s -o %s.o -mthumb' % (AS, fn, fn)
+        cmd = '%s %s.s -o %s.o -mthumb' % (ARM32_AS, fn, fn)
     elif g_arch == "arm64":
         cmd = '%s %s.s -o %s.o' % (ARM64_AS, fn, fn)
     elif g_arch == "i386":
-        cmd = 'as %s.s -o %s.o --32' % (fn, fn)
+        cmd = '%s %s.s -o %s.o --32' % (AS, fn, fn)
     elif g_arch == "amd64":
-        cmd = 'as %s.s -o %s.o --64' % (fn, fn)
+        cmd = '%s %s.s -o %s.o --64' % (AS, fn, fn)
     os.system(cmd)
     if os.path.exists('%s.o' % (fn)) == False:
         print "There is no result: as"
@@ -103,9 +63,9 @@ def compile(fn):
 
     tempfn = '%s.tmp1' % (fn)
     if (g_arch == 'i386') or (g_arch == 'amd64'):
-        cmd = 'objcopy -j.text -Obinary %s.o %s' % (fn, tempfn)
-    elif (g_arch == 'arm') or (g_arch == 'thumb'):
         cmd = '%s -j.text -Obinary %s.o %s' % (OBJCOPY, fn, tempfn)
+    elif (g_arch == 'arm') or (g_arch == 'thumb'):
+        cmd = '%s -j.text -Obinary %s.o %s' % (ARM32_OBJCOPY, fn, tempfn)
     elif (g_arch == 'arm64'):
         cmd = '%s -j.text -Obinary %s.o %s' % (ARM64_OBJCOPY, fn, tempfn)
     else:
@@ -155,27 +115,23 @@ _start:
     compile(fn)
 
 def AsmCode(msg, fn):
-    if g_arch == 'i386':
-        asm_src(msg, fn, '')
-    elif g_arch == 'amd64':
-        asm_src(msg, fn, '')
-    elif g_arch == 'arm' or g_arch == 'arm64':
+    if g_arch == 'arm':
         asm_src(msg, fn, '.arm')
     elif g_arch == 'thumb':
         asm_src(msg, fn, '.thumb')
     else:
-        return -1
+        asm_src(msg, fn, '')
 
 def DisCode(msg, fn):
     tempfn = '%s.tmp1' % (fn)
     if g_arch == 'i386':
-        opt = 'objdump %s -D -b binary -mi386 -Mintel > %s' % (fn, tempfn)
+        opt = '%s %s -D -b binary -mi386 -Mintel > %s' % (OBJDUMP, fn, tempfn)
     elif g_arch == 'amd64':
-        opt = 'objdump -D -b binary -mi386:x86-64 -Mintel %s > %s' % (fn, tempfn)
+        opt = '%s -D -b binary -mi386:x86-64 -Mintel %s > %s' % (OBJDUMP, fn, tempfn)
     elif g_arch == 'arm':
-        opt = '%s -D -b binary -marm %s > %s' % (OBJDUMP, fn, tempfn)
+        opt = '%s -D -b binary -marm %s > %s' % (ARM32_OBJDUMP, fn, tempfn)
     elif g_arch == 'thumb':
-        opt = '%s -D -b binary -marm -Mforce-thumb %s > %s' % (OBJDUMP, fn, tempfn)
+        opt = '%s -D -b binary -marm -Mforce-thumb %s > %s' % (ARM_32OBJDUMP, fn, tempfn)
     elif g_arch == 'arm64':
         opt = '%s -D -b binary -maarch64 %s > %s' % (ARM64_OBJDUMP, fn, tempfn)
     else:
@@ -235,15 +191,25 @@ def DisCodeWithCS(msg):
     md.detail = True
     totalSize = 0
     dat = ''
+    fmtstr = ''
+    if g_arch == 'arm' or g_arch == 'arm64' or g_arch == 'thumb':
+        fmtstr = "0x%08x (%04d): %-13s %-8s %s\n"
+    elif g_arch == 'i386':
+        fmtstr = "0x%08x (%04d): %-21s %-8s %s\n"
+    else:
+        fmtstr = "0x%08x (%04d): %-31s %-8s %s\n"
+
     for i in md.disasm(data, 0x0000):
-        if i.size == 4:
-            s = "%08x" % uu32(i.bytes)
-        elif i.size == 2:
-            s = "%04x" % uu16(i.bytes)
+        if i.size:
+            _tmp = []
+            for _x in u8(i.bytes, i.size):
+                _tmp.append(_x.encode('hex'))
+            s = "%s" % ' '.join(_tmp)
         else:
             s = -1
 
-        dat += "0x%08x (%04d): %-8s %-8s %s\n" %(i.address, totalSize, s, i.mnemonic, i.op_str)
+        dat += fmtstr % (i.address, totalSize, s, i.mnemonic, i.op_str)
+        totalSize += i.size
     print dat
 
 if __name__ == '__main__':
