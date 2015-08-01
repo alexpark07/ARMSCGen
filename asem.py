@@ -208,6 +208,43 @@ def DisCode(msg, fn):
 
     return 0
 
+def DisCodeWithCS(msg):
+
+    data = msg
+
+    if g_arch == 'arm':
+        xarch = CS_ARCH_ARM
+        xmode = CS_MODE_ARM
+    elif g_arch == 'arm64':
+        xarch = CS_ARCH_ARM64
+        xmode = CS_MODE_ARM
+    elif g_arch == 'thumb':
+        xarch = CS_ARCH_ARM
+        xmode = CS_MODE_THUMB
+    elif g_arch == 'i386':
+        xarch = CS_ARCH_X86
+        xmode = CS_MODE_32
+    elif g_arch == 'amd64':
+        xarch = CS_ARCH_X86
+        xmode = CS_MODE_64
+    else:
+        print "Not supports arch for you yet"
+        sys.exit(-1)
+
+    md = Cs(xarch, xmode)
+    md.detail = True
+    totalSize = 0
+    dat = ''
+    for i in md.disasm(data, 0x0000):
+        if i.size == 4:
+            s = "%08x" % uu32(i.bytes)
+        elif i.size == 2:
+            s = "%04x" % uu16(i.bytes)
+        else:
+            s = -1
+
+        dat += "0x%08x (%04d): %-8s %-8s %s\n" %(i.address, totalSize, s, i.mnemonic, i.op_str)
+    print dat
 
 if __name__ == '__main__':
     try:
@@ -260,47 +297,16 @@ if __name__ == '__main__':
         g_discode = True
 
     data = sys.stdin.read()
-    fn = tempfile.mktemp()
+    fn = ''
 
     if g_discode == True:
         if g_capstone == True:
-            if g_arch == 'arm':
-                xarch = CS_ARCH_ARM
-                xmode = CS_MODE_ARM
-            elif g_arch == 'arm64':
-                xarch = CS_ARCH_ARM64
-                xmode = CS_MODE_ARM
-            elif g_arch == 'thumb':
-                xarch = CS_ARCH_ARM
-                xmode = CS_MODE_THUMB
-            elif g_arch == 'i386':
-                xarch = CS_ARCH_X86
-                xmode = CS_MODE_32
-            elif g_arch == 'amd64':
-                xarch = CS_ARCH_X86
-                xmode = CS_MODE_64
-            else:
-                print "Not supports arch for you yet"
-                sys.exit(-1)
-
-            md = Cs(xarch, xmode)
-            md.detail = True
-            totalSize = 0
-            dat = ''
-            for i in md.disasm(data, 0x0000):
-                if i.size == 4:
-                    s = "%08x" % uu32(i.bytes)
-                elif i.size == 2:
-                    s = "%04x" % uu16(i.bytes)
-                else:
-                    s = -1
-
-                dat += "0x%08x (%04d): %-8s %-8s %s\n" %(i.address, totalSize, s, i.mnemonic, i.op_str)
-            print dat
-
+            DisCodeWithCS(data)
         else:
+            fn = tempfile.mktemp()
             DisCode(data, fn)
     else:
+        fn = tempfile.mktemp()
         AsmCode(data, fn)
 
     if os.path.exists(fn):
