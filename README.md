@@ -42,6 +42,6 @@ URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source
 
 ### TODO
 
-writes shellcodoes precisely and writes docs in detail
+writes shellcodes precisely and writes docs in detail
 
 (To be continued)
