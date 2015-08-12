@@ -131,7 +131,7 @@ def DisCode(msg, fn):
     elif g_arch == 'arm':
         opt = '%s -D -b binary -marm %s > %s' % (ARM32_OBJDUMP, fn, tempfn)
     elif g_arch == 'thumb':
-        opt = '%s -D -b binary -marm -Mforce-thumb %s > %s' % (ARM_32OBJDUMP, fn, tempfn)
+        opt = '%s -D -b binary -marm -Mforce-thumb %s > %s' % (ARM32_OBJDUMP, fn, tempfn)
     elif g_arch == 'arm64':
         opt = '%s -D -b binary -maarch64 %s > %s' % (ARM64_OBJDUMP, fn, tempfn)
     else:
