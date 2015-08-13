@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'ARMSCGen',
-    version = '0.0.12',
+    version = '0.0.13',
     packages = find_packages() + ['examples'],
     data_files = [('', ['LICENSE-ARMSCGen.txt'])],
     py_modules = ['ARMSCGen'],

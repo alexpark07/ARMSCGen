@@ -13,7 +13,7 @@ arm64gen = arm64SCGen()
 g_arch      = 'thumb'
 g_shellcode = ''
 g_format    = 'asm'
-g_xorkey    = 0
+g_xorkey    = False
 
 # pwntools from pwnies
 def _string(s):
@@ -113,8 +113,8 @@ def genShellcode(args):
                 scode = CompileSC(show, isThumb=True)
             else:
                 scode = CompileSC(show)
-            if g_xorkey != 0:
-                if g_arch != 'arm64':
+            if g_xorkey == True:
+                if g_arch == 'thumb':
                     scode = MakeXorShellcode( scode )
 
         if g_format == 'c':
@@ -183,7 +183,8 @@ if __name__ == '__main__':
                    )
     parser.add_option('-x', '--xor',
                   dest = 'xor',
-                  type = int,
+                  action="store_true",
+                  default = False,
                   help = 'XOR Encoder if you want to avoid bad chars like 0x00, 0x0a and so on\nNotice: only for arm32, thumb shellcodes so far',
                   )
 
@@ -224,7 +225,7 @@ if __name__ == '__main__':
             g_format = 'asm'
 
     if opt.xor:
-        g_xorkey = int(opt.xor)
+        g_xorkey = True
 
     if len(args) == 0:
         print "Please choice one of shellcodes to show you"

