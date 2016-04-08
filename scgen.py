@@ -14,6 +14,7 @@ g_arch      = 'thumb'
 g_shellcode = ''
 g_format    = 'asm'
 g_xorkey    = False
+g_testSC    = False
 
 # pwntools from pwnies
 def _string(s):
@@ -93,6 +94,7 @@ def genShellcode(args):
         fms.append( "'%s'" % (args[i]) )
 
     scode = fms[0].replace("'", "") + "(" + ','.join(fms[1:]) + ")"
+    scode_tc = fms[0].replace("'", "") + "_tc(" + ','.join(fms[1:]) + ")"
 
     try:
         if g_arch == 'arm':
@@ -107,15 +109,28 @@ def genShellcode(args):
 
         if g_format == 'asm':
             print show
-            return
+            if g_testSC == False:
+                return
+
+        if g_arch == 'thumb':
+            scode = CompileSC(show, isThumb=True)
         else:
+            scode = CompileSC(show)
+
+        if g_xorkey == True:
             if g_arch == 'thumb':
-                scode = CompileSC(show, isThumb=True)
-            else:
-                scode = CompileSC(show)
-            if g_xorkey == True:
-                if g_arch == 'thumb':
-                    scode = MakeXorShellcode( scode )
+                scode = MakeXorShellcode( scode )
+
+        if g_testSC == True:
+            if g_arch == 'arm':
+                eval("armgen.%s" % (scode_tc))
+            elif g_arch == 'arm64':
+                eval("arm64gen.%s" % (scode_tc))
+            elif g_arch == 'thumb':
+                eval("thgen.%s" % (scode_tc))
+
+        if g_format == 'asm': 
+            return
 
         if g_format == 'c':
             print _carray(scode)
@@ -188,6 +203,13 @@ if __name__ == '__main__':
                   help = 'XOR Encoder if you want to avoid bad chars like 0x00, 0x0a and so on\nNotice: only for arm32, thumb shellcodes so far',
                   )
 
+    parser.add_option('-t', '--test',
+                  dest = 'testSC',
+                  action="store_true",
+                  default = False,
+                  help = 'Shellcode Test in unicorn engine'
+                  )
+
     (opt, args) = parser.parse_args()
 
     if opt.arch:
@@ -226,6 +248,9 @@ if __name__ == '__main__':
 
     if opt.xor:
         g_xorkey = True
+
+    if opt.testSC:
+        g_testSC = True
 
     if len(args) == 0:
         print "Please choice one of shellcodes to show you"

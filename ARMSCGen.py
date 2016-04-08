@@ -5,7 +5,7 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
-__VERSION__ = '$0.0.12'
+__VERSION__ = '$0.0.13'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -98,31 +98,32 @@ class thumbSCGen:
 
     """
     def __init__(self):
-        self.chmod       = th_chmod.generate
-        self.dup         = th_dup.generate
-        self.sh          = th_sh.generate
-        self.dupsh       = th_dupsh.generate
-        self.bindshell   = th_bindshell.generate
-        self.listen      = th_listen.generate
-        self.acceptloop  = th_acceptloop.generate
-        self.connect     = th_connect.generate
-        self.connectback = th_connectback.generate
-        self.open_file   = th_open_file.generate
-        self.sendfile    = th_sendfile.generate
-        self.cat         = th_cat.generate
-        self.exit        = th_exit.generate
-        self.findpeer    = th_findpeer.generate
-        self.findpeersh  = th_findpeersh.generate
-        self.getdents    = th_getdents.generate
-        self.ls          = th_ls.generate
-        self.setreuid    = th_setreuid.generate
-        self.setregid    = th_setregid.generate
-        self.overwrite   = th_overwrite.generate
-        self.appendwrite = th_appendwrite.generate
-        self.read_from_stack = th_read_from_stack.generate
-        self.write_to_stack  = th_write_to_stack.generate
+        self.chmod           = th_chmod.generate
+        self.dup             = th_dup.generate
+        self.sh              = th_sh.generate
+        self.sh_tc           = th_sh.testcase
+        self.dupsh           = th_dupsh.generate
+        self.bindshell       = th_bindshell.generate
+        self.listen          = th_listen.generate
+        self.acceptloop      = th_acceptloop.generate
+        self.connect         = th_connect.generate
+        self.connectback     = th_connectback.generate
+        self.open_file       = th_open_file.generate
+        self.sendfile        = th_sendfile.generate
+        self.cat             = th_cat.generate
+        self.exit            = th_exit.generate
+        self.findpeer        = th_findpeer.generate
+        self.findpeersh      = th_findpeersh.generate
+        self.getdents        = th_getdents.generate
+        self.ls              = th_ls.generate
+        self.setreuid        = th_setreuid.generate
+        self.setregid        = th_setregid.generate
+        self.overwrite       = th_overwrite.generate
+        self.appendwrite     = th_appendwrite.generate
         self.infinityloop    = th_infinityloop.generate
         self.arm_to_thumb    = th_arm_to_thumb.generate
+        self.write_to_stack  = th_write_to_stack.generate
+        self.read_from_stack = th_read_from_stack.generate
         prepareCompiler('THUMB')
         
 
@@ -131,29 +132,29 @@ class armSCGen:
 
     """
     def __init__(self):
-        self.dup        = arm_dup.generate
-        self.sh         = arm_sh.generate
-        self.dupsh      = arm_dupsh.generate
-        self.connect    = arm_connect.generate
-        self.connectback = arm_connectback.generate
-        self.listen      = arm_listen.generate
-        self.acceptloop  = arm_acceptloop.generate
-        self.bindshell   = arm_bindshell.generate
-        self.thumb_to_arm = arm_thumb_to_arm.generate
-        self.open_file  = arm_open_file.generate
-        self.sendfile   = arm_sendfile.generate
-        self.cat        = arm_cat.generate
-        self.chmod      = arm_chmod.generate
-        self.exit       = arm_exit.generate
-        self.read_from_stack = arm_read_from_stack.generate
-        self.getdents    = arm_getdents.generate
-        self.ls          = arm_ls.generate
-        self.overwrite   = arm_overwrite.generate
+        self.dup             = arm_dup.generate
+        self.sh              = arm_sh.generate
+        self.dupsh           = arm_dupsh.generate
+        self.connect         = arm_connect.generate
+        self.connectback     = arm_connectback.generate
+        self.listen          = arm_listen.generate
+        self.acceptloop      = arm_acceptloop.generate
+        self.bindshell       = arm_bindshell.generate
+        self.thumb_to_arm    = arm_thumb_to_arm.generate
+        self.open_file       = arm_open_file.generate
+        self.sendfile        = arm_sendfile.generate
+        self.cat             = arm_cat.generate
+        self.chmod           = arm_chmod.generate
+        self.exit            = arm_exit.generate
+        self.getdents        = arm_getdents.generate
+        self.ls              = arm_ls.generate
+        self.overwrite       = arm_overwrite.generate
+        self.setreuid        = arm_setreuid.generate
+        self.setregid        = arm_setregid.generate
+        self.findpeer        = arm_findpeer.generate
+        self.findpeersh      = arm_findpeersh.generate
         self.write_to_stack  = arm_write_to_stack.generate
-        self.setreuid   = arm_setreuid.generate
-        self.setregid   = arm_setregid.generate
-        self.findpeer = arm_findpeer.generate
-        self.findpeersh = arm_findpeersh.generate
+        self.read_from_stack = arm_read_from_stack.generate
         prepareCompiler('ARM')
 
 class arm64SCGen:
@@ -161,31 +162,31 @@ class arm64SCGen:
 
     """
     def __init__(self):
-        self.sh         = arm64_sh.generate
-        self.dup        = arm64_dup.generate
-        self.cat        = arm64_cat.generate
-        self.exit       = arm64_exit.generate
-        self.dupsh      = arm64_dupsh.generate
-        self.setreuid   = arm64_setreuid.generate
-        self.setregid   = arm64_setregid.generate
-        self.sendfile   = arm64_sendfile.generate
-        self.open_file  = arm64_open_file.generate
-        self.connect    = arm64_connect.generate
-        self.connectback = arm64_connectback.generate
-        self.listen      = arm64_listen.generate
-        self.acceptloop  = arm64_acceptloop.generate
-        self.bindshell   = arm64_bindshell.generate
-        self.infinityloop = arm64_infinityloop.generate
-        self.read_from_stack = arm64_read_from_stack.generate
-        self.getdents    = arm64_getdents.generate
-        self.ls          = arm64_ls.generate
-        self.overwrite   = arm64_overwrite.generate
+        self.sh              = arm64_sh.generate
+        self.dup             = arm64_dup.generate
+        self.cat             = arm64_cat.generate
+        self.exit            = arm64_exit.generate
+        self.dupsh           = arm64_dupsh.generate
+        self.setreuid        = arm64_setreuid.generate
+        self.setregid        = arm64_setregid.generate
+        self.sendfile        = arm64_sendfile.generate
+        self.open_file       = arm64_open_file.generate
+        self.connect         = arm64_connect.generate
+        self.connectback     = arm64_connectback.generate
+        self.listen          = arm64_listen.generate
+        self.acceptloop      = arm64_acceptloop.generate
+        self.bindshell       = arm64_bindshell.generate
+        self.infinityloop    = arm64_infinityloop.generate
+        self.getdents        = arm64_getdents.generate
+        self.ls              = arm64_ls.generate
+        self.overwrite       = arm64_overwrite.generate
+        self.appendwrite     = arm64_appendwrite.generate
+        self.fsync           = arm64_fsync.generate
+        self.lseek           = arm64_lseek.generate
+        self.findpeer        = arm64_findpeer.generate
+        self.findpeersh      = arm64_findpeersh.generate
         self.write_to_stack  = arm64_write_to_stack.generate
-        self.appendwrite = arm64_appendwrite.generate
-        self.fsync = arm64_fsync.generate
-        self.lseek = arm64_lseek.generate
-        self.findpeer = arm64_findpeer.generate
-        self.findpeersh = arm64_findpeersh.generate
+        self.read_from_stack = arm64_read_from_stack.generate
         prepareCompiler('ARM64')
 
 # Assembler 
@@ -219,6 +220,19 @@ except ImportError:
     g_capstone = False
 except:
     SYSERR("Exception: Unknown in disasm(...)")
+
+# unicorn engine available
+g_unicorn = False
+try:
+    from unicorn import *
+    from unicorn.arm_const import *
+    g_unicorn = True
+except ImportError:
+    g_unicorn = False
+except:
+    SYSERR("Exception: Unknown error - import unicorn")
+
+g_reg_value = -1
 
 def SYSERR(m):
     """SYSERR(m) -> None
@@ -764,3 +778,55 @@ def getShellcodeHelp(scode, arch='thumb'):
         show = "Unknown execption"
 
     return show
+
+# UC code
+# callback for tracing instructions
+def hook_code(uc, address, size, user_data):
+    print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
+    # read this instruction code from memory
+    tmp = uc.mem_read(address, size)
+    if tmp == '\xcc\xcc':
+        uc.emu_stop()
+    print(">>> Instruction code at [0x%x] =" %(address))
+    for i in tmp:
+        print "%02x" % i,
+    print("")
+
+
+# callback for tracing basic blocks
+def hook_block(uc, address, size, user_data):
+    print(">>> Tracing basic block at 0x%x, block size = 0x%x" %(address, size))
+
+# callback for tracing Linux interrupt
+def hook_intr(uc, intno, user_data):
+    r7 = uc.reg_read(UC_ARM_REG_R7)
+    if r7 == g_reg_value:
+        uc.emu_stop()
+    return
+
+def UC_TESTSC(code, scsize, r7=0, arch=UC_ARCH_ARM, mode=UC_MODE_THUMB, isDebug=True):
+    START_RIP = 0x0
+    PAGE_SIZE = 5 * 1024 * 1024
+
+    global g_reg_value
+    g_reg_value = r7
+
+    try:
+        mu = Uc(arch, mode)
+        # 2MB memory
+        mu.mem_map(START_RIP, PAGE_SIZE)
+        # write code in memory
+        mu.mem_write(START_RIP, code)
+        mu.mem_write(START_RIP+len(code)+0x10, "\xcc\xcc\xcc\xcc")
+        # initialize machine registers
+        mu.reg_write(UC_ARM_REG_SP, 0x2000)
+
+        if isDebug:
+            mu.hook_add(UC_HOOK_BLOCK, hook_block)
+            mu.hook_add(UC_HOOK_CODE, hook_code)
+
+        mu.hook_add(UC_HOOK_INTR, hook_intr)
+        mu.emu_start(START_RIP, scsize, 0, 0x2000)
+        return mu
+    except UcError as e:
+        print("ERROR: %s" % e)
