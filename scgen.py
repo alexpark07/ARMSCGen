@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 
 from optparse import OptionParser
 import sys
@@ -122,12 +122,15 @@ def genShellcode(args):
                 scode = MakeXorShellcode( scode )
 
         if g_testSC == True:
-            if g_arch == 'arm':
-                eval("armgen.%s" % (scode_tc))
-            elif g_arch == 'arm64':
-                eval("arm64gen.%s" % (scode_tc))
-            elif g_arch == 'thumb':
-                eval("thgen.%s" % (scode_tc))
+            try:
+                if g_arch == 'arm':
+                    eval("armgen.%s" % (scode_tc))
+                elif g_arch == 'arm64':
+                    eval("arm64gen.%s" % (scode_tc))
+                elif g_arch == 'thumb':
+                    eval("thgen.%s" % (scode_tc))
+            except:
+                print "There is no testcase"
 
         if g_format == 'asm': 
             return

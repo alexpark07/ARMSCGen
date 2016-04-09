@@ -47,5 +47,13 @@ after_sockaddr_2:
     """ % (htons(int(port)), u32(binary_ip(host)))
     return sc
 
+def testcase(host='127.0.0.1', port=31337):
+    import ARMSCGen as scgen
+    scgen.prepareCompiler('THUMB')
+    sc = scgen.CompileSC(generate(host, port), isThumb=True)
+    sclen = len(sc)
+    print "[+] Registers information"
+    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)
+
 if __name__ == '__main__':
     print generate()

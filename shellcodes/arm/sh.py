@@ -17,3 +17,11 @@ bin_sh_1:
     .asciz "%s"
     """ % (cmd) # sometimes we have to change to specific things like id
     return sc
+
+def testcase(cmd='/bin/sh'):
+    import ARMSCGen as scgen
+    scgen.prepareCompiler('ARM')
+    sc = scgen.CompileSC(generate(cmd), isThumb=False)
+    sclen = sc.find(cmd)
+    print "[+] Registers information"
+    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_ARM, False)

@@ -17,5 +17,13 @@ bin_sh_1:
     """ % (cmd)
     return sc
 
+def testcase(cmd='/bin/sh'):
+    import ARMSCGen as scgen
+    scgen.prepareCompiler('ARM64')
+    sc = scgen.CompileSC(generate(cmd), isThumb=False)
+    sclen = sc.find(cmd)
+    print "[+] Registers information"
+    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM64, scgen.UC_MODE_ARM, not False)
+
 if __name__ == '__main__':
     print generate()

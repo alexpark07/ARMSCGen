@@ -11,87 +11,90 @@ __AUTHOR__  = 'alex.park'
 ##########################################################
 ## Thumb Mode 
 ##########################################################
-from shellcodes.thumb import chmod       as th_chmod
-from shellcodes.thumb import dup         as th_dup
-from shellcodes.thumb import sh          as th_sh
-from shellcodes.thumb import dupsh       as th_dupsh
-from shellcodes.thumb import bindshell   as th_bindshell
-from shellcodes.thumb import listen      as th_listen
-from shellcodes.thumb import acceptloop  as th_acceptloop
-from shellcodes.thumb import connect     as th_connect
-from shellcodes.thumb import connectback as th_connectback
-from shellcodes.thumb import open_file   as th_open_file
-from shellcodes.thumb import sendfile    as th_sendfile
-from shellcodes.thumb import cat         as th_cat
-from shellcodes.thumb import exit        as th_exit
-from shellcodes.thumb import findpeer    as th_findpeer
-from shellcodes.thumb import findpeersh  as th_findpeersh
-from shellcodes.thumb import getdents    as th_getdents
-from shellcodes.thumb import ls          as th_ls
-from shellcodes.thumb import setreuid    as th_setreuid
-from shellcodes.thumb import setregid    as th_setregid
-from shellcodes.thumb import overwrite   as th_overwrite
-from shellcodes.thumb import appendwrite as th_appendwrite
+from shellcodes.thumb import chmod           as th_chmod
+from shellcodes.thumb import dup             as th_dup
+from shellcodes.thumb import sh              as th_sh
+from shellcodes.thumb import dupsh           as th_dupsh
+from shellcodes.thumb import bindshell       as th_bindshell
+from shellcodes.thumb import listen          as th_listen
+from shellcodes.thumb import acceptloop      as th_acceptloop
+from shellcodes.thumb import connect         as th_connect
+from shellcodes.thumb import connectback     as th_connectback
+from shellcodes.thumb import open_file       as th_open_file
+from shellcodes.thumb import sendfile        as th_sendfile
+from shellcodes.thumb import cat             as th_cat
+from shellcodes.thumb import exit            as th_exit
+from shellcodes.thumb import findpeer        as th_findpeer
+from shellcodes.thumb import findpeersh      as th_findpeersh
+from shellcodes.thumb import getdents        as th_getdents
+from shellcodes.thumb import ls              as th_ls
+from shellcodes.thumb import setreuid        as th_setreuid
+from shellcodes.thumb import setregid        as th_setregid
+from shellcodes.thumb import overwrite       as th_overwrite
+from shellcodes.thumb import appendwrite     as th_appendwrite
 from shellcodes.thumb import read_from_stack as th_read_from_stack
 from shellcodes.thumb import write_to_stack  as th_write_to_stack
 from shellcodes.thumb import infinityloop    as th_infinityloop
-from shellcodes.thumb import arm_to_thumb as th_arm_to_thumb
+from shellcodes.thumb import arm_to_thumb    as th_arm_to_thumb
+from shellcodes.thumb import syscall         as th_syscall
 
 ##########################################################
 ## ARM Mode
 ##########################################################
-from shellcodes.arm import dup   as arm_dup
-from shellcodes.arm import sh    as arm_sh
-from shellcodes.arm import dupsh as arm_dupsh
-from shellcodes.arm import connect   as arm_connect
-from shellcodes.arm import connectback as arm_connectback
-from shellcodes.arm import listen as arm_listen
-from shellcodes.arm import acceptloop as arm_acceptloop
-from shellcodes.arm import bindshell as arm_bindshell
-from shellcodes.arm import thumb_to_arm as arm_thumb_to_arm
-from shellcodes.arm import open_file as arm_open_file
-from shellcodes.arm import cat  as arm_cat
-from shellcodes.arm import sendfile as arm_sendfile
-from shellcodes.arm import chmod as arm_chmod
-from shellcodes.arm import exit as arm_exit
-from shellcodes.arm import getdents    as arm_getdents
-from shellcodes.arm import ls          as arm_ls
+from shellcodes.arm import dup             as arm_dup
+from shellcodes.arm import sh              as arm_sh
+from shellcodes.arm import dupsh           as arm_dupsh
+from shellcodes.arm import connect         as arm_connect
+from shellcodes.arm import connectback     as arm_connectback
+from shellcodes.arm import listen          as arm_listen
+from shellcodes.arm import acceptloop      as arm_acceptloop
+from shellcodes.arm import bindshell       as arm_bindshell
+from shellcodes.arm import thumb_to_arm    as arm_thumb_to_arm
+from shellcodes.arm import open_file       as arm_open_file
+from shellcodes.arm import cat             as arm_cat
+from shellcodes.arm import sendfile        as arm_sendfile
+from shellcodes.arm import chmod           as arm_chmod
+from shellcodes.arm import exit            as arm_exit
+from shellcodes.arm import getdents        as arm_getdents
+from shellcodes.arm import ls              as arm_ls
+from shellcodes.arm import overwrite       as arm_overwrite
+from shellcodes.arm import setreuid        as arm_setreuid
+from shellcodes.arm import setregid        as arm_setregid
+from shellcodes.arm import findpeer        as arm_findpeer
+from shellcodes.arm import findpeersh      as arm_findpeersh
 from shellcodes.arm import read_from_stack as arm_read_from_stack
 from shellcodes.arm import write_to_stack  as arm_write_to_stack
-from shellcodes.arm import overwrite as arm_overwrite
-from shellcodes.arm import setreuid as arm_setreuid
-from shellcodes.arm import setregid as arm_setregid
-from shellcodes.arm import findpeer as arm_findpeer
-from shellcodes.arm import findpeersh as arm_findpeersh
+from shellcodes.arm import syscall         as arm_syscall
 
 ##########################################################
 ## ARM64 Mode
 ##########################################################
-from shellcodes.arm64 import sh   as arm64_sh
-from shellcodes.arm64 import dup  as arm64_dup
-from shellcodes.arm64 import cat  as arm64_cat
-from shellcodes.arm64 import exit as arm64_exit
-from shellcodes.arm64 import dupsh as arm64_dupsh
-from shellcodes.arm64 import setreuid as arm64_setreuid
-from shellcodes.arm64 import setregid as arm64_setregid
-from shellcodes.arm64 import sendfile as arm64_sendfile
-from shellcodes.arm64 import open_file as arm64_open_file
-from shellcodes.arm64 import connect   as arm64_connect
-from shellcodes.arm64 import connectback as arm64_connectback
-from shellcodes.arm64 import listen as arm64_listen
-from shellcodes.arm64 import acceptloop as arm64_acceptloop
-from shellcodes.arm64 import bindshell as arm64_bindshell
-from shellcodes.arm64 import infinityloop as arm64_infinityloop
-from shellcodes.arm64 import read_from_stack as arm64_read_from_stack
-from shellcodes.arm64 import getdents    as arm64_getdents
-from shellcodes.arm64 import ls          as arm64_ls
-from shellcodes.arm64 import appendwrite as arm64_appendwrite
+from shellcodes.arm64 import sh              as arm64_sh
+from shellcodes.arm64 import dup             as arm64_dup
+from shellcodes.arm64 import cat             as arm64_cat
+from shellcodes.arm64 import exit            as arm64_exit
+from shellcodes.arm64 import dupsh           as arm64_dupsh
+from shellcodes.arm64 import setreuid        as arm64_setreuid
+from shellcodes.arm64 import setregid        as arm64_setregid
+from shellcodes.arm64 import sendfile        as arm64_sendfile
+from shellcodes.arm64 import open_file       as arm64_open_file
+from shellcodes.arm64 import connect         as arm64_connect
+from shellcodes.arm64 import connectback     as arm64_connectback
+from shellcodes.arm64 import listen          as arm64_listen
+from shellcodes.arm64 import acceptloop      as arm64_acceptloop
+from shellcodes.arm64 import bindshell       as arm64_bindshell
+from shellcodes.arm64 import infinityloop    as arm64_infinityloop
+from shellcodes.arm64 import getdents        as arm64_getdents
+from shellcodes.arm64 import ls              as arm64_ls
+from shellcodes.arm64 import appendwrite     as arm64_appendwrite
+from shellcodes.arm64 import overwrite       as arm64_overwrite
+from shellcodes.arm64 import fsync           as arm64_fsync
+from shellcodes.arm64 import lseek           as arm64_lseek
+from shellcodes.arm64 import findpeer        as arm64_findpeer
+from shellcodes.arm64 import findpeersh      as arm64_findpeersh
 from shellcodes.arm64 import write_to_stack  as arm64_write_to_stack
-from shellcodes.arm64 import overwrite as arm64_overwrite
-from shellcodes.arm64 import fsync as arm64_fsync
-from shellcodes.arm64 import lseek as arm64_lseek
-from shellcodes.arm64 import findpeer as arm64_findpeer
-from shellcodes.arm64 import findpeersh as arm64_findpeersh
+from shellcodes.arm64 import read_from_stack as arm64_read_from_stack
+from shellcodes.arm64 import syscall         as arm64_syscall
 
 class thumbSCGen:
     """Thumb Mode Shellcode Generator Class
@@ -100,15 +103,21 @@ class thumbSCGen:
     def __init__(self):
         self.chmod           = th_chmod.generate
         self.dup             = th_dup.generate
+        self.dup_tc          = th_dup.testcase
         self.sh              = th_sh.generate
         self.sh_tc           = th_sh.testcase
         self.dupsh           = th_dupsh.generate
+        self.dupsh_tc        = th_dupsh.testcase
         self.bindshell       = th_bindshell.generate
         self.listen          = th_listen.generate
-        self.acceptloop      = th_acceptloop.generate
+        self.listen_tc       = th_listen.testcase
+        self.acceptloop      = th_acceptloop.generate  # no testcase
         self.connect         = th_connect.generate
+        self.connect_tc      = th_connect.testcase
         self.connectback     = th_connectback.generate
+        self.connectback_tc  = th_connectback.testcase
         self.open_file       = th_open_file.generate
+        self.open_file_tc    = th_open_file.testcase
         self.sendfile        = th_sendfile.generate
         self.cat             = th_cat.generate
         self.exit            = th_exit.generate
@@ -134,6 +143,7 @@ class armSCGen:
     def __init__(self):
         self.dup             = arm_dup.generate
         self.sh              = arm_sh.generate
+        self.sh_tc           = arm_sh.testcase
         self.dupsh           = arm_dupsh.generate
         self.connect         = arm_connect.generate
         self.connectback     = arm_connectback.generate
@@ -163,6 +173,7 @@ class arm64SCGen:
     """
     def __init__(self):
         self.sh              = arm64_sh.generate
+        self.sh_tc           = arm64_sh.testcase
         self.dup             = arm64_dup.generate
         self.cat             = arm64_cat.generate
         self.exit            = arm64_exit.generate
@@ -226,16 +237,15 @@ g_unicorn = False
 try:
     from unicorn import *
     from unicorn.arm_const import *
+    from unicorn.arm64_const import *
     g_unicorn = True
 except ImportError:
     g_unicorn = False
 except:
     SYSERR("Exception: Unknown error - import unicorn")
 
-g_runEmuCnt = -1
 g_sclen = -1
 g_debug = False
-g_regs = []
 
 def SYSERR(m):
     """SYSERR(m) -> None
@@ -790,9 +800,11 @@ def hook_code(uc, address, size, user_data):
     tmp = uc.mem_read(address, size)
     if g_debug:
         print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
-        print(">>> Instruction code at [0x%x] =" %(address))
+        print(">>> Instruction code at [0x%x]" %(address))
 
-    g_runEmuCnt += size
+    if address > g_sclen:
+        uc.emu_stop()
+        return
 
 # callback for tracing basic blocks
 def hook_block(uc, address, size, user_data):
@@ -801,32 +813,28 @@ def hook_block(uc, address, size, user_data):
 
 # callback for tracing Linux interrupt
 def hook_intr(uc, intno, user_data):
-    global g_regs 
-
-    regs = REGS()
-    regs.r0 = uc.reg_read(UC_ARM_REG_R0)
-    regs.r1 = uc.reg_read(UC_ARM_REG_R1)
-    regs.r2 = uc.reg_read(UC_ARM_REG_R2)
-    regs.r3 = uc.reg_read(UC_ARM_REG_R3)
-    regs.r4 = uc.reg_read(UC_ARM_REG_R4)
-    regs.r5 = uc.reg_read(UC_ARM_REG_R5)
-    regs.r6 = uc.reg_read(UC_ARM_REG_R6)
-    regs.r7 = uc.reg_read(UC_ARM_REG_R7)
-    g_regs.append(regs)
-
-    if g_runEmuCnt >= g_sclen:
-        uc.emu_stop()
-    return
-
-class REGS:
-    r0 = 0
-    r1 = 0
-    r2 = 0
-    r3 = 0
-    r4 = 0
-    r5 = 0
-    r6 = 0
-    r7 = 0
+    if uc._arch == UC_ARCH_ARM64:
+        print "x0: %08x" % uc.reg_read(UC_ARM64_REG_X0)
+        print "x1: %08x" % uc.reg_read(UC_ARM64_REG_X1)
+        print "x2: %08x" % uc.reg_read(UC_ARM64_REG_X2)
+        print "x3: %08x" % uc.reg_read(UC_ARM64_REG_X3)
+        print "x4: %08x" % uc.reg_read(UC_ARM64_REG_X4)
+        print "x5: %08x" % uc.reg_read(UC_ARM64_REG_X5)
+        print "x6: %08x" % uc.reg_read(UC_ARM64_REG_X6)
+        print "x7: %08x" % uc.reg_read(UC_ARM64_REG_X7)
+        print "x8: %08x - %s" % (uc.reg_read(UC_ARM64_REG_X8), arm64_syscall.get(uc.reg_read(UC_ARM64_REG_X8)))
+    else:
+        print "r0: %08x" % uc.reg_read(UC_ARM_REG_R0)
+        print "r1: %08x" % uc.reg_read(UC_ARM_REG_R1)
+        print "r2: %08x" % uc.reg_read(UC_ARM_REG_R2)
+        print "r3: %08x" % uc.reg_read(UC_ARM_REG_R3)
+        print "r4: %08x" % uc.reg_read(UC_ARM_REG_R4)
+        print "r5: %08x" % uc.reg_read(UC_ARM_REG_R5)
+        print "r6: %08x" % uc.reg_read(UC_ARM_REG_R6)
+        if uc._mode == UC_MODE_THUMB:
+            print "r7: %08x - %s" % (uc.reg_read(UC_ARM_REG_R7), th_syscall.get(uc.reg_read(UC_ARM_REG_R7)))
+        else:
+            print "r7: %08x - %s" % (uc.reg_read(UC_ARM_REG_R7), arm_syscall.get(uc.reg_read(UC_ARM_REG_R7)))
 
 def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
     if g_unicorn == False:
@@ -835,15 +843,11 @@ def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
     START_RIP = 0x0
     PAGE_SIZE = 5 * 1024 * 1024
 
-    global g_runEmuCnt
     global g_sclen
     global g_debug
-    global g_regs
 
-    g_runEmuCnt = 0
     g_sclen = scsize
     g_debug = isDebug
-    g_regs = []
 
     try:
         mu = Uc(arch, mode)
@@ -860,7 +864,6 @@ def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
         mu.hook_add(UC_HOOK_INTR, hook_intr)
         mu.emu_start(START_RIP, scsize, 0, 0x2000)
 
-        return g_regs
     except UcError as e:
         print("ERROR: %s" % e)
         return -1
