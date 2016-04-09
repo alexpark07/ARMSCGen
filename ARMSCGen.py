@@ -232,7 +232,10 @@ except ImportError:
 except:
     SYSERR("Exception: Unknown error - import unicorn")
 
-g_reg_value = -1
+g_runEmuCnt = -1
+g_sclen = -1
+g_debug = False
+g_regs = []
 
 def SYSERR(m):
     """SYSERR(m) -> None
@@ -782,34 +785,65 @@ def getShellcodeHelp(scode, arch='thumb'):
 # UC code
 # callback for tracing instructions
 def hook_code(uc, address, size, user_data):
-    print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
     # read this instruction code from memory
+    global g_runEmuCnt
     tmp = uc.mem_read(address, size)
-    if tmp == '\xcc\xcc':
-        uc.emu_stop()
-    print(">>> Instruction code at [0x%x] =" %(address))
-    for i in tmp:
-        print "%02x" % i,
-    print("")
+    if g_debug:
+        print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
+        print(">>> Instruction code at [0x%x] =" %(address))
 
+    g_runEmuCnt += size
 
 # callback for tracing basic blocks
 def hook_block(uc, address, size, user_data):
-    print(">>> Tracing basic block at 0x%x, block size = 0x%x" %(address, size))
+    if g_debug:
+        print(">>> Tracing basic block at 0x%x, block size = 0x%x" %(address, size))
 
 # callback for tracing Linux interrupt
 def hook_intr(uc, intno, user_data):
-    r7 = uc.reg_read(UC_ARM_REG_R7)
-    if r7 == g_reg_value:
+    global g_regs 
+
+    regs = REGS()
+    regs.r0 = uc.reg_read(UC_ARM_REG_R0)
+    regs.r1 = uc.reg_read(UC_ARM_REG_R1)
+    regs.r2 = uc.reg_read(UC_ARM_REG_R2)
+    regs.r3 = uc.reg_read(UC_ARM_REG_R3)
+    regs.r4 = uc.reg_read(UC_ARM_REG_R4)
+    regs.r5 = uc.reg_read(UC_ARM_REG_R5)
+    regs.r6 = uc.reg_read(UC_ARM_REG_R6)
+    regs.r7 = uc.reg_read(UC_ARM_REG_R7)
+    g_regs.append(regs)
+
+    if g_runEmuCnt >= g_sclen:
         uc.emu_stop()
     return
 
-def UC_TESTSC(code, scsize, r7=0, arch=UC_ARCH_ARM, mode=UC_MODE_THUMB, isDebug=True):
+class REGS:
+    r0 = 0
+    r1 = 0
+    r2 = 0
+    r3 = 0
+    r4 = 0
+    r5 = 0
+    r6 = 0
+    r7 = 0
+
+def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
+    if g_unicorn == False:
+        return 0
+
     START_RIP = 0x0
     PAGE_SIZE = 5 * 1024 * 1024
 
-    global g_reg_value
-    g_reg_value = r7
+    global g_runEmuCnt
+    global g_sclen
+    global g_debug
+    global g_regs
+
+    g_runEmuCnt = 0
+    g_sclen = scsize
+    g_debug = isDebug
+    g_regs = []
 
     try:
         mu = Uc(arch, mode)
@@ -817,7 +851,7 @@ def UC_TESTSC(code, scsize, r7=0, arch=UC_ARCH_ARM, mode=UC_MODE_THUMB, isDebug=
         mu.mem_map(START_RIP, PAGE_SIZE)
         # write code in memory
         mu.mem_write(START_RIP, code)
-        mu.mem_write(START_RIP+len(code)+0x10, "\xcc\xcc\xcc\xcc")
+        #mu.mem_write(START_RIP+len(code)+0x10, "\xcc\xcc\xcc\xcc")
         # initialize machine registers
         mu.reg_write(UC_ARM_REG_SP, 0x2000)
 
@@ -827,6 +861,8 @@ def UC_TESTSC(code, scsize, r7=0, arch=UC_ARCH_ARM, mode=UC_MODE_THUMB, isDebug=
 
         mu.hook_add(UC_HOOK_INTR, hook_intr)
         mu.emu_start(START_RIP, scsize, 0, 0x2000)
-        return mu
+
+        return g_regs
     except UcError as e:
         print("ERROR: %s" % e)
+        return -1
