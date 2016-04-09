@@ -847,17 +847,15 @@ def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
 
     try:
         mu = Uc(arch, mode)
-        # 2MB memory
+        # 5MB memory
         mu.mem_map(START_RIP, PAGE_SIZE)
         # write code in memory
         mu.mem_write(START_RIP, code)
-        #mu.mem_write(START_RIP+len(code)+0x10, "\xcc\xcc\xcc\xcc")
         # initialize machine registers
         mu.reg_write(UC_ARM_REG_SP, 0x2000)
 
-        if isDebug:
-            mu.hook_add(UC_HOOK_BLOCK, hook_block)
-            mu.hook_add(UC_HOOK_CODE, hook_code)
+        mu.hook_add(UC_HOOK_BLOCK, hook_block)
+        mu.hook_add(UC_HOOK_CODE, hook_code)
 
         mu.hook_add(UC_HOOK_INTR, hook_intr)
         mu.emu_start(START_RIP, scsize, 0, 0x2000)
