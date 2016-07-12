@@ -18,7 +18,9 @@ Cross Compile Tool for ARM
 Install Capstone with:
 
     $sudo pip install capstone
-
+    
+[Unicorn Engine](http://www.unicorn-engine.org/) is needed to emulate shellcodes.
+For installing Unicorn Engine, refers to [here](http://www.unicorn-engine.org/docs/)
 
 ### Installation
 
