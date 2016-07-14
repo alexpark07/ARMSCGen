@@ -5,6 +5,26 @@ import tempfile
 from optparse import OptionParser
 from struct import unpack, pack
 
+g_arch     = 'i386'
+g_format   = 'string'
+g_discode  = False
+g_capstone = True
+g_keystone = True
+
+try:
+    from keystone import *
+except ImportError:
+    g_keystone = False
+
+try:
+    from capstone import *
+    from capstone.arm import *
+except ImportError:
+    g_capstone = False
+
+'''
+if keystone / capstone are not installed then we need to GNU Tools
+'''
 OBJDUMP       = 'objdump'
 OBJCOPY       = 'objcopy'
 AS            = 'as'
@@ -17,13 +37,7 @@ ARM64_OBJDUMP = 'aarch64-linux-gnu-objdump'
 ARM64_OBJCOPY = 'aarch64-linux-gnu-objcopy'
 ARM64_AS      = 'aarch64-linux-gnu-as'
 
-g_arch    = 'i386'
-g_format  = 'string'
-g_discode = False
-g_capstone = False
-
 def u8(u, rep=1):
-    #return ' '.join(unpack(('<' + 'c'*rep), u))
     return unpack(('<' + 'c'*rep), u)
 
 def _string(s):
@@ -44,6 +58,20 @@ def enhex(c):
 
 def unhex(c):
     return c.decode('hex')
+
+def pprint(f):
+    if g_format == 'c':
+        print _carray(f)
+    elif g_format == 'string':
+        print _string(f)
+    elif g_format == 'raw':
+        print f
+    elif g_format == 'hex':
+        print enhex(f)
+    else:
+        print _string(f)
+
+    return
 
 def compile(fn):
     if g_arch == "arm":
@@ -78,17 +106,7 @@ def compile(fn):
         return -1
 
     f = open(tempfn, 'rb').read()
-
-    if g_format == 'c':
-        print _carray(f)
-    elif g_format == 'string':
-        print _string(f)
-    elif g_format == 'raw':
-        print f
-    elif g_format == 'hex':
-        print enhex(f)
-    else:
-        print _string(f)
+    pprint(f)
 
     if os.path.exists(tempfn):
         os.unlink(tempfn)
@@ -121,6 +139,35 @@ def AsmCode(msg, fn):
         asm_src(msg, fn, '.thumb')
     else:
         asm_src(msg, fn, '')
+
+def AsmCodeWithKS(msg):
+    ks_arch = ''
+    ks_mode = ''
+    if g_arch == "arm":
+        ks_arch = KS_ARCH_ARM
+        ks_mode = KS_MODE_ARM
+    elif g_arch == "thumb":
+        ks_arch = KS_ARCH_ARM
+        ks_mode = KS_MODE_THUMB
+    elif g_arch == "arm64":
+        ks_arch = KS_ARCH_ARM64
+        ks_mode = KS_MODE_LITTLE_ENDIAN
+    elif g_arch == "i386":
+        ks_arch = KS_ARCH_X86
+        ks_mode = KS_MODE_32
+    elif g_arch == "amd64":
+        ks_arch = KS_ARCH_X86
+        ks_mode = KS_MODE_64
+
+    ks = Ks(ks_arch, ks_mode)
+
+    f, count = ks.asm(msg)
+
+    dat = ''
+    for v in f:
+        dat += chr(v)
+
+    pprint(dat)
 
 def DisCode(msg, fn):
     tempfn = '%s.tmp1' % (fn)
@@ -213,12 +260,6 @@ def DisCodeWithCS(msg):
     print dat
 
 if __name__ == '__main__':
-    try:
-        from capstone import *
-        from capstone.arm import *
-        g_capstone = True
-    except ImportError:
-        g_capstone = False
 
     parser = OptionParser(description = 'asm/disasm code by alex.park')
     parser.add_option('-a', '--architechture',
@@ -264,7 +305,6 @@ if __name__ == '__main__':
 
     data = sys.stdin.read()
     fn = ''
-
     if g_discode == True:
         if g_capstone == True:
             DisCodeWithCS(data)
@@ -272,8 +312,11 @@ if __name__ == '__main__':
             fn = tempfile.mktemp()
             DisCode(data, fn)
     else:
-        fn = tempfile.mktemp()
-        AsmCode(data, fn)
+        if g_keystone == True:
+            AsmCodeWithKS(data)
+        else:
+            fn = tempfile.mktemp()
+            AsmCode(data, fn)
 
     if os.path.exists(fn):
         os.unlink(fn)
