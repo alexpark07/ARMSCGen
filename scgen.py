@@ -65,7 +65,7 @@ def getShellcodeNames(scs, arch='all'):
         print "### architechture: %s - total(%02d)" % (_scname, len(sckeys))
         print "=" * 40
         for sc in sckeys:
-            print "``" + sc + "``"
+            print sc
 
         print ""
 
@@ -257,7 +257,7 @@ if __name__ == '__main__':
 
     if len(args) == 0:
         print "Please choice one of shellcodes to show you"
-        print parser.print_help()
+        parser.print_help()
         sys.exit(-1)
 
     else:
