@@ -38,9 +38,9 @@ def generate(filepath='./secret', flags=00, mode=None):
     mov r7, #(0+ 5)
     svc 1
     mov r6, r0
-    bl after_open_2
+    b   after_open_2
 filename_1:
-    .asciz "%s\x00"
+    .asciz "%s"
     .align 2
 after_open_2:
     """ % (filepath)

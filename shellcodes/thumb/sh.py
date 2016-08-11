@@ -6,15 +6,14 @@ def generate(cmd='/bin/sh'):
     """
     sc = """
     mov  r0, pc
-    add  r0, #11
-    add  r0, r0, #1
-    sub r2, r2
-    movs r7, #(0+ 11)
+    adds r0, #11
+    adds r0, r0, #1
+    subs r2, r2, r2
+    movs r7, #11
     push {r0, r2}
     mov  r1, sp
     svc  1
-bin_sh_1:
-    .asciz "%s\x00"
+    .asciz "%s"
     """ % (cmd)
     return sc
 

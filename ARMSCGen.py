@@ -5,6 +5,18 @@ import tempfile
 from socket import ntohs
 from struct import unpack, pack
 
+# keystone-engine
+from keystone import *
+
+# capstone-engine
+from capstone import *
+from capstone.arm import *
+
+# unicorn-engine
+from unicorn import *
+from unicorn.arm_const import *
+from unicorn.arm64_const import *
+
 __VERSION__ = '$0.0.13'
 __AUTHOR__  = 'alex.park'
 
@@ -133,13 +145,13 @@ class thumbSCGen:
         self.arm_to_thumb    = th_arm_to_thumb.generate
         self.write_to_stack  = th_write_to_stack.generate
         self.read_from_stack = th_read_from_stack.generate
-        prepareCompiler('THUMB')
         
 
 class armSCGen:
     """ARM Mode Shellcode Generator Class
 
     """
+
     def __init__(self):
         self.dup             = arm_dup.generate
         self.sh              = arm_sh.generate
@@ -165,12 +177,12 @@ class armSCGen:
         self.findpeersh      = arm_findpeersh.generate
         self.write_to_stack  = arm_write_to_stack.generate
         self.read_from_stack = arm_read_from_stack.generate
-        prepareCompiler('ARM')
 
 class arm64SCGen:
     """ARM64 Mode Shellcode Generator Class
 
     """
+
     def __init__(self):
         self.sh              = arm64_sh.generate
         self.sh_tc           = arm64_sh.testcase
@@ -198,54 +210,28 @@ class arm64SCGen:
         self.findpeersh      = arm64_findpeersh.generate
         self.write_to_stack  = arm64_write_to_stack.generate
         self.read_from_stack = arm64_read_from_stack.generate
-        prepareCompiler('ARM64')
-
-# Assembler 
-BIN_AS32 = '/usr/bin/arm-linux-gnueabi-as'
-BIN_AS64 = '/usr/bin/aarch64-linux-gnu-as'
-ALTER_BIN_AS = 'as'
-# Linker
-BIN_LD32 = '/usr/bin/arm-linux-gnueabi-ld'
-BIN_LD64 = '/usr/bin/aarch64-linux-gnu-ld'
-ALTER_BIN_LD = 'ld'
-# Objcopy
-BIN_OC32 = '/usr/bin/arm-linux-gnueabi-objcopy'
-BIN_OC64 = '/usr/bin/aarch64-linux-gnu-objcopy'
-ALTER_BIN_OC = 'objcopy'
-# Empty 
-BIN_AS = ''
-BIN_LD = ''
-BIN_OC = ''
-
-# RAW Shellcode
-RAW_SC = 'raw_sc'
-
-# capstone available
-g_capstone = False
-try:
-    from capstone import *
-    from capstone.arm import *
-    g_capstone = True
-except ImportError:
-    #SYSERR("There is no capstone library for disassembling")
-    g_capstone = False
-except:
-    SYSERR("Exception: Unknown in disasm(...)")
-
-# unicorn engine available
-g_unicorn = False
-try:
-    from unicorn import *
-    from unicorn.arm_const import *
-    from unicorn.arm64_const import *
-    g_unicorn = True
-except ImportError:
-    g_unicorn = False
-except:
-    SYSERR("Exception: Unknown error - import unicorn")
 
 g_sclen = -1
 g_debug = False
+
+def ks_asm(arch, CODE):
+    _arch = ''
+    _mode = ''
+
+    if arch == 'arm':
+        _arch = KS_ARCH_ARM
+        _mode = KS_MODE_ARM
+    elif arch == 'thumb':
+        _arch = KS_ARCH_ARM
+        _mode = KS_MODE_THUMB
+    else:
+        _arch = KS_ARCH_ARM64
+        _mode = KS_MODE_LITTLE_ENDIAN
+
+    ks = Ks(_arch, _mode)
+    data, count = ks.asm(CODE)
+
+    return ''.join(map(chr, data)), count
 
 def SYSERR(m):
     """SYSERR(m) -> None
@@ -257,138 +243,6 @@ def SYSERR(m):
 
     """
     print >> sys.stderr, "%s" % (m)
-
-def cleanup(fn):
-    """clean up compiled files
-
-    Args:
-        fn(list): files in list will be deleted
-
-    """
-    for f in fn:
-        if os.path.exists(f) == True:
-            try:
-                os.unlink(f)
-            except:
-                pass
-
-def prepareCompiler(mode='THUMB'):
-    """prepares some PATH to compile safely
-
-    """
-    global BIN_AS
-    global BIN_LD
-    global BIN_OC
-
-    if (mode == 'THUMB') or (mode == 'ARM'):
-        if os.path.exists(BIN_AS32) == False:
-            BIN_AS = ALTER_BIN_AS
-        else:
-            BIN_AS = BIN_AS32
-
-        if os.path.exists(BIN_LD32) == False:
-            BIN_LD = ALTER_BIN_LD
-        else:
-            BIN_LD = BIN_LD32
-
-        if os.path.exists(BIN_OC32) == False:
-            BIN_OC = ALTER_BIN_OC
-        else:
-            BIN_OC = BIN_OC32
-    elif mode == 'ARM64':
-        if os.path.exists(BIN_AS64) == False:
-            BIN_AS = ALTER_BIN_AS
-        else:
-            BIN_AS = BIN_AS64
-
-        if os.path.exists(BIN_LD64) == False:
-            BIN_LD = ALTER_BIN_LD
-        else:
-            BIN_LD = BIN_LD64
-
-        if os.path.exists(BIN_OC64) == False:
-            BIN_OC = ALTER_BIN_OC
-        else:
-            BIN_OC = BIN_OC64
-    else:
-        SYSERR("Not Implemented yet")
-
-def CompileSC(source, isThumb=False, isNeedHead=True):
-    """Compiles shellcode
-
-    Args:
-        source (str): shellcode in strings
-
-        isThumb (boolean): Thumb or ARM Mode
-
-        isNeedHead (boolean): It shows up if true
-
-
-    Returns:
-      compiled shellcode 
-
-    """
-    ASM_HEAD = """
-    .global _start
-    .section .text
-    _start:
-    """
-
-    ASM_THUMB = """
-    .arm
-    add r6, pc, #1
-    bx r6
-    .thumb
-    """
-
-    fn = tempfile.mktemp() # binary file
-    fn_s = fn + '.s' # as file
-    fn_o = fn + '.o' # ld file
-    fn_raw = fn + '.raw' # objcopy 
-    will_be_deleted = [fn, fn_s, fn_o, fn_raw]
-
-    src = ''
-    if isNeedHead:
-        src += ASM_HEAD + '\n'
-
-    #if isThumb:
-    #    src += ASM_THUMB + '\n'
-
-    src += source
-    # write a source
-    open(fn_s, 'w').write(src)
-
-    # compile a source
-    if isThumb:
-        COMPILE = '%s %s -o %s -mthumb' % (BIN_AS, fn_s, fn_o)
-    else:
-        COMPILE = '%s %s -o %s' % (BIN_AS, fn_s, fn_o)
-    os.system(COMPILE)
-    if os.path.exists(fn_o) == False:
-        print "Failed to compile a source: %s" % (fn_s)
-        cleanup(will_be_deleted)
-        return ""
-
-    # link an object
-    LINKING = '%s %s -o %s' % (BIN_LD, fn_o, fn)
-    os.system(LINKING)
-    if os.path.exists(fn_o) == False:
-        print "Failed to link an object: %s" % (fn_o)
-        cleanup(will_be_deleted)
-        return ""
-
-    # objcopy 
-    OBJCOPY = '%s -I elf32-little -j .text -O binary %s %s' % (BIN_OC, fn, fn_raw)
-    os.system(OBJCOPY)
-    if os.path.exists(fn_raw) == False:
-        print "Failed to make a raw file: %s" % (fn)
-        cleanup(will_be_deleted)
-        return ""
-
-    f = open(fn_raw,'rb').read()
-    cleanup(will_be_deleted)
-
-    return f
 
 def printHex(xhex):
     """print hex code in human-readable
@@ -538,21 +392,7 @@ def checkBadChar(sc, bc=[0x00, 0x0a]):
 
     return bcs
 
-def MakeXorShellcode(sc, isThumb=False):
-    """Make XOR Encoder with Shellcode
-
-    Args:
-        sc(str): shellcode
-
-        isThumb(boolean): ARM or Thumb Mode
-
-    Returns:
-        shellcode in hex
-
-    Examples:
-        >>> sc = MakeXorShellcode(bindshell, isThumb=True)
-
-    """
+def MakeXorShellcode(sc, arch):
     key = findXorKey(sc)
     if key == -1:
         SYSERR("Failed to find xor key")
@@ -565,7 +405,7 @@ def MakeXorShellcode(sc, isThumb=False):
         SYSERR("!!! Bad char has been found in shellcode. Please check out")
         return ""
 
-    return CompileSC(xorenc, isThumb=isThumb)
+    return ks_asm(arch, xorenc)[0]
 
 def uu16(u):
     """struct.unpack(2-bytes)
@@ -692,10 +532,6 @@ def disasm(code, arch='ARM', mode='THUMB'):
     Examples:
         >>> rv = disasm(code, 'ARM', 'THUMB')
     """
-
-    if g_capstone == False:
-        SYSERR("so far, there is no capstone module")
-        return
 
     if arch == 'ARM':
         xarch = CS_ARCH_ARM

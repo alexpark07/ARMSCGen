@@ -10,7 +10,7 @@ thgen    = thumbSCGen()
 armgen   = armSCGen()
 arm64gen = arm64SCGen()
 
-g_arch      = 'thumb'
+g_arch = 'arm'
 g_shellcode = ''
 g_format    = 'asm'
 g_xorkey    = False
@@ -96,76 +96,73 @@ def genShellcode(args):
     scode = fms[0].replace("'", "") + "(" + ','.join(fms[1:]) + ")"
     scode_tc = fms[0].replace("'", "") + "_tc(" + ','.join(fms[1:]) + ")"
 
-    try:
-        if g_arch == 'arm':
-            show = eval("armgen.%s" % (scode))
-            prepareCompiler('ARM')
-        elif g_arch == 'arm64':
-            show = eval("arm64gen.%s" % (scode))
-            prepareCompiler('ARM64')
-        elif g_arch == 'thumb':
-            show = eval("thgen.%s" % (scode))
-            prepareCompiler('THUMB')
+    #try:
+    if g_arch == 'arm':
+        show = eval("armgen.%s" % (scode))
+    elif g_arch == 'arm64':
+        show = eval("arm64gen.%s" % (scode))
+    elif g_arch == 'thumb':
+        show = eval("thgen.%s" % (scode))
 
-        if g_format == 'asm':
-            print show
-            if g_testSC == False:
-                return
-
-        if g_arch == 'thumb':
-            scode = CompileSC(show, isThumb=True)
-        else:
-            scode = CompileSC(show)
-
-        if g_xorkey == True:
-            if g_arch == 'thumb':
-                scode = MakeXorShellcode( scode )
-
-        if g_testSC == True:
-            try:
-                if g_arch == 'arm':
-                    eval("armgen.%s" % (scode_tc))
-                elif g_arch == 'arm64':
-                    eval("arm64gen.%s" % (scode_tc))
-                elif g_arch == 'thumb':
-                    eval("thgen.%s" % (scode_tc))
-            except:
-                print "There is no testcase"
-
-        if g_format == 'asm': 
+    if g_format == 'asm':
+        print show
+        if g_testSC == False:
             return
 
-        if g_format == 'c':
-            print _carray(scode)
-        elif g_format == 'string':
-            print _string(scode)
-        elif g_format == 'raw':
-            print scode
-        elif g_format == 'hex':
-            print enhex(scode)
-        elif g_format == 'python':
-            _xscode = []
-            _xscode.append('shellcode = ""\n')
-            _xdiv = len(scode) / (16)
-            _xmod = len(scode) % (16)
-            _x = 0
-            for _i in range(0, _xdiv):
-                _xscode.append('shellcode += %s' % _string(scode[_i*16:(_i+1)*16]))
-                _x = _x + 1
-            if _xmod:
-                _xscode.append('shellcode += %s' % _string(scode[(_i+1)*16:]))
-            print "# shellcode's length is : %s" % (len(scode))
-            print ''.join(_xscode)
+    scode, count = ks_asm(g_arch, show)
 
-        else:
-            print _string(scode)
+    if g_xorkey == True:
+        if g_arch == 'thumb':
+            scode = MakeXorShellcode( scode, g_arch )
 
+    if g_testSC == True:
+        try:
+            if g_arch == 'arm':
+                eval("armgen.%s" % (scode_tc))
+            elif g_arch == 'arm64':
+                eval("arm64gen.%s" % (scode_tc))
+            elif g_arch == 'thumb':
+                eval("thgen.%s" % (scode_tc))
+        except:
+            print "There is no testcase"
+
+    if g_format == 'asm': 
+        return
+
+    if g_format == 'c':
+        print _carray(scode)
+    elif g_format == 'string':
+        print _string(scode)
+    elif g_format == 'raw':
+        print scode
+    elif g_format == 'hex':
+        print enhex(scode)
+    elif g_format == 'python':
+        _xscode = []
+        _xscode.append('shellcode = ""\n')
+        _xdiv = len(scode) / (16)
+        _xmod = len(scode) % (16)
+        _x = 0
+        for _i in range(0, _xdiv):
+            _xscode.append('shellcode += %s' % _string(scode[_i*16:(_i+1)*16]))
+            _x = _x + 1
+        if _xmod:
+            _xscode.append('shellcode += %s' % _string(scode[(_i+1)*16:]))
+        print "# shellcode's length is : %s" % (len(scode))
+        print ''.join(_xscode)
+
+    else:
+        print _string(scode)
+
+
+    """
     except AttributeError:
         print "There is no '%s' shellcode so far" % (args[0])
     except:
         show = "I think, you have wrong options. show shellcode for you"
         print show
         showShellcode(args)
+    """
 
 if __name__ == '__main__':
 

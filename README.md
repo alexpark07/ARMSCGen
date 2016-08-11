@@ -10,21 +10,24 @@ This project named ARMSCGen focus on shellcode on ARM Architecture especially AR
 
 ### Requirement
 
-Cross Compile Tool for ARM
-
-``as``, ``ld`` and ``objcopy``
+ARMSCGen highly depends on ``{capstone|keystone|unicorn}-engine.``
 
 [Capstone](http://www.capstone-engine.org) is needed to disassemble codes.
 Install Capstone with:
 
-    $sudo pip install capstone
+``$sudo pip install capstone``
+
+[Keystone](http://www.keystone-engine.org) is needed to assemeble shellcodes.
+Install Keystone with:
+
+``$sudo pip install keystone-engine``
     
 [Unicorn Engine](http://www.unicorn-engine.org/) is needed to emulate shellcodes.
 For installing Unicorn Engine, refers to [here](http://www.unicorn-engine.org/docs/)
 
 ### Installation
 
-``python setup.py install``
+``$sudo python setup.py install``
 
 ### Usage
 
@@ -40,7 +43,7 @@ please refer to ``shellcodes_lists.md`` or ``scgen -l -a all``
 
 ### Documentation
 
-URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source
+(need to upgrade) URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source
 
 ### TODO
 

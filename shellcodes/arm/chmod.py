@@ -11,7 +11,7 @@ def generate(fname='/etc/passwd'):
     svc 0
     b after_1
 chmod_1:
-    .asciz "%s\x00"
+    .asciz "%s"
     .align 2
 after_1:
     """ % (fname)
