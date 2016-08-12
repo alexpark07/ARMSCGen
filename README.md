@@ -21,6 +21,8 @@ Install Capstone with:
 Install Keystone with:
 
 ``$sudo pip install keystone-engine``
+
+or refers to [here](http://www.keystone-engine.org/docs/)
     
 [Unicorn Engine](http://www.unicorn-engine.org/) is needed to emulate shellcodes.
 For installing Unicorn Engine, refers to [here](http://www.unicorn-engine.org/docs/)
