@@ -17,7 +17,7 @@ from unicorn import *
 from unicorn.arm_const import *
 from unicorn.arm64_const import *
 
-__VERSION__ = '$0.0.13'
+__VERSION__ = '$0.0.15'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -26,6 +26,7 @@ __AUTHOR__  = 'alex.park'
 from shellcodes.thumb import chmod           as th_chmod
 from shellcodes.thumb import dup             as th_dup
 from shellcodes.thumb import sh              as th_sh
+from shellcodes.thumb import cmd             as th_cmd
 from shellcodes.thumb import dupsh           as th_dupsh
 from shellcodes.thumb import bindshell       as th_bindshell
 from shellcodes.thumb import listen          as th_listen
@@ -55,6 +56,7 @@ from shellcodes.thumb import syscall         as th_syscall
 ##########################################################
 from shellcodes.arm import dup             as arm_dup
 from shellcodes.arm import sh              as arm_sh
+from shellcodes.arm import cmd             as arm_cmd
 from shellcodes.arm import dupsh           as arm_dupsh
 from shellcodes.arm import connect         as arm_connect
 from shellcodes.arm import connectback     as arm_connectback
@@ -115,9 +117,8 @@ class thumbSCGen:
     def __init__(self):
         self.chmod           = th_chmod.generate
         self.dup             = th_dup.generate
-        self.dup_tc          = th_dup.testcase
+        self.cmd             = th_cmd.generate
         self.sh              = th_sh.generate
-        self.sh_tc           = th_sh.testcase
         self.dupsh           = th_dupsh.generate
         self.dupsh_tc        = th_dupsh.testcase
         self.bindshell       = th_bindshell.generate
@@ -125,11 +126,8 @@ class thumbSCGen:
         self.listen_tc       = th_listen.testcase
         self.acceptloop      = th_acceptloop.generate  # no testcase
         self.connect         = th_connect.generate
-        self.connect_tc      = th_connect.testcase
         self.connectback     = th_connectback.generate
-        self.connectback_tc  = th_connectback.testcase
         self.open_file       = th_open_file.generate
-        self.open_file_tc    = th_open_file.testcase
         self.sendfile        = th_sendfile.generate
         self.cat             = th_cat.generate
         self.exit            = th_exit.generate
@@ -155,7 +153,7 @@ class armSCGen:
     def __init__(self):
         self.dup             = arm_dup.generate
         self.sh              = arm_sh.generate
-        self.sh_tc           = arm_sh.testcase
+        self.cmd             = arm_cmd.generate
         self.dupsh           = arm_dupsh.generate
         self.connect         = arm_connect.generate
         self.connectback     = arm_connectback.generate
@@ -185,7 +183,6 @@ class arm64SCGen:
 
     def __init__(self):
         self.sh              = arm64_sh.generate
-        self.sh_tc           = arm64_sh.testcase
         self.dup             = arm64_dup.generate
         self.cat             = arm64_cat.generate
         self.exit            = arm64_exit.generate
@@ -673,9 +670,6 @@ def hook_intr(uc, intno, user_data):
             print "r7: %08x - %s" % (uc.reg_read(UC_ARM_REG_R7), arm_syscall.get(uc.reg_read(UC_ARM_REG_R7)))
 
 def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
-    if g_unicorn == False:
-        return 0
-
     START_RIP = 0x0
     PAGE_SIZE = 5 * 1024 * 1024
 

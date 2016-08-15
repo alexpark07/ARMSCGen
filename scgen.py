@@ -95,14 +95,17 @@ def genShellcode(args):
 
     scode = fms[0].replace("'", "") + "(" + ','.join(fms[1:]) + ")"
     scode_tc = fms[0].replace("'", "") + "_tc(" + ','.join(fms[1:]) + ")"
+    show = ''
 
-    #try:
-    if g_arch == 'arm':
-        show = eval("armgen.%s" % (scode))
-    elif g_arch == 'arm64':
-        show = eval("arm64gen.%s" % (scode))
-    elif g_arch == 'thumb':
-        show = eval("thgen.%s" % (scode))
+    try: 
+        if g_arch == 'arm':
+            show = eval("armgen.%s" % (scode))
+        elif g_arch == 'arm64':
+            show = eval("arm64gen.%s" % (scode))
+        elif g_arch == 'thumb':
+            show = eval("thgen.%s" % (scode))
+    except:
+        showShellcode(args)
 
     if g_format == 'asm':
         print show
@@ -153,16 +156,6 @@ def genShellcode(args):
 
     else:
         print _string(scode)
-
-
-    """
-    except AttributeError:
-        print "There is no '%s' shellcode so far" % (args[0])
-    except:
-        show = "I think, you have wrong options. show shellcode for you"
-        print show
-        showShellcode(args)
-    """
 
 if __name__ == '__main__':
 

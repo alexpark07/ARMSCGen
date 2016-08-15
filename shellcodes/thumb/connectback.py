@@ -28,8 +28,7 @@ def generate(host='127.0.0.1', port=31337, sock='r6'):
 
 def testcase(host='127.0.0.1', port=31337, sock='r6'):
     import ARMSCGen as scgen
-    scgen.prepareCompiler('THUMB')
-    sc = scgen.CompileSC(generate(host, port, sock), isThumb=True)
+    sc = scgen.ks_asm('thumb', generate(host, port, sock))[0]
     sclen = len(sc)
     print "[+] Registers information"
     scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)

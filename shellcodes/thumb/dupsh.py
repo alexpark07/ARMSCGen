@@ -16,8 +16,7 @@ def generate(sock=4, cmd='/bin/sh'):
 
 def testcase(sock=4, cmd='/bin/sh'):
     import ARMSCGen as scgen
-    scgen.prepareCompiler('THUMB')
-    sc = scgen.CompileSC(generate(sock, cmd), isThumb=True)
+    sc = scgen.ks_asm('thumb', generate(sock, cmd))[0]
     sclen = sc.find(cmd)
     print "[+] Registers information"
     scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)
