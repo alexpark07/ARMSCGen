@@ -19,7 +19,8 @@ def generate(filepath, out_fd):
     sc = ""
 
     sc += open_file.generate(filepath)
-    sc += "sub r4, r4, r4\n"
+    #sc += "sub r4, r4, r4\n"
+    sc += "mov r4, #0\n"
     sc += "loop_1:\n"
     sc += getdents.generate(in_fd='r6') + '\n'
     sc += """

