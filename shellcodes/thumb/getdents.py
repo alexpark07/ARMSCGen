@@ -10,14 +10,14 @@ def generate(in_fd):
     sc = ''
     try:
         xin_fd = int(in_fd)
-        sc += 'mov r0, #%s' % (xin_fd)
+        sc += 'movs r0, #%s' % (xin_fd)
     except:
-        sc += 'mov r0, %s' % (in_fd)
+        sc += 'movs r0, %s' % (in_fd)
 
     sc += """
-    mov r1, sp
-    mov r2, #255
-    mov r7, #141
+    mov  r1, sp
+    movs r2, #255
+    movs r7, #141
     svc 1
     """
     return sc

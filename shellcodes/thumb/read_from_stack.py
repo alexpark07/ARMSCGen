@@ -9,21 +9,21 @@ def generate(out_fd, size):
         size   (int/str/reg) = size to read
     """
 
+    sc = ""
     try:
-        xout_fd = '#%s' % int(out_fd)
+        sc += "movs r2, #%s\n" % int(out_fd)
     except:
-        xout_fd = '%s' % out_fd
+        sc += "mov r2, %s\n" % out_fd
 
-    try:
-        xsize = '#%s' % int(size)
-    except:
-        xsize = '%s' % size
+    if size != 'r0':
+        try:
+            sc += "movs r0, #%s\n" % int(size)
+        except:
+            sc += "mov r0, %s\n" % size
 
-    sc = """
-    mov r2, %s
-    mov r0, %s
+    sc += """
     mov r1, sp
-    mov r7, #4
+    movs r7, #4
     svc 1
-    """ % (xsize, xout_fd)
+    """
     return sc

