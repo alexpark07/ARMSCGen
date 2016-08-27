@@ -32,6 +32,3 @@ def testcase(host='127.0.0.1', port=31337, sock='r6'):
     sclen = len(sc)
     print "[+] Registers information"
     scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)
-
-if __name__ == '__main__':
-    print generate()

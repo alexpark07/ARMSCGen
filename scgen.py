@@ -203,7 +203,18 @@ if __name__ == '__main__':
                   help = 'Shellcode Test in unicorn engine'
                   )
 
+    parser.add_option('-v', '--version',
+                  dest = 'version',
+                  action="store_true",
+                  default = False,
+                  help = 'show version and exit'
+                  )
+
     (opt, args) = parser.parse_args()
+
+    if opt.version:
+        print "Version: %s" % getVersion()
+        sys.exit(0)
 
     if opt.arch:
         g_arch = opt.arch

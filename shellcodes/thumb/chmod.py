@@ -6,11 +6,11 @@ def generate(fname='/etc/passwd'):
     """
     sc = """
     mov r0, pc
-    add r0, #12
-    mov r1, #255
-    add r1, #255
-    add r1, #1
-    mov r7, #15
+    adds r0, #12
+    movs r1, #255
+    adds r1, #255
+    adds r1, #1
+    movs r7, #15
     svc 1
     b after_1
 chmod_1:

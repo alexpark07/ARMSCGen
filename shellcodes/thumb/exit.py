@@ -3,15 +3,12 @@
 def generate(n=0):
     sc = "\n"
     if n != 0:
-        sc += "mov r0, #%s" % int(n)
+        sc += "movs r0, #%s" % int(n)
     else:
-        sc += "sub r0, r0, r0"
+        sc += "subs r0, r0, r0"
 
     sc += """
-    mov r7, #1
+    movs r7, #1
     svc 1
     """
     return sc
-
-if __name__ == '__main__':
-    print generate()

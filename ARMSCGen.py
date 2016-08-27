@@ -17,7 +17,7 @@ from unicorn import *
 from unicorn.arm_const import *
 from unicorn.arm64_const import *
 
-__VERSION__ = '$0.0.15'
+__VERSION__ = '$0.0.16'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -500,16 +500,16 @@ def thumb_fixup(reg, value):
             fn(str): arranged value with register
     """
     if value <= 255:
-        return "\tmov %s, #%s" % (reg, value)
+        return "\tmovs %s, #%s" % (reg, value)
 
     fn = []
-    fn.append('\tsub %s, %s, %s' % (reg, reg, reg))
+    fn.append('\tsubs %s, %s, %s' % (reg, reg, reg))
     mod = value % 255
     div = value / 255
 
     for v in range(0, div):
-        fn.append('\tadd %s, %s, #255' % (reg, reg))
-    fn.append('\tadd %s, %s, #%s' % (reg, reg, mod))
+        fn.append('\tadds %s, %s, #255' % (reg, reg))
+    fn.append('\tadds %s, %s, #%s' % (reg, reg, mod))
 
     return '\n'.join(fn)
 
@@ -697,3 +697,7 @@ def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
     except UcError as e:
         print("ERROR: %s" % e)
         return -1
+
+def getVersion():
+    return __VERSION__
+

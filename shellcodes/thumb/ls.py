@@ -26,11 +26,10 @@ def generate(filepath, out_fd):
     cmp r0, r4
     ble after_1
     """
-    sc += read_from_stack.generate(int(out_fd), size='r0') + '\n'
+    sc += read_from_stack.generate(int(out_fd)) + '\n'
     sc += """
     cmp r0, r4
     bgt loop_1
 after_1:
     """
-
     return sc

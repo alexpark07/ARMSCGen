@@ -1,6 +1,6 @@
 # read from stack and write to file descriptor
 
-def generate(out_fd, size):
+def generate(out_fd, size = 'r0'):
     """Writes a file from stack in thumb mode
     
     Args: 
@@ -11,15 +11,14 @@ def generate(out_fd, size):
 
     sc = ""
     try:
-        sc += "movs r2, #%s\n" % int(out_fd)
+        sc += "movs r2, #%s\n" % int(size)
     except:
-        sc += "mov r2, %s\n" % out_fd
+        sc += "mov r2, %s\n" % size
 
-    if size != 'r0':
-        try:
-            sc += "movs r0, #%s\n" % int(size)
-        except:
-            sc += "mov r0, %s\n" % size
+    try:
+        sc += "movs r0, #%s\n" % int(out_fd)
+    except:
+        sc += "mov r0, %s\n" % out_fd
 
     sc += """
     mov r1, sp

@@ -13,26 +13,23 @@ def generate():
 
     sc = """
 findpeer_1:
-    sub r5, r5, r5
-    add r5, r5, #-1
+    subs r5, r5, r5
+    subs r5, r5, #1
     mov r3, sp
 looplabel_2:
     mov sp, r3
-    add r5, r5, #1
+    adds r5, r5, #1
     mov r0, r5
     movs r2, #4
     push {r2}
     mov r2, sp
-    add r1, sp, #32
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #32
+    add  r1, sp, #32
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #32
     svc 1
     cmp r0, #0
     bne looplabel_2
     mov r6, r5
     """
     return sc
-
-if __name__ == '__main__':
-    print generate()

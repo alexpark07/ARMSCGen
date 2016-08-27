@@ -23,6 +23,3 @@ def generate(port=31337, sock=4, once=True):
     sc += dupsh.generate(int(sock))
 
     return sc
-
-if __name__ == '__main__':
-    print generate()

@@ -25,11 +25,11 @@ def generate(in_fd, size):
         xsize = size
 
     sc = """
-    sub sp, %s
-    mov r0, %s
-    mov r2, %s
+    sub  sp, %s
+    movs r0, %s
+    movs r2, %s
     mov r1, sp
-    mov r7, #3
+    movs r7, #3
     svc 1
     """ % (xsize, xin_fd, xsize)
 

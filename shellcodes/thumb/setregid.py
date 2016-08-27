@@ -11,9 +11,9 @@ def generate(gid=0):
         xgid = '%s' % gid
 
     sc = """
-    mov r0, %s
-    mov r1, %s
-    mov r7, #71
+    movs r0, %s
+    movs r1, %s
+    movs r7, #71
     svc 1
     """ % (xgid, xgid)
     return sc

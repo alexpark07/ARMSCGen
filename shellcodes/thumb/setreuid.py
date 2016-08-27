@@ -12,9 +12,9 @@ def generate(uid=0):
         xuid = "%s" % (uid)
 
     sc = """
-    mov r0, %s
-    mov r1, %s
-    mov r7, #70
+    movs r0, %s
+    movs r1, %s
+    movs r7, #70
     svc 1
     """ % (xuid, xuid)
     return sc

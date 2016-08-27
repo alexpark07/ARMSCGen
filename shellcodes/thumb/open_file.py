@@ -54,6 +54,3 @@ def testcase(filepath='./secret', version=3, flags=00, mode=None):
     sclen = len(sc)
     print "[+] Registers information"
     scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)
-
-if __name__ == '__main__':
-    print generate(filepath='./binary', flags=O_WRONLY|O_CREAT, mode=0755)

