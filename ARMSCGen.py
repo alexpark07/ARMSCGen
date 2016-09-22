@@ -17,7 +17,7 @@ from unicorn import *
 from unicorn.arm_const import *
 from unicorn.arm64_const import *
 
-__VERSION__ = '$0.0.16'
+__VERSION__ = '$0.0.17'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -258,15 +258,13 @@ def printHex(xhex):
 
     return xtmp
 
-def XOREncoder(scSize, xorkey, SC):
+def XOREncoder(scSize, xorkey):
     """XOR Encoder to avoid some bad codes like ``0x0a``, ``0x00`` and so on
 
     Args:
         scSize(int): shellcode length
 
         xorkey(int): XOR key
-
-        SC(str): shellcode
 
     Returns:
         XOR Encoder shellcode in string
@@ -276,7 +274,8 @@ def XOREncoder(scSize, xorkey, SC):
     LOOP_SC_SIZE = MAX_SC_SIZE - scSize
 
     sc="""
-    adr r8, scode
+    adr r8, nanosleep2
+    add r8, r8, #18
 
 main:
     mov r4, #%s
@@ -302,19 +301,7 @@ nanosleep:
     bx r6
     .thumb
 nanosleep2:
-    sub r5, r5, r5
-    add r5, r5, #1
-    sub r6, r6, r6
-    push {r5, r6}
-    push {r5, r6}
-    mov r0, sp
-    mov r1, sp
-    mov r7, #162
-    svc 1
-
-scode:
-    .asciz "%s"
-    """ % (LOOP_SC_SIZE, MAX_SC_SIZE, LOOP_SC_SIZE, xorkey, LOOP_SC_SIZE+1, printHex(SC))
+    """ % (LOOP_SC_SIZE, MAX_SC_SIZE, LOOP_SC_SIZE, xorkey, LOOP_SC_SIZE+1)
 
     return sc
 
@@ -396,13 +383,25 @@ def MakeXorShellcode(sc, arch):
         return ""
 
     xorsc  = encodeShellcode(sc, key)
-    xorenc = XOREncoder(len(xorsc), key, xorsc)
+    xorenc = XOREncoder(len(xorsc), key)
     rv = checkBadChar(xorenc)
     if len(rv) != 0:
         SYSERR("!!! Bad char has been found in shellcode. Please check out")
         return ""
 
-    return ks_asm(arch, xorenc)[0]
+    NANOSLEEPSC = """
+    subs r5, r5, r5                                                                                            
+    adds r5, r5, #1                                                                                            
+    subs r6, r6, r6                                                                                            
+    push {r5, r6}                                                                                             
+    push {r5, r6}                                                                                             
+    mov r0, sp                                                                                                
+    mov r1, sp                                                                                                
+    movs r7, #162                                                                                              
+    svc 1
+    """
+
+    return ks_asm('arm', xorenc)[0] + ks_asm('thumb', NANOSLEEPSC)[0] + xorsc
 
 def uu16(u):
     """struct.unpack(2-bytes)

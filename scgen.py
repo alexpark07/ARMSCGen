@@ -193,7 +193,7 @@ if __name__ == '__main__':
                   dest = 'xor',
                   action="store_true",
                   default = False,
-                  help = 'XOR Encoder if you want to avoid bad chars like 0x00, 0x0a and so on\nNotice: only for arm32, thumb shellcodes so far',
+                  help = 'XOR Encoder if you want to avoid bad chars like 0x00, 0x0a and so on\nNotice: only for the thumb-mode shellcodes so far',
                   )
 
     parser.add_option('-t', '--test',
