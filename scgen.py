@@ -108,7 +108,13 @@ def genShellcode(args):
         showShellcode(args)
 
     if g_format == 'asm':
-        print show
+        try:
+            from pygments import highlight
+            from pygments.lexers import get_lexer_by_name
+            from pygments.formatters import TerminalFormatter
+            print highlight(show, get_lexer_by_name('asm'), TerminalFormatter())
+        except ImportError:
+            print show
         if g_testSC == False:
             return
 
