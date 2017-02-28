@@ -43,6 +43,43 @@ uses ``scgen.py`` in CLI mode
 
 please refer to ``shellcodes_lists.md`` or ``scgen -l -a all``
 
+### Notes
+
+Some of thumb mode shellcodes have new option named ``version``.
+
+If you'd like to test shellcodes on old kernel like 2.x then
+
+try to use this option.  ``for example``
+
+
+```
+# linux kernel 2.4 - socketcall
+$ scgen -a thumb bindshell 31337 4 2 0 -f a
+
+/* socketcall( socket, { 2, 1, 6 } ) */
+movs r1, #2
+movs r2, #1
+movs r3, #6
+push {r1-r3}
+movs r0, #1
+mov  r1, sp
+movs r7, #102
+svc 1
+
+# linux kernel 3.x or later
+$ scgen -a thumb bindshell 31337 4 3 0 -f a
+
+/* socket(...) */
+movs r0, #2
+movs r1, #1
+subs r2, r2, r2
+subs r7, r7, r7
+adds r7, r7, #255
+adds r7, r7, #26
+svc 1 
+
+```
+
 ### Documentation
 
 (need to upgrade) URL: ``http://armscgen.readthedocs.org/`` or ``/docs/`` in source

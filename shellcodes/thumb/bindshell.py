@@ -3,7 +3,7 @@ import acceptloop
 import dupsh
 from socket import *
 
-def generate(port=31337, sock=4, once=True):
+def generate(port=31337, sock=4, version=3, once=1):
     """bind shell on specific port in Thumb Mode
 
     Args:
@@ -11,14 +11,16 @@ def generate(port=31337, sock=4, once=True):
         
         sock(int/str/reg): connection sock will be mapped with shell
         
-        once(boolean): binds on port infinity if true
-                       binds on port once if false 
+        version(int): 2 is old linux kernel including 2.x (default: 3)
+
+        once(int): binds on port infinity if 1
+                       binds on port once if 0
     """
 
-    if once:
-        sc = listen.generate(int(port))
+    if int(once) == 1:
+        sc = listen.generate(int(port), version)
     else:
-        sc = acceptloop.generate(int(port))
+        sc = acceptloop.generate(int(port), version)
 
     sc += dupsh.generate(int(sock))
 
