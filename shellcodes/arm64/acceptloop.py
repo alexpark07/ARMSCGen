@@ -93,7 +93,7 @@ cleanup_3:
     b looplabel_2
 
 after_fork_4:
-    ''' % (socket.ntohs(port))
+    ''' % (socket.ntohs(int(port)))
     return sc
 
 if __name__ == '__main__':

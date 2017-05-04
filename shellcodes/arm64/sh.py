@@ -10,10 +10,10 @@ def generate(cmd='/bin/sh'):
     str  x0, [sp, 0]
     str  x2, [sp, 8]
     mov  x1, sp
-    mov  x8, 221
+    mov  x8, #221
     svc  0
 bin_sh_1:
-    .asciz "%s\x00"
+    .asciz "%s"
     """ % (cmd)
     return sc
 

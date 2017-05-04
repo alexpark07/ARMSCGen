@@ -16,9 +16,9 @@ def generate(port=31337, sock=4, once=True):
     """
 
     if once:
-        sc = listen.generate(port)
+        sc = listen.generate(int(port))
     else:
-        sc = acceptloop.generate(port)
+        sc = acceptloop.generate(int(port))
 
     sc += dupsh.generate(sock)
 

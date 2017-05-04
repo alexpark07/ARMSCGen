@@ -57,5 +57,5 @@ after_sockaddr_in_2:
     mov x8, 242
     svc 1
     mov x6, x0
-    """ % (ntohs(port))
+    """ % (ntohs(int(port)))
     return sc
