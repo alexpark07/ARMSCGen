@@ -4,9 +4,9 @@
 
 ## examples
 
-* [thumb-mode dupsh shellcode](sctest/thumb_dupsh.log)
-* [arm-mode dupsh shellcode](sctest/arm_dupsh.log)
-* [arm64-mode dupsh shellcode](sctest/arm64_dupsh.log)
+* [thumb-mode dupsh shellcode](thumb_dupsh.log)
+* [arm-mode dupsh shellcode](arm_dupsh.log)
+* [arm64-mode dupsh shellcode](arm64_dupsh.log)
 
 ## usages
 
