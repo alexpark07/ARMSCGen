@@ -8,6 +8,10 @@ I'm interested in mobile platform and archtecture like Android on ARM, Router on
 
 This project named ARMSCGen focus on shellcode on ARM Architecture especially ARMv7 Thumb Mode.
 
+* updated: v0.0.20 
+  - added sctest for emulating shellcodes using unicorn-engine
+  - removed test code related to unicorn-engine in scgen.py
+
 ### Requirement
 
 ARMSCGen highly depends on ``{capstone|keystone|unicorn}-engine.``
@@ -33,7 +37,7 @@ For installing Unicorn Engine, refers to [here](http://www.unicorn-engine.org/do
 
 ### Usage
 
-reads ``examples`` directory
+reads ``examples`` directory (some examples has been outdated)
 
 and
 
@@ -49,8 +53,7 @@ Some of thumb mode shellcodes have new option named ``version``.
 
 If you'd like to test shellcodes on old kernel like 2.x then
 
-try to use this option.  ``for example``
-
+try to use this option.  ``for example`` 
 
 ```
 # linux kernel 2.4 - socketcall
