@@ -24,10 +24,3 @@ loop_2:
     bne loop_2
     """
     return sc
-
-def testcase(sock=4):
-    import ARMSCGen as scgen
-    sc = scgen.ks_asm('thumb', generate(sock))[0]
-    sclen = len(sc)
-    print "[+] Registers information"
-    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)

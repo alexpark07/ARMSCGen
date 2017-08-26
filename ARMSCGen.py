@@ -12,12 +12,7 @@ from keystone import *
 from capstone import *
 from capstone.arm import *
 
-# unicorn-engine
-from unicorn import *
-from unicorn.arm_const import *
-from unicorn.arm64_const import *
-
-__VERSION__ = '$0.0.17'
+__VERSION__ = '$0.0.20'
 __AUTHOR__  = 'alex.park'
 
 ##########################################################
@@ -120,11 +115,9 @@ class thumbSCGen:
         self.cmd             = th_cmd.generate
         self.sh              = th_sh.generate
         self.dupsh           = th_dupsh.generate
-        self.dupsh_tc        = th_dupsh.testcase
         self.bindshell       = th_bindshell.generate
         self.listen          = th_listen.generate
-        self.listen_tc       = th_listen.testcase
-        self.acceptloop      = th_acceptloop.generate  # no testcase
+        self.acceptloop      = th_acceptloop.generate
         self.connect         = th_connect.generate
         self.connectback     = th_connectback.generate
         self.open_file       = th_open_file.generate
@@ -623,79 +616,6 @@ def getShellcodeHelp(scode, arch='thumb'):
         show = "Unknown execption"
 
     return show
-
-# UC code
-# callback for tracing instructions
-def hook_code(uc, address, size, user_data):
-    # read this instruction code from memory
-    global g_runEmuCnt
-    tmp = uc.mem_read(address, size)
-    if g_debug:
-        print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
-        print(">>> Instruction code at [0x%x]" %(address))
-
-    if address > g_sclen:
-        uc.emu_stop()
-        return
-
-# callback for tracing basic blocks
-def hook_block(uc, address, size, user_data):
-    if g_debug:
-        print(">>> Tracing basic block at 0x%x, block size = 0x%x" %(address, size))
-
-# callback for tracing Linux interrupt
-def hook_intr(uc, intno, user_data):
-    if uc._arch == UC_ARCH_ARM64:
-        print "x0: %08x" % uc.reg_read(UC_ARM64_REG_X0)
-        print "x1: %08x" % uc.reg_read(UC_ARM64_REG_X1)
-        print "x2: %08x" % uc.reg_read(UC_ARM64_REG_X2)
-        print "x3: %08x" % uc.reg_read(UC_ARM64_REG_X3)
-        print "x4: %08x" % uc.reg_read(UC_ARM64_REG_X4)
-        print "x5: %08x" % uc.reg_read(UC_ARM64_REG_X5)
-        print "x6: %08x" % uc.reg_read(UC_ARM64_REG_X6)
-        print "x7: %08x" % uc.reg_read(UC_ARM64_REG_X7)
-        print "x8: %08x - %s" % (uc.reg_read(UC_ARM64_REG_X8), arm64_syscall.get(uc.reg_read(UC_ARM64_REG_X8)))
-    else:
-        print "r0: %08x" % uc.reg_read(UC_ARM_REG_R0)
-        print "r1: %08x" % uc.reg_read(UC_ARM_REG_R1)
-        print "r2: %08x" % uc.reg_read(UC_ARM_REG_R2)
-        print "r3: %08x" % uc.reg_read(UC_ARM_REG_R3)
-        print "r4: %08x" % uc.reg_read(UC_ARM_REG_R4)
-        print "r5: %08x" % uc.reg_read(UC_ARM_REG_R5)
-        print "r6: %08x" % uc.reg_read(UC_ARM_REG_R6)
-        if uc._mode == UC_MODE_THUMB:
-            print "r7: %08x - %s" % (uc.reg_read(UC_ARM_REG_R7), th_syscall.get(uc.reg_read(UC_ARM_REG_R7)))
-        else:
-            print "r7: %08x - %s" % (uc.reg_read(UC_ARM_REG_R7), arm_syscall.get(uc.reg_read(UC_ARM_REG_R7)))
-
-def UC_TESTSC(code, scsize, arch=0, mode=0, isDebug=True):
-    START_RIP = 0x0
-    PAGE_SIZE = 5 * 1024 * 1024
-
-    global g_sclen
-    global g_debug
-
-    g_sclen = scsize
-    g_debug = isDebug
-
-    try:
-        mu = Uc(arch, mode)
-        # 5MB memory
-        mu.mem_map(START_RIP, PAGE_SIZE)
-        # write code in memory
-        mu.mem_write(START_RIP, code)
-        # initialize machine registers
-        mu.reg_write(UC_ARM_REG_SP, 0x2000)
-
-        mu.hook_add(UC_HOOK_BLOCK, hook_block)
-        mu.hook_add(UC_HOOK_CODE, hook_code)
-
-        mu.hook_add(UC_HOOK_INTR, hook_intr)
-        mu.emu_start(START_RIP, scsize, 0, 0x2000)
-
-    except UcError as e:
-        print("ERROR: %s" % e)
-        return -1
 
 def getVersion():
     return __VERSION__

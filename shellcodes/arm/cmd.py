@@ -24,10 +24,3 @@ cmd_1:
     .asciz "%s"
     """ % (cmd) 
     return sc
-
-def testcase(cmd='echo hack_the_planet'):
-    import ARMSCGen as scgen
-    sc = scgen.ks_asm('arm', generate(cmd))[0]
-    sclen = sc.find(cmd)
-    print "[+] Registers information"
-    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_ARM, False)

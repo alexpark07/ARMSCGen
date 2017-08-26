@@ -47,10 +47,3 @@ filename_1:
 after_open_2:
     """ % (filepath)
     return sc
-
-def testcase(filepath='./secret', version=3, flags=00, mode=None):
-    import ARMSCGen as scgen
-    sc = scgen.ks_asm('thumb', generate(filepath, flags, mode))[0]
-    sclen = len(sc)
-    print "[+] Registers information"
-    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)

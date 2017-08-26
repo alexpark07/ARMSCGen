@@ -88,10 +88,3 @@ def generate(host='127.0.0.1', port=31337, version=3):
     else:
         print "Not implemented yet"
         return None
-
-def testcase(host='127.0.0.1', port=31337):
-    import ARMSCGen as scgen
-    sc = scgen.ks_asm('thumb', generate(host, port))[0]
-    sclen = len(sc)
-    print "[+] Registers information"
-    scgen.UC_TESTSC(sc, sclen, scgen.UC_ARCH_ARM, scgen.UC_MODE_THUMB, False)

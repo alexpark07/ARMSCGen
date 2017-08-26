@@ -14,7 +14,6 @@ g_arch = 'arm'
 g_shellcode = ''
 g_format    = 'asm'
 g_xorkey    = False
-g_testSC    = False
 
 # pwntools from pwnies
 def _string(s):
@@ -115,7 +114,6 @@ def genShellcode(args):
             print highlight(show, get_lexer_by_name('asm'), TerminalFormatter())
         except ImportError:
             print show
-        if g_testSC == False:
             return
 
     scode, count = ks_asm(g_arch, show)
@@ -123,17 +121,6 @@ def genShellcode(args):
     if g_xorkey == True:
         if g_arch == 'thumb':
             scode = MakeXorShellcode( scode, g_arch )
-
-    if g_testSC == True:
-        try:
-            if g_arch == 'arm':
-                eval("armgen.%s" % (scode_tc))
-            elif g_arch == 'arm64':
-                eval("arm64gen.%s" % (scode_tc))
-            elif g_arch == 'thumb':
-                eval("thgen.%s" % (scode_tc))
-        except:
-            print "There is no testcase"
 
     if g_format == 'asm': 
         return
@@ -143,7 +130,7 @@ def genShellcode(args):
     elif g_format == 'string':
         print _string(scode)
     elif g_format == 'raw':
-        print scode
+        sys.stdout.write(scode)
     elif g_format == 'hex':
         print enhex(scode)
     elif g_format == 'python':
@@ -202,13 +189,6 @@ if __name__ == '__main__':
                   help = 'XOR Encoder if you want to avoid bad chars like 0x00, 0x0a and so on\nNotice: only for the thumb-mode shellcodes so far',
                   )
 
-    parser.add_option('-t', '--test',
-                  dest = 'testSC',
-                  action="store_true",
-                  default = False,
-                  help = 'Shellcode Test in unicorn engine'
-                  )
-
     parser.add_option('-v', '--version',
                   dest = 'version',
                   action="store_true",
@@ -258,9 +238,6 @@ if __name__ == '__main__':
 
     if opt.xor:
         g_xorkey = True
-
-    if opt.testSC:
-        g_testSC = True
 
     if len(args) == 0:
         print "Please choice one of shellcodes to show you"
